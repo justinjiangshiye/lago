@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yunding.lago.dao.FriendLinkMapper" >
+  <resultMap id="BaseResultMap" type="com.yunding.lago.bean.FriendLink" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="WebsiteName" property="websitename" jdbcType="VARCHAR" />
+    <result column="Order" property="order" jdbcType="INTEGER" />
+    <result column="CreatedOn" property="createdon" jdbcType="TIMESTAMP" />
+    <result column="RecordStatus" property="recordstatus" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yunding.lago.bean.FriendLinkWithBLOBs" extends="BaseResultMap" >
+    <result column="WebsiteUrl" property="websiteurl" jdbcType="LONGVARCHAR" />
+    <result column="LogoUrl" property="logourl" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, WebsiteName, Order, CreatedOn, RecordStatus
+  </sql>
+  <sql id="Blob_Column_List" >
+    WebsiteUrl, LogoUrl
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from FriendLink
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from FriendLink
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yunding.lago.bean.FriendLinkWithBLOBs" >
+    insert into FriendLink (Id, WebsiteName, Order, 
+      CreatedOn, RecordStatus, WebsiteUrl, 
+      LogoUrl)
+    values (#{id,jdbcType=INTEGER}, #{websitename,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, 
+      #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER}, #{websiteurl,jdbcType=LONGVARCHAR}, 
+      #{logourl,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yunding.lago.bean.FriendLinkWithBLOBs" >
+    insert into FriendLink
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="websitename != null" >
+        WebsiteName,
+      </if>
+      <if test="order != null" >
+        Order,
+      </if>
+      <if test="createdon != null" >
+        CreatedOn,
+      </if>
+      <if test="recordstatus != null" >
+        RecordStatus,
+      </if>
+      <if test="websiteurl != null" >
+        WebsiteUrl,
+      </if>
+      <if test="logourl != null" >
+        LogoUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="websitename != null" >
+        #{websitename,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=INTEGER},
+      </if>
+      <if test="createdon != null" >
+        #{createdon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordstatus != null" >
+        #{recordstatus,jdbcType=INTEGER},
+      </if>
+      <if test="websiteurl != null" >
+        #{websiteurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logourl != null" >
+        #{logourl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yunding.lago.bean.FriendLinkWithBLOBs" >
+    update FriendLink
+    <set >
+      <if test="websitename != null" >
+        WebsiteName = #{websitename,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        Order = #{order,jdbcType=INTEGER},
+      </if>
+      <if test="createdon != null" >
+        CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordstatus != null" >
+        RecordStatus = #{recordstatus,jdbcType=INTEGER},
+      </if>
+      <if test="websiteurl != null" >
+        WebsiteUrl = #{websiteurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logourl != null" >
+        LogoUrl = #{logourl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yunding.lago.bean.FriendLinkWithBLOBs" >
+    update FriendLink
+    set WebsiteName = #{websitename,jdbcType=VARCHAR},
+      Order = #{order,jdbcType=INTEGER},
+      CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      RecordStatus = #{recordstatus,jdbcType=INTEGER},
+      WebsiteUrl = #{websiteurl,jdbcType=LONGVARCHAR},
+      LogoUrl = #{logourl,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.FriendLink" >
+    update FriendLink
+    set WebsiteName = #{websitename,jdbcType=VARCHAR},
+      Order = #{order,jdbcType=INTEGER},
+      CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      RecordStatus = #{recordstatus,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

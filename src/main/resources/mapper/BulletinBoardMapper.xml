@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yunding.lago.dao.BulletinBoardMapper" >
+  <resultMap id="BaseResultMap" type="com.yunding.lago.bean.BulletinBoard" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="Summary" property="summary" jdbcType="VARCHAR" />
+    <result column="Order" property="order" jdbcType="INTEGER" />
+    <result column="IsPublished" property="ispublished" jdbcType="BIT" />
+    <result column="PublishDate" property="publishdate" jdbcType="TIMESTAMP" />
+    <result column="CreatedOn" property="createdon" jdbcType="TIMESTAMP" />
+    <result column="RecordStatus" property="recordstatus" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yunding.lago.bean.BulletinBoard" extends="BaseResultMap" >
+    <result column="Content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, Summary, Order, IsPublished, PublishDate, CreatedOn, RecordStatus
+  </sql>
+  <sql id="Blob_Column_List" >
+    Content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from BulletinBoard
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from BulletinBoard
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yunding.lago.bean.BulletinBoard" >
+    insert into BulletinBoard (Id, Summary, Order, 
+      IsPublished, PublishDate, CreatedOn, 
+      RecordStatus, Content)
+    values (#{id,jdbcType=INTEGER}, #{summary,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, 
+      #{ispublished,jdbcType=BIT}, #{publishdate,jdbcType=TIMESTAMP}, #{createdon,jdbcType=TIMESTAMP}, 
+      #{recordstatus,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yunding.lago.bean.BulletinBoard" >
+    insert into BulletinBoard
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="summary != null" >
+        Summary,
+      </if>
+      <if test="order != null" >
+        Order,
+      </if>
+      <if test="ispublished != null" >
+        IsPublished,
+      </if>
+      <if test="publishdate != null" >
+        PublishDate,
+      </if>
+      <if test="createdon != null" >
+        CreatedOn,
+      </if>
+      <if test="recordstatus != null" >
+        RecordStatus,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=INTEGER},
+      </if>
+      <if test="ispublished != null" >
+        #{ispublished,jdbcType=BIT},
+      </if>
+      <if test="publishdate != null" >
+        #{publishdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdon != null" >
+        #{createdon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordstatus != null" >
+        #{recordstatus,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yunding.lago.bean.BulletinBoard" >
+    update BulletinBoard
+    <set >
+      <if test="summary != null" >
+        Summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        Order = #{order,jdbcType=INTEGER},
+      </if>
+      <if test="ispublished != null" >
+        IsPublished = #{ispublished,jdbcType=BIT},
+      </if>
+      <if test="publishdate != null" >
+        PublishDate = #{publishdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdon != null" >
+        CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordstatus != null" >
+        RecordStatus = #{recordstatus,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yunding.lago.bean.BulletinBoard" >
+    update BulletinBoard
+    set Summary = #{summary,jdbcType=VARCHAR},
+      Order = #{order,jdbcType=INTEGER},
+      IsPublished = #{ispublished,jdbcType=BIT},
+      PublishDate = #{publishdate,jdbcType=TIMESTAMP},
+      CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      RecordStatus = #{recordstatus,jdbcType=INTEGER},
+      Content = #{content,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.BulletinBoard" >
+    update BulletinBoard
+    set Summary = #{summary,jdbcType=VARCHAR},
+      Order = #{order,jdbcType=INTEGER},
+      IsPublished = #{ispublished,jdbcType=BIT},
+      PublishDate = #{publishdate,jdbcType=TIMESTAMP},
+      CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      RecordStatus = #{recordstatus,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
