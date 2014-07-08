@@ -1,43 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yunding.lago.dao.FunctionMapper" >
-  <resultMap id="BaseResultMap" type="com.yunding.lago.bean.Function" >
+<mapper namespace="com.yunding.lago.dao.MenuItemMapper" >
+  <resultMap id="BaseResultMap" type="com.yunding.lago.bean.MenuItem" >
     <id column="Id" property="id" jdbcType="INTEGER" />
-    <result column="Code" property="code" jdbcType="VARCHAR" />
-    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Text" property="text" jdbcType="VARCHAR" />
+    <result column="Url" property="url" jdbcType="VARCHAR" />
+    <result column="Order" property="order" jdbcType="INTEGER" />
     <result column="CreatedOn" property="createdon" jdbcType="TIMESTAMP" />
     <result column="RecordStatus" property="recordstatus" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, Code, Name, CreatedOn, RecordStatus
+    Id, Text, Url, Order, CreatedOn, RecordStatus
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from Function
+    from MenuItem
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from Function
+    delete from MenuItem
     where Id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.yunding.lago.bean.Function" >
-    insert into Function (Id, Code, Name, 
-      CreatedOn, RecordStatus)
-    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.yunding.lago.bean.MenuItem" >
+    insert into MenuItem (Id, Text, Url, 
+      Order, CreatedOn, RecordStatus
+      )
+    values (#{id,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{order,jdbcType=INTEGER}, #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.yunding.lago.bean.Function" >
-    insert into Function
+  <insert id="insertSelective" parameterType="com.yunding.lago.bean.MenuItem" >
+    insert into MenuItem
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         Id,
       </if>
-      <if test="code != null" >
-        Code,
+      <if test="text != null" >
+        Text,
       </if>
-      <if test="name != null" >
-        Name,
+      <if test="url != null" >
+        Url,
+      </if>
+      <if test="order != null" >
+        Order,
       </if>
       <if test="createdon != null" >
         CreatedOn,
@@ -50,11 +56,14 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="code != null" >
-        #{code,jdbcType=VARCHAR},
+      <if test="text != null" >
+        #{text,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=INTEGER},
       </if>
       <if test="createdon != null" >
         #{createdon,jdbcType=TIMESTAMP},
@@ -64,14 +73,17 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yunding.lago.bean.Function" >
-    update Function
+  <update id="updateByPrimaryKeySelective" parameterType="com.yunding.lago.bean.MenuItem" >
+    update MenuItem
     <set >
-      <if test="code != null" >
-        Code = #{code,jdbcType=VARCHAR},
+      <if test="text != null" >
+        Text = #{text,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        Name = #{name,jdbcType=VARCHAR},
+      <if test="url != null" >
+        Url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        Order = #{order,jdbcType=INTEGER},
       </if>
       <if test="createdon != null" >
         CreatedOn = #{createdon,jdbcType=TIMESTAMP},
@@ -82,10 +94,11 @@
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.Function" >
-    update Function
-    set Code = #{code,jdbcType=VARCHAR},
-      Name = #{name,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.MenuItem" >
+    update MenuItem
+    set Text = #{text,jdbcType=VARCHAR},
+      Url = #{url,jdbcType=VARCHAR},
+      Order = #{order,jdbcType=INTEGER},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       RecordStatus = #{recordstatus,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}

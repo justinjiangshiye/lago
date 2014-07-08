@@ -2,12 +2,14 @@ package com.yunding.lago.bean;
 
 import java.util.Date;
 
-public class Function {
+public class MenuItem {
     private Integer id;
 
-    private String code;
+    private String text;
 
-    private String name;
+    private String url;
+
+    private Integer order;
 
     private Date createdon;
 
@@ -21,20 +23,28 @@ public class Function {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getText() {
+        return text;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public String getName() {
-        return name;
+    public String getUrl() {
+        return url;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     public Date getCreatedon() {

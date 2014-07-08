@@ -22,9 +22,10 @@ import com.yunding.lago.bean.*;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
 	private UserService userService=null;
 	@Autowired
-	public void setUserBusiness(UserService userService) {
+	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 	
@@ -44,7 +45,12 @@ public class HomeController {
 		
 		User user = this.userService.getUserById(1);
 		
-		model.addAttribute("userNickName", user.getNickname());
+		if (user == null) {
+			model.addAttribute("userNickName", "NULL");
+		}
+		else {
+			model.addAttribute("userNickName", user.getNickname());
+		}
 		
 		return "home";
 	}
