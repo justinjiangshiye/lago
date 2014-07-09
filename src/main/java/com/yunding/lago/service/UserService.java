@@ -21,7 +21,7 @@ public class UserService {
 		this.userMapper = userMapper;
 	}
 	
-	public User getUserById(Integer id){
+	public User queryUserById(Integer id){
 		return this.userMapper.selectByPrimaryKey(id);
 	}
 }
