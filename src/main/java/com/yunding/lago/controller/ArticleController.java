@@ -28,7 +28,7 @@ public class ArticleController extends BaseController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/Article/{articleCategory}", method = RequestMethod.GET)
+	@RequestMapping(value = "/article/{articleCategory}", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -49,5 +49,31 @@ public class ArticleController extends BaseController {
 		}
 		
 		return "index";
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/admin/article", method = RequestMethod.GET)
+	public String adminArticleList(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
+		User user = this.userService.queryUserById(1);
+		
+		if (user == null) {
+			model.addAttribute("userNickName", "NULL");
+		}
+		else {
+			model.addAttribute("userNickName", user.getNickname());
+		}
+		
+		return "admin/articleList";
 	}
 }

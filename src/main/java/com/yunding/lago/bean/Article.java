@@ -11,7 +11,11 @@ public class Article {
 
     private String bannerurl;
 
-    private String abstract;
+    private String abstractcontent;
+
+    private Boolean isdisplayonhome;
+
+    private Boolean islocktop;
 
     private Integer order;
 
@@ -55,12 +59,28 @@ public class Article {
         this.bannerurl = bannerurl;
     }
 
-    public String getAbstract() {
-        return abstract;
+    public String getAbstractcontent() {
+        return abstractcontent;
     }
 
-    public void setAbstract(String abstract) {
-        this.abstract = abstract;
+    public void setAbstractcontent(String abstractcontent) {
+        this.abstractcontent = abstractcontent;
+    }
+
+    public Boolean getIsdisplayonhome() {
+        return isdisplayonhome;
+    }
+
+    public void setIsdisplayonhome(Boolean isdisplayonhome) {
+        this.isdisplayonhome = isdisplayonhome;
+    }
+
+    public Boolean getIslocktop() {
+        return islocktop;
+    }
+
+    public void setIslocktop(Boolean islocktop) {
+        this.islocktop = islocktop;
     }
 
     public Integer getOrder() {

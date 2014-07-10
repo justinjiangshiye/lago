@@ -6,7 +6,9 @@
     <result column="Category" property="category" jdbcType="VARCHAR" />
     <result column="Title" property="title" jdbcType="VARCHAR" />
     <result column="BannerUrl" property="bannerurl" jdbcType="VARCHAR" />
-    <result column="Abstract" property="abstract" jdbcType="VARCHAR" />
+    <result column="AbstractContent" property="abstractcontent" jdbcType="VARCHAR" />
+    <result column="IsDisplayOnHome" property="isdisplayonhome" jdbcType="BIT" />
+    <result column="IsLockTop" property="islocktop" jdbcType="BIT" />
     <result column="Order" property="order" jdbcType="INTEGER" />
     <result column="IsPublished" property="ispublished" jdbcType="BIT" />
     <result column="PublishDate" property="publishdate" jdbcType="TIMESTAMP" />
@@ -18,8 +20,8 @@
     <result column="Content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, Category, Title, BannerUrl, Abstract, Order, IsPublished, PublishDate, CreatedOn, 
-    RecordStatus
+    Id, Category, Title, BannerUrl, AbstractContent, IsDisplayOnHome, IsLockTop, Order, 
+    IsPublished, PublishDate, CreatedOn, RecordStatus
   </sql>
   <sql id="Blob_Column_List" >
     KeyWords, Content
@@ -38,15 +40,15 @@
   </delete>
   <insert id="insert" parameterType="com.yunding.lago.bean.ArticleWithBLOBs" >
     insert into Article (Id, Category, Title, 
-      BannerUrl, Abstract, Order, 
-      IsPublished, PublishDate, CreatedOn, 
-      RecordStatus, KeyWords, Content
-      )
+      BannerUrl, AbstractContent, IsDisplayOnHome, 
+      IsLockTop, Order, IsPublished, 
+      PublishDate, CreatedOn, RecordStatus, 
+      KeyWords, Content)
     values (#{id,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{bannerurl,jdbcType=VARCHAR}, #{abstract,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, 
-      #{ispublished,jdbcType=BIT}, #{publishdate,jdbcType=TIMESTAMP}, #{createdon,jdbcType=TIMESTAMP}, 
-      #{recordstatus,jdbcType=INTEGER}, #{keywords,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}
-      )
+      #{bannerurl,jdbcType=VARCHAR}, #{abstractcontent,jdbcType=VARCHAR}, #{isdisplayonhome,jdbcType=BIT}, 
+      #{islocktop,jdbcType=BIT}, #{order,jdbcType=INTEGER}, #{ispublished,jdbcType=BIT}, 
+      #{publishdate,jdbcType=TIMESTAMP}, #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER}, 
+      #{keywords,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yunding.lago.bean.ArticleWithBLOBs" >
     insert into Article
@@ -63,8 +65,14 @@
       <if test="bannerurl != null" >
         BannerUrl,
       </if>
-      <if test="abstract != null" >
-        Abstract,
+      <if test="abstractcontent != null" >
+        AbstractContent,
+      </if>
+      <if test="isdisplayonhome != null" >
+        IsDisplayOnHome,
+      </if>
+      <if test="islocktop != null" >
+        IsLockTop,
       </if>
       <if test="order != null" >
         Order,
@@ -101,8 +109,14 @@
       <if test="bannerurl != null" >
         #{bannerurl,jdbcType=VARCHAR},
       </if>
-      <if test="abstract != null" >
-        #{abstract,jdbcType=VARCHAR},
+      <if test="abstractcontent != null" >
+        #{abstractcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="isdisplayonhome != null" >
+        #{isdisplayonhome,jdbcType=BIT},
+      </if>
+      <if test="islocktop != null" >
+        #{islocktop,jdbcType=BIT},
       </if>
       <if test="order != null" >
         #{order,jdbcType=INTEGER},
@@ -139,8 +153,14 @@
       <if test="bannerurl != null" >
         BannerUrl = #{bannerurl,jdbcType=VARCHAR},
       </if>
-      <if test="abstract != null" >
-        Abstract = #{abstract,jdbcType=VARCHAR},
+      <if test="abstractcontent != null" >
+        AbstractContent = #{abstractcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="isdisplayonhome != null" >
+        IsDisplayOnHome = #{isdisplayonhome,jdbcType=BIT},
+      </if>
+      <if test="islocktop != null" >
+        IsLockTop = #{islocktop,jdbcType=BIT},
       </if>
       <if test="order != null" >
         Order = #{order,jdbcType=INTEGER},
@@ -171,7 +191,9 @@
     set Category = #{category,jdbcType=VARCHAR},
       Title = #{title,jdbcType=VARCHAR},
       BannerUrl = #{bannerurl,jdbcType=VARCHAR},
-      Abstract = #{abstract,jdbcType=VARCHAR},
+      AbstractContent = #{abstractcontent,jdbcType=VARCHAR},
+      IsDisplayOnHome = #{isdisplayonhome,jdbcType=BIT},
+      IsLockTop = #{islocktop,jdbcType=BIT},
       Order = #{order,jdbcType=INTEGER},
       IsPublished = #{ispublished,jdbcType=BIT},
       PublishDate = #{publishdate,jdbcType=TIMESTAMP},
@@ -186,7 +208,9 @@
     set Category = #{category,jdbcType=VARCHAR},
       Title = #{title,jdbcType=VARCHAR},
       BannerUrl = #{bannerurl,jdbcType=VARCHAR},
-      Abstract = #{abstract,jdbcType=VARCHAR},
+      AbstractContent = #{abstractcontent,jdbcType=VARCHAR},
+      IsDisplayOnHome = #{isdisplayonhome,jdbcType=BIT},
+      IsLockTop = #{islocktop,jdbcType=BIT},
       Order = #{order,jdbcType=INTEGER},
       IsPublished = #{ispublished,jdbcType=BIT},
       PublishDate = #{publishdate,jdbcType=TIMESTAMP},
