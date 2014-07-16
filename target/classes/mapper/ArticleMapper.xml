@@ -5,6 +5,7 @@
     <id column="Id" property="id" jdbcType="INTEGER" />
     <result column="Category" property="category" jdbcType="VARCHAR" />
     <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="SlugsUrl" property="slugsurl" jdbcType="VARCHAR" />
     <result column="BannerUrl" property="bannerurl" jdbcType="VARCHAR" />
     <result column="AbstractContent" property="abstractcontent" jdbcType="VARCHAR" />
     <result column="IsDisplayOnHome" property="isdisplayonhome" jdbcType="BIT" />
@@ -20,7 +21,7 @@
     <result column="Content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, Category, Title, BannerUrl, AbstractContent, IsDisplayOnHome, IsLockTop, Order, 
+    Id, Category, Title, SlugsUrl, BannerUrl, AbstractContent, IsDisplayOnHome, IsLockTop, `Order`, 
     IsPublished, PublishDate, CreatedOn, RecordStatus
   </sql>
   <sql id="Blob_Column_List" >
@@ -32,20 +33,37 @@
     ,
     <include refid="Blob_Column_List" />
     from Article
-    where Id = #{id,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER} and RecordStatus = 0
+  </select>
+  <select id="selectAllArticles" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Article where RecordStatus = 0
+  </select>
+  <select id="selectArticlesByCategory" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from Article  where Category = #{category,jdbcType=VARCHAR} and RecordStatus = 0 and IsPublished = 1 
+  </select>
+  <select id="selectHomePageArticles" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from Article 
+    where Category = #{category,jdbcType=VARCHAR} and RecordStatus = 0 
+        and IsPublished = 1 and IsDisplayOnHome = 1
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from Article
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yunding.lago.bean.ArticleWithBLOBs" >
-    insert into Article (Id, Category, Title, 
+    insert into Article (Category, Title, SlugsUrl,
       BannerUrl, AbstractContent, IsDisplayOnHome, 
-      IsLockTop, Order, IsPublished, 
+      IsLockTop, `Order`, IsPublished, 
       PublishDate, CreatedOn, RecordStatus, 
       KeyWords, Content)
-    values (#{id,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{bannerurl,jdbcType=VARCHAR}, #{abstractcontent,jdbcType=VARCHAR}, #{isdisplayonhome,jdbcType=BIT}, 
+    values (#{category,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{slugsurl,jdbcType=VARCHAR},
+      #{bannerurl,jdbcType=VARCHAR},  #{abstractcontent,jdbcType=VARCHAR}, #{isdisplayonhome,jdbcType=BIT}, 
       #{islocktop,jdbcType=BIT}, #{order,jdbcType=INTEGER}, #{ispublished,jdbcType=BIT}, 
       #{publishdate,jdbcType=TIMESTAMP}, #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER}, 
       #{keywords,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR})
@@ -53,14 +71,14 @@
   <insert id="insertSelective" parameterType="com.yunding.lago.bean.ArticleWithBLOBs" >
     insert into Article
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        Id,
-      </if>
       <if test="category != null" >
         Category,
       </if>
       <if test="title != null" >
         Title,
+      </if>
+      <if test="slugsurl != null" >
+        SlugsUrl,
       </if>
       <if test="bannerurl != null" >
         BannerUrl,
@@ -75,7 +93,7 @@
         IsLockTop,
       </if>
       <if test="order != null" >
-        Order,
+        `Order`,
       </if>
       <if test="ispublished != null" >
         IsPublished,
@@ -97,14 +115,14 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="category != null" >
         #{category,jdbcType=VARCHAR},
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="slugsurl != null" >
+        #{slugsurl,jdbcType=VARCHAR},
       </if>
       <if test="bannerurl != null" >
         #{bannerurl,jdbcType=VARCHAR},
@@ -150,6 +168,9 @@
       <if test="title != null" >
         Title = #{title,jdbcType=VARCHAR},
       </if>
+      <if test="slugsurl != null" >
+        SlugsUrl = #{slugsurl ,jdbcType=VARCHAR},
+      </if>
       <if test="bannerurl != null" >
         BannerUrl = #{bannerurl,jdbcType=VARCHAR},
       </if>
@@ -163,7 +184,7 @@
         IsLockTop = #{islocktop,jdbcType=BIT},
       </if>
       <if test="order != null" >
-        Order = #{order,jdbcType=INTEGER},
+        `Order` = #{order,jdbcType=INTEGER},
       </if>
       <if test="ispublished != null" >
         IsPublished = #{ispublished,jdbcType=BIT},
@@ -190,11 +211,12 @@
     update Article
     set Category = #{category,jdbcType=VARCHAR},
       Title = #{title,jdbcType=VARCHAR},
+      SlugsUrl = #{slugsurl,jdbcType=VARCHAR},
       BannerUrl = #{bannerurl,jdbcType=VARCHAR},
       AbstractContent = #{abstractcontent,jdbcType=VARCHAR},
       IsDisplayOnHome = #{isdisplayonhome,jdbcType=BIT},
       IsLockTop = #{islocktop,jdbcType=BIT},
-      Order = #{order,jdbcType=INTEGER},
+      `Order` = #{order,jdbcType=INTEGER},
       IsPublished = #{ispublished,jdbcType=BIT},
       PublishDate = #{publishdate,jdbcType=TIMESTAMP},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
@@ -207,11 +229,12 @@
     update Article
     set Category = #{category,jdbcType=VARCHAR},
       Title = #{title,jdbcType=VARCHAR},
+      SlugsUrl = #{slugsurl,jdbcType=VARCHAR},
       BannerUrl = #{bannerurl,jdbcType=VARCHAR},
       AbstractContent = #{abstractcontent,jdbcType=VARCHAR},
       IsDisplayOnHome = #{isdisplayonhome,jdbcType=BIT},
       IsLockTop = #{islocktop,jdbcType=BIT},
-      Order = #{order,jdbcType=INTEGER},
+      `Order` = #{order,jdbcType=INTEGER},
       IsPublished = #{ispublished,jdbcType=BIT},
       PublishDate = #{publishdate,jdbcType=TIMESTAMP},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},

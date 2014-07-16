@@ -5,121 +5,131 @@ import java.util.Date;
 public class Article {
     private Integer id;
 
-    private String category;
+	private String category;
 
-    private String title;
+	private String title;
 
-    private String bannerurl;
+	private String slugsurl;
 
-    private String abstractcontent;
+	private String bannerurl;
 
-    private Boolean isdisplayonhome;
+	private String abstractcontent;
 
-    private Boolean islocktop;
+	private Boolean isdisplayonhome;
 
-    private Integer order;
+	private Boolean islocktop;
 
-    private Boolean ispublished;
+	private Integer order;
 
-    private Date publishdate;
+	private Boolean ispublished;
 
-    private Date createdon;
+	private Date publishdate;
 
-    private Integer recordstatus;
+	private Date createdon;
 
-    public Integer getId() {
-        return id;
-    }
+	private Integer recordstatus;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getCategory() {
-        return category;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+	public String getCategory() {
+		return category;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public String getBannerurl() {
-        return bannerurl;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setBannerurl(String bannerurl) {
-        this.bannerurl = bannerurl;
-    }
+	public String getSlugsurl() {
+		return slugsurl;
+	}
 
-    public String getAbstractcontent() {
-        return abstractcontent;
-    }
+	public void setSlugsurl(String slugsurl) {
+		this.slugsurl = slugsurl;
+	}
 
-    public void setAbstractcontent(String abstractcontent) {
-        this.abstractcontent = abstractcontent;
-    }
+	public String getBannerurl() {
+		return bannerurl;
+	}
 
-    public Boolean getIsdisplayonhome() {
-        return isdisplayonhome;
-    }
+	public void setBannerurl(String bannerurl) {
+		this.bannerurl = bannerurl;
+	}
 
-    public void setIsdisplayonhome(Boolean isdisplayonhome) {
-        this.isdisplayonhome = isdisplayonhome;
-    }
+	public String getAbstractcontent() {
+		return abstractcontent;
+	}
 
-    public Boolean getIslocktop() {
-        return islocktop;
-    }
+	public void setAbstractcontent(String abstractcontent) {
+		this.abstractcontent = abstractcontent;
+	}
 
-    public void setIslocktop(Boolean islocktop) {
-        this.islocktop = islocktop;
-    }
+	public Boolean getIsdisplayonhome() {
+		return isdisplayonhome;
+	}
 
-    public Integer getOrder() {
-        return order;
-    }
+	public void setIsdisplayonhome(Boolean isdisplayonhome) {
+		this.isdisplayonhome = isdisplayonhome;
+	}
 
-    public void setOrder(Integer order) {
-        this.order = order;
-    }
+	public Boolean getIslocktop() {
+		return islocktop;
+	}
 
-    public Boolean getIspublished() {
-        return ispublished;
-    }
+	public void setIslocktop(Boolean islocktop) {
+		this.islocktop = islocktop;
+	}
 
-    public void setIspublished(Boolean ispublished) {
-        this.ispublished = ispublished;
-    }
+	public Integer getOrder() {
+		return order;
+	}
 
-    public Date getPublishdate() {
-        return publishdate;
-    }
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
 
-    public void setPublishdate(Date publishdate) {
-        this.publishdate = publishdate;
-    }
+	public Boolean getIspublished() {
+		return ispublished;
+	}
 
-    public Date getCreatedon() {
-        return createdon;
-    }
+	public void setIspublished(Boolean ispublished) {
+		this.ispublished = ispublished;
+	}
 
-    public void setCreatedon(Date createdon) {
-        this.createdon = createdon;
-    }
+	public Date getPublishdate() {
+		return publishdate;
+	}
 
-    public Integer getRecordstatus() {
-        return recordstatus;
-    }
+	public void setPublishdate(Date publishdate) {
+		this.publishdate = publishdate;
+	}
 
-    public void setRecordstatus(Integer recordstatus) {
-        this.recordstatus = recordstatus;
-    }
+	public Date getCreatedon() {
+		return createdon;
+	}
+
+	public void setCreatedon(Date createdon) {
+		this.createdon = createdon;
+	}
+
+	public Integer getRecordstatus() {
+		return recordstatus;
+	}
+
+	public void setRecordstatus(Integer recordstatus) {
+		this.recordstatus = recordstatus;
+	}
 }

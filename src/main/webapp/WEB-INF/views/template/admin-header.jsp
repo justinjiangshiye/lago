@@ -14,7 +14,7 @@
 
     <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
     <link href="<c:url value="/css/bootstrap-theme.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/css/custom.css" />" rel="stylesheet">
+    <link href="<c:url value="/css/admin.css" />" rel="stylesheet">
     <script type="text/javascript" src="<c:url value="/js/jquery-1.11.1.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/js/bootstrap.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/js/global.js" />"></script>
@@ -27,14 +27,18 @@
     <!-- header -->
     <div class="header">
       <div class="container">
-        <h3 class="text-muted">51Lago后台运维系统</h3>
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="<c:url value="/admin/" />">概览</a></li>
-          <li><a href="<c:url value="/admin/banner/" />">首页Banner设置</a></li>
-          <li><a href="<c:url value="/admin/article/" />">文章管理</a></li>
-          <li><a href="<c:url value="/admin/about/" />">关于我们</a></li>
-        </ul>
+        <h3 class="white">51Lago后台运维系统</h3>
       </div>
     </div>
     <!-- body -->
-    <div class="container">  
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#"><a href="<c:url value="/admin/" />">概览</a></a></li>
+            <li><a href="<c:url value="/admin/banner/" />">首页Banner设置</a></li>
+          <li><a href="<c:url value="/admin/article/" />">文章管理</a></li>
+          <li><a href="<c:url value="/admin/about/" />">关于我们</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

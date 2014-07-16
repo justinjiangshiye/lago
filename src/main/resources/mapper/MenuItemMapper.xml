@@ -10,7 +10,7 @@
     <result column="RecordStatus" property="recordstatus" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, Text, Url, Order, CreatedOn, RecordStatus
+    Id, Text, Url, `Order`, CreatedOn, RecordStatus
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,7 +24,7 @@
   </delete>
   <insert id="insert" parameterType="com.yunding.lago.bean.MenuItem" >
     insert into MenuItem (Id, Text, Url, 
-      Order, CreatedOn, RecordStatus
+      `Order`, CreatedOn, RecordStatus
       )
     values (#{id,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
       #{order,jdbcType=INTEGER}, #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER}
@@ -43,7 +43,7 @@
         Url,
       </if>
       <if test="order != null" >
-        Order,
+        `Order`,
       </if>
       <if test="createdon != null" >
         CreatedOn,
@@ -83,7 +83,7 @@
         Url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="order != null" >
-        Order = #{order,jdbcType=INTEGER},
+        `Order` = #{order,jdbcType=INTEGER},
       </if>
       <if test="createdon != null" >
         CreatedOn = #{createdon,jdbcType=TIMESTAMP},
@@ -98,7 +98,7 @@
     update MenuItem
     set Text = #{text,jdbcType=VARCHAR},
       Url = #{url,jdbcType=VARCHAR},
-      Order = #{order,jdbcType=INTEGER},
+      `Order` = #{order,jdbcType=INTEGER},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       RecordStatus = #{recordstatus,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}

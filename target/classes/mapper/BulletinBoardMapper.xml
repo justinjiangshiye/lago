@@ -14,7 +14,7 @@
     <result column="Content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, Summary, Order, IsPublished, PublishDate, CreatedOn, RecordStatus
+    Id, Summary, `Order`, IsPublished, PublishDate, CreatedOn, RecordStatus
   </sql>
   <sql id="Blob_Column_List" >
     Content
@@ -32,7 +32,7 @@
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yunding.lago.bean.BulletinBoard" >
-    insert into BulletinBoard (Id, Summary, Order, 
+    insert into BulletinBoard (Id, Summary, `Order`, 
       IsPublished, PublishDate, CreatedOn, 
       RecordStatus, Content)
     values (#{id,jdbcType=INTEGER}, #{summary,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, 
@@ -49,7 +49,7 @@
         Summary,
       </if>
       <if test="order != null" >
-        Order,
+       ` Order`,
       </if>
       <if test="ispublished != null" >
         IsPublished,
@@ -101,7 +101,7 @@
         Summary = #{summary,jdbcType=VARCHAR},
       </if>
       <if test="order != null" >
-        Order = #{order,jdbcType=INTEGER},
+        `Order` = #{order,jdbcType=INTEGER},
       </if>
       <if test="ispublished != null" >
         IsPublished = #{ispublished,jdbcType=BIT},
@@ -124,7 +124,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yunding.lago.bean.BulletinBoard" >
     update BulletinBoard
     set Summary = #{summary,jdbcType=VARCHAR},
-      Order = #{order,jdbcType=INTEGER},
+      `Order` = #{order,jdbcType=INTEGER},
       IsPublished = #{ispublished,jdbcType=BIT},
       PublishDate = #{publishdate,jdbcType=TIMESTAMP},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
@@ -135,7 +135,7 @@
   <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.BulletinBoard" >
     update BulletinBoard
     set Summary = #{summary,jdbcType=VARCHAR},
-      Order = #{order,jdbcType=INTEGER},
+      `Order` = #{order,jdbcType=INTEGER},
       IsPublished = #{ispublished,jdbcType=BIT},
       PublishDate = #{publishdate,jdbcType=TIMESTAMP},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},

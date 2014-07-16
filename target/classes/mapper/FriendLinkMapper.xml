@@ -13,7 +13,7 @@
     <result column="LogoUrl" property="logourl" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, WebsiteName, Order, CreatedOn, RecordStatus
+    Id, WebsiteName, `Order`, CreatedOn, RecordStatus
   </sql>
   <sql id="Blob_Column_List" >
     WebsiteUrl, LogoUrl
@@ -31,7 +31,7 @@
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yunding.lago.bean.FriendLinkWithBLOBs" >
-    insert into FriendLink (Id, WebsiteName, Order, 
+    insert into FriendLink (Id, WebsiteName, `Order`, 
       CreatedOn, RecordStatus, WebsiteUrl, 
       LogoUrl)
     values (#{id,jdbcType=INTEGER}, #{websitename,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, 
@@ -48,7 +48,7 @@
         WebsiteName,
       </if>
       <if test="order != null" >
-        Order,
+        `Order`,
       </if>
       <if test="createdon != null" >
         CreatedOn,
@@ -94,7 +94,7 @@
         WebsiteName = #{websitename,jdbcType=VARCHAR},
       </if>
       <if test="order != null" >
-        Order = #{order,jdbcType=INTEGER},
+        `Order` = #{order,jdbcType=INTEGER},
       </if>
       <if test="createdon != null" >
         CreatedOn = #{createdon,jdbcType=TIMESTAMP},
@@ -114,7 +114,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yunding.lago.bean.FriendLinkWithBLOBs" >
     update FriendLink
     set WebsiteName = #{websitename,jdbcType=VARCHAR},
-      Order = #{order,jdbcType=INTEGER},
+      `Order` = #{order,jdbcType=INTEGER},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       RecordStatus = #{recordstatus,jdbcType=INTEGER},
       WebsiteUrl = #{websiteurl,jdbcType=LONGVARCHAR},
@@ -124,7 +124,7 @@
   <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.FriendLink" >
     update FriendLink
     set WebsiteName = #{websitename,jdbcType=VARCHAR},
-      Order = #{order,jdbcType=INTEGER},
+      `Order` = #{order,jdbcType=INTEGER},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       RecordStatus = #{recordstatus,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}
