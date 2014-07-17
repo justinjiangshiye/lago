@@ -26,11 +26,23 @@ public class ArticleController extends BaseController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/article/{articleCategory}", method = RequestMethod.GET)
+	@RequestMapping(value = "/articles/{articleCategory}", method = RequestMethod.GET)
 	public String articlesByCatetory(Locale locale, Model model, @PathVariable String articleCategory) {
 		logger.info("The client locale is  {}, articleCategory is {}.", locale, articleCategory);
 		
 		model.addAttribute("articleList", this.articleService.queryArticlesByCategory(articleCategory));
+		
+		return "articles";
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/article/{slugsUrl}", method = RequestMethod.GET)
+	public String articleBySlugsUrl(Locale locale, Model model, @PathVariable String slugsUrl) {
+		logger.info("The client locale is  {}, articleCategory is {}.", locale, slugsUrl);
+		
+		model.addAttribute("articleList", this.articleService.queryArticlesByCategory(slugsUrl));
 		
 		return "article";
 	}
@@ -38,12 +50,36 @@ public class ArticleController extends BaseController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/admin/article", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/articles", method = RequestMethod.GET)
 	public String adminArticleList(Locale locale, Model model) {
 		logger.info("The client locale is {}.", locale);
 		
 		model.addAttribute("articleList", this.articleService.queryAllArticles());
 		
-		return "admin/articleList";
+		return "admin/articles";
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/admin/articleAdd", method = RequestMethod.GET)
+	public String adminArticleAdd(Locale locale, Model model) {
+		logger.info("The client locale is {}.", locale);
+		
+		//model.addAttribute("articleList", this.articleService.queryAllArticles());
+		
+		return "admin/articleAdd";
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/admin/articleAdd", method = RequestMethod.POST)
+	public String adminArticleSave(Locale locale, Model model) {
+		logger.info("The client locale is {}.", locale);
+		
+		//model.addAttribute("articleList", this.articleService.queryAllArticles());
+		
+		return "admin/articles";
 	}
 }
