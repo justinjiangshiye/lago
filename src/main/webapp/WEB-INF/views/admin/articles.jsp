@@ -15,6 +15,7 @@
 	                    <th>是否置顶</th>
 	                    <th>排序</th>
 	                    <th>是否发布</th>
+	                    <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +28,9 @@
 						<td><c:out value="${article.islocktop}"></c:out></td>
 						<td><c:out value="${article.order}"></c:out></td>
 						<td><c:out value="${article.ispublished}"></c:out></td>
+						<td><a href="<c:url value="/admin/articleEdit/${article.id}"/>">编辑</a>&nbsp;
+						<a href="<c:url value="/admin/articleDelete/${article.id}"/>">删除</a>
+						</td>
 	                </tr>
                 </c:forEach>
                 </tbody>
