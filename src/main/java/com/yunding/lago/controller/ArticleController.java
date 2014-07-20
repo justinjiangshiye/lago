@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.yunding.lago.bean.Article;
+import com.yunding.lago.bean.ArticleWithBLOBs;
 import com.yunding.lago.service.ArticleService;
 
 /**
@@ -66,7 +68,7 @@ public class ArticleController extends BaseController {
 	public String adminArticleAdd(Locale locale, Model model) {
 		logger.info("The client locale is {}.", locale);
 		
-		//model.addAttribute("articleList", this.articleService.queryAllArticles());
+		// Load article edit page
 		
 		return "admin/articleAdd";
 	}
@@ -75,10 +77,20 @@ public class ArticleController extends BaseController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/admin/articleAdd", method = RequestMethod.POST)
-	public String adminArticleSave(Locale locale, Model model) {
+	public String adminArticleSave(Locale locale, Model model, ArticleWithBLOBs articleWithBLOBs) {
 		logger.info("The client locale is {}.", locale);
+		logger.info("Article Category is {}.", articleWithBLOBs.getCategory());
+		logger.info("Article Title is {}.", articleWithBLOBs.getTitle());
+		logger.info("Article SlugsUrl is {}.", articleWithBLOBs.getSlugsurl());
+		logger.info("Article AbstractContent is {}.", articleWithBLOBs.getAbstractcontent());
+		logger.info("Article BannerUrl is {}.", articleWithBLOBs.getBannerurl());
+		logger.info("Article IsDisplayOnHome is {}.", articleWithBLOBs.getIsdisplayonhome());
+		logger.info("Article IsLockTop is {}.", articleWithBLOBs.getIslocktop());
+		logger.info("Article IsPublished is {}.", articleWithBLOBs.getIspublished());
+		logger.info("Article Keywords is {}.", articleWithBLOBs.getKeywords());
+		logger.info("Article Content is {}.", articleWithBLOBs.getContent());
 		
-		//model.addAttribute("articleList", this.articleService.queryAllArticles());
+		this.articleService.addArticle(articleWithBLOBs);
 		
 		return "admin/articles";
 	}
