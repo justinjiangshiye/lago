@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yunding.lago.bean.Article;
-import com.yunding.lago.bean.ArticleCategory;
 import com.yunding.lago.bean.ArticleWithBLOBs;
+import com.yunding.lago.bean.MyConstants;
 import com.yunding.lago.dao.ArticleMapper;
 
 @Service
@@ -35,7 +35,8 @@ public class ArticleService {
 	}
 	
 	public List<Article> queryArticlesByCategorySlugsUrl(String slugsUrl) {
-		return this.articleMapper.selectArticlesByCategory(ArticleCategory.getNameFromSlugsUrl(slugsUrl));
+		String categoryName = MyConstants.getNameFromSlugsUrl(slugsUrl);
+		return this.articleMapper.selectArticlesByCategory(categoryName);
 	}
 	
 	public int addArticle(ArticleWithBLOBs articleWithBLOBs) {

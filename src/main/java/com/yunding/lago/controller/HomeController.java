@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.yunding.lago.bean.MyConstants;
 import com.yunding.lago.bean.User;
 import com.yunding.lago.service.UserService;
 
@@ -31,6 +32,7 @@ public class HomeController extends BaseController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
+		initialize(model, MyConstants.menuItemHomeId);
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -57,6 +59,7 @@ public class HomeController extends BaseController {
 	@RequestMapping(value = "/about", method = RequestMethod.GET)
 	public String about(Locale locale, Model model) {
 		logger.info("Welcome about! The client locale is {}.", locale);
+		initialize(model, MyConstants.menuItemAboutId);
 		
 		return "about";
 	}

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yunding.lago.bean.Article;
-import com.yunding.lago.bean.ArticleCategory;
 import com.yunding.lago.bean.ArticleWithBLOBs;
+import com.yunding.lago.bean.MyConstants;
 import com.yunding.lago.service.ArticleService;
 
 /**
@@ -38,7 +38,8 @@ public class ArticleController extends BaseController {
 			@PathVariable String articleCategorySlugsUrl) {
 		logger.info("The client locale is  {}, articleCategory is {}.", locale,
 				articleCategorySlugsUrl);
-
+		initialize(model, MyConstants.getMenuItemIdFromSlugsUrl(articleCategorySlugsUrl));
+		
 		model.addAttribute("articleList",
 				this.articleService.queryArticlesByCategorySlugsUrl(articleCategorySlugsUrl));
 
@@ -53,9 +54,15 @@ public class ArticleController extends BaseController {
 			@PathVariable String slugsUrl) {
 		logger.info("The client locale is  {}, articleCategory is {}.", locale,
 				slugsUrl);
-
-		model.addAttribute("articleList",
-				this.articleService.queryArticleBySlugsUrl(slugsUrl));
+		
+		ArticleWithBLOBs article = this.articleService.queryArticleBySlugsUrl(slugsUrl);
+		Integer activeMenuItemId = MyConstants.menuItemHomeId;
+		if (article != null) {
+			activeMenuItemId = MyConstants.getMenuItemIdFromCategoryName(article.getCategory());
+		}
+		initialize(model, activeMenuItemId);
+		
+		model.addAttribute("article", article);
 
 		return "article";
 	}

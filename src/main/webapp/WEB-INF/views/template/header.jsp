@@ -43,14 +43,14 @@
       <div class="container">
         <h3 class="text-muted">51Lago</h3>
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="<c:url value="/" />">首页</a></li>
-          <li><a href="#">51拉钩</a></li>
-          <li><a href="#">51听听</a></li>
-          <li><a href="<c:url value="/category/parentSchoolSlugsUrl" />">父母学堂</a></li>
-          <li><a href="<c:url value="/category/growUpSlugsUrl" />">守护成长</a></li>
-          <li><a href="<c:url value="/category/loveFamilySlugsUrl" />">我爱我家</a></li>
-          <li><a href="<c:url value="/category/readingSlugsUrl" />">亲子阅读</a></li>
-          <li><a href="<c:url value="/about" />">关于我们</a></li>
+          <li<c:if test="${activeMenuItemId==1}"> class="active"</c:if>><a href="<c:url value="/" />">首页</a></li>
+          <li<c:if test="${activeMenuItemId==2}"> class="active"</c:if>><a href="#">51拉钩</a></li>
+          <li<c:if test="${activeMenuItemId==3}"> class="active"</c:if>><a href="#">51听听</a></li>
+          <li<c:if test="${activeMenuItemId==4}"> class="active"</c:if>><a href="<c:url value="/category/parent-school" />">父母学堂</a></li>
+          <li<c:if test="${activeMenuItemId==5}"> class="active"</c:if>><a href="<c:url value="/category/grow-up" />">守护成长</a></li>
+          <li<c:if test="${activeMenuItemId==6}"> class="active"</c:if>><a href="<c:url value="/category/love-family" />">我爱我家</a></li>
+          <li<c:if test="${activeMenuItemId==7}"> class="active"</c:if>><a href="<c:url value="/category/reading" />">亲子阅读</a></li>
+          <li<c:if test="${activeMenuItemId==8}"> class="active"</c:if>><a href="<c:url value="/about" />">关于我们</a></li>
         </ul>
       </div>
     </div>
