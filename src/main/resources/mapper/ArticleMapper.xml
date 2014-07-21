@@ -35,6 +35,14 @@
     from Article
     where Id = #{id,jdbcType=INTEGER} and RecordStatus = 0
   </select>
+  <select id="selectBySlugsUrl" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from Article
+    where SlugsUrl = #{slugsurl,jdbcType=VARCHAR} and RecordStatus = 0
+  </select>
   <select id="selectAllArticles" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -44,6 +52,7 @@
     select 
     <include refid="Base_Column_List" />
     from Article  where Category = #{category,jdbcType=VARCHAR} and RecordStatus = 0 and IsPublished = 1 
+    order by CreatedOn desc
   </select>
   <select id="selectHomePageArticles" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

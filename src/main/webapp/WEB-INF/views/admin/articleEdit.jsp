@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ include file="../template/admin-header.jsp"%>
 <h3 class="sub-header">新增文章</h3>
-<form class="form-horizontal" role="form" method="post">
+<form class="form-horizontal" role="form" method="post" action="<c:url value="/admin/articleSave"/>">
 	<div class="form-group">
 		<label for="selectCategory" class="col-sm-2 control-label">栏目</label>
 		<div class="col-sm-10">

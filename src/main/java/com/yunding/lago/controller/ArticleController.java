@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yunding.lago.bean.Article;
+import com.yunding.lago.bean.ArticleCategory;
 import com.yunding.lago.bean.ArticleWithBLOBs;
 import com.yunding.lago.service.ArticleService;
 
@@ -32,16 +33,16 @@ public class ArticleController extends BaseController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/articles/{articleCategory}", method = RequestMethod.GET)
-	public String articlesByCatetory(Locale locale, Model model,
-			@PathVariable String articleCategory) {
+	@RequestMapping(value = "/category/{articleCategorySlugsUrl}", method = RequestMethod.GET)
+	public String articlesByCatetorySlugsUrl(Locale locale, Model model,
+			@PathVariable String articleCategorySlugsUrl) {
 		logger.info("The client locale is  {}, articleCategory is {}.", locale,
-				articleCategory);
+				articleCategorySlugsUrl);
 
 		model.addAttribute("articleList",
-				this.articleService.queryArticlesByCategory(articleCategory));
+				this.articleService.queryArticlesByCategorySlugsUrl(articleCategorySlugsUrl));
 
-		return "articles";
+		return "articlesByCategory";
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class ArticleController extends BaseController {
 				slugsUrl);
 
 		model.addAttribute("articleList",
-				this.articleService.queryArticlesByCategory(slugsUrl));
+				this.articleService.queryArticleBySlugsUrl(slugsUrl));
 
 		return "article";
 	}
@@ -146,7 +147,19 @@ public class ArticleController extends BaseController {
 			articleWithBLOBs.setCreatedon(now);
 			this.articleService.addArticle(articleWithBLOBs);
 		} else {
-			this.articleService.updateArticle(articleWithBLOBs);
+			ArticleWithBLOBs articleWithBLOBsDB = this.articleService.queryArticleById(articleWithBLOBs.getId());
+			articleWithBLOBsDB.setCategory(articleWithBLOBs.getCategory());
+			articleWithBLOBsDB.setTitle(articleWithBLOBs.getTitle());
+			articleWithBLOBsDB.setSlugsurl(articleWithBLOBs.getSlugsurl());
+			articleWithBLOBsDB.setAbstractcontent(articleWithBLOBs.getAbstractcontent());
+			articleWithBLOBsDB.setBannerurl(articleWithBLOBs.getBannerurl());
+			articleWithBLOBsDB.setIsdisplayonhome(articleWithBLOBs.getIsdisplayonhome());
+			articleWithBLOBsDB.setIslocktop(articleWithBLOBs.getIslocktop());
+			articleWithBLOBsDB.setIspublished(articleWithBLOBs.getIspublished());
+			articleWithBLOBsDB.setPublishdate(articleWithBLOBs.getPublishdate());
+			articleWithBLOBsDB.setKeywords(articleWithBLOBs.getKeywords());
+			articleWithBLOBsDB.setContent(articleWithBLOBs.getContent());
+			this.articleService.updateArticle(articleWithBLOBsDB);
 		}
 
 		return "redirect:/admin/articles";
@@ -155,7 +168,7 @@ public class ArticleController extends BaseController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/admin/articleEdit/{articleId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/articleDelete/{articleId}", method = RequestMethod.GET)
 	public String adminArticleDelete(Locale locale, Model model,
 			@PathVariable Integer articleId) {
 		logger.info("The client locale is {}.", locale);

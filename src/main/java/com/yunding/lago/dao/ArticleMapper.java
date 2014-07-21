@@ -14,6 +14,8 @@ public interface ArticleMapper {
 
 	ArticleWithBLOBs selectByPrimaryKey(Integer id);
 	
+	ArticleWithBLOBs selectBySlugsUrl(String slugsurl);
+	
 	List<Article> selectAllArticles();
     
     List<Article> selectHomePageArticles(String category);
