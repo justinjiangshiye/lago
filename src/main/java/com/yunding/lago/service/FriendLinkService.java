@@ -1,0 +1,30 @@
+package com.yunding.lago.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.yunding.lago.bean.FriendLinkWithBLOBs;
+import com.yunding.lago.dao.FriendLinkMapper;
+
+@Service
+public class FriendLinkService {
+	private FriendLinkMapper friendLinkMapper = null;
+	@Autowired
+	public void setFriendLinkMapper(FriendLinkMapper friendLinkMapper) {
+		this.friendLinkMapper = friendLinkMapper;
+	}
+
+	public List<FriendLinkWithBLOBs> queryAllFriendLinks() {
+		return this.friendLinkMapper.selectAllFriendLinks();
+	}
+	
+	public int addFriendLink(FriendLinkWithBLOBs friendLinkWithBLOBs) {
+		return this.friendLinkMapper.insertSelective(friendLinkWithBLOBs);
+	}
+	
+	public int updateFriendLink(FriendLinkWithBLOBs friendLinkWithBLOBs) {
+		return this.friendLinkMapper.updateByPrimaryKeyWithBLOBs(friendLinkWithBLOBs);
+	}
+}

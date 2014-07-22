@@ -26,24 +26,30 @@
     from FriendLink
     where Id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectAllFriendLinks" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from FriendLink
+    where RecordStatus=0
+    order by `Order`, WebsiteName
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from FriendLink
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yunding.lago.bean.FriendLinkWithBLOBs" >
-    insert into FriendLink (Id, WebsiteName, `Order`, 
+    insert into FriendLink (WebsiteName, `Order`, 
       CreatedOn, RecordStatus, WebsiteUrl, 
       LogoUrl)
-    values (#{id,jdbcType=INTEGER}, #{websitename,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, 
+    values (#{websitename,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, 
       #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER}, #{websiteurl,jdbcType=LONGVARCHAR}, 
       #{logourl,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yunding.lago.bean.FriendLinkWithBLOBs" >
     insert into FriendLink
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        Id,
-      </if>
       <if test="websitename != null" >
         WebsiteName,
       </if>
@@ -64,9 +70,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="websitename != null" >
         #{websitename,jdbcType=VARCHAR},
       </if>
