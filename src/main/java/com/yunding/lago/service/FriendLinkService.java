@@ -20,6 +20,10 @@ public class FriendLinkService {
 		return this.friendLinkMapper.selectAllFriendLinks();
 	}
 	
+	public FriendLinkWithBLOBs queryFriendLinkById(Integer id) {
+		return this.friendLinkMapper.selectByPrimaryKey(id);
+	}
+	
 	public int addFriendLink(FriendLinkWithBLOBs friendLinkWithBLOBs) {
 		return this.friendLinkMapper.insertSelective(friendLinkWithBLOBs);
 	}
