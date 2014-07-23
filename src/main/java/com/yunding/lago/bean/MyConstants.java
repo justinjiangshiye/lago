@@ -8,6 +8,13 @@ public class MyConstants {
 	public static Integer menuItemLoveFamilyId = 6;
 	public static Integer menuItemReadingId = 7;	
 	public static Integer menuItemAboutId = 8;
+	public static Integer menuItemSearchResultId = 9;
+	
+	// Add admin menu item related id
+	public static Integer adminMenuItemHomeId = 101;
+	public static Integer adminMenuItemArticleId = 102;
+	public static Integer adminMenuItemFriendLinkId = 103;
+	public static Integer adminMenuItemAboutId = 104;
 	
 	// Add article category related slugs url	
 	public static String parentSchoolSlugsUrl = "parent-school";
