@@ -1,48 +1,52 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<beans xmlns="http://www.springframework.org/schema/beans" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xmlns:context="http://www.springframework.org/schema/context" 
-    xmlns:aop="http://www.springframework.org/schema/aop" 
-    xmlns:tx="http://www.springframework.org/schema/tx" 
-    xsi:schemaLocation="http://www.springframework.org/schema/beans 
-		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
 		http://www.springframework.org/schema/context 
-		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd 
 		http://www.springframework.org/schema/aop 
-		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
 		http://www.springframework.org/schema/tx 
-		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"> 
-	
-	  <!-- Root Context: defines shared resources visible to all other web components -->
-    <context:annotation-config />  
-    <context:component-scan base-package="com.yunding.lago" />
-    
-    <!-- JDBC Properties -->
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations" value="classpath:jdbc.properties" /> 
-    </bean> 
-    <!-- DataSource configuration -->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
-        <property name="driverClassName" value="${driver}" /> 
-        <property name="url" value="${url}" /> 
-        <property name="username" value="${username}" /> 
-        <property name="password" value="${password}" /> 
-        <property name="initialSize" value="60" />
-        <property name="maxActive" value="100" />
-        <property name="maxIdle" value="50" />
-        <property name="minIdle" value="10" />
-        <!-- 处理mysql 8小时自动断开连接的问题 -->
-        <property name="testWhileIdle" value="true" /> 
-        <property name="testOnBorrow" value="false" /> 
-        <property name="testOnReturn" value="false" /> 
-        <property name="validationQuery" value="select 1" /> 
-        <property name="timeBetweenEvictionRunsMillis" value="20000" /> 
-        <property name="numTestsPerEvictionRun" value="100" /> 
-    </bean> 
-    <!-- 事务 -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
-        <property name="dataSource" ref="dataSource" /> 
-    </bean> 
+		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:annotation-config />
+	<context:component-scan base-package="com.yunding.lago" />
+
+	<!-- JDBC Properties -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:jdbc.properties" />
+	</bean>
+	<!-- DataSource configuration -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${driver}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="initialSize" value="60" />
+		<property name="maxActive" value="100" />
+		<property name="maxIdle" value="50" />
+		<property name="minIdle" value="10" />
+		<!-- 处理mysql 8小时自动断开连接的问题 -->
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="validationQuery" value="select 1" />
+		<property name="timeBetweenEvictionRunsMillis" value="20000" />
+		<property name="numTestsPerEvictionRun" value="100" />
+	</bean>
+	<!-- 事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 	<!-- 拦截器方式配置事物 -->
 	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
@@ -66,19 +70,42 @@
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>
-		<aop:pointcut id="transactionPointcut" expression="execution(* com.yunding.lago.service.*.*(..))" />
-		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
+		<aop:pointcut id="transactionPointcut"
+			expression="execution(* com.yunding.lago.service.*.*(..))" />
+		<aop:advisor pointcut-ref="transactionPointcut"
+			advice-ref="transactionAdvice" />
 	</aop:config>
-	<!-- MyBatis sqlSessionFactory 配置 --> 
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
-	    <property name="dataSource" ref="dataSource" />
-	    <property name="mapperLocations" value="classpath:mapper/*.xml" />
+	<!-- MyBatis sqlSessionFactory 配置 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:mapper/*.xml" />
 	</bean>
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"> 
-	    <constructor-arg index="0" ref="sqlSessionFactory" /> 
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-	   <property name="basePackage" value="com.yunding.lago.dao"/>
-	   <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-  </bean> 
+		<property name="basePackage" value="com.yunding.lago.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+	
+	<!--  Lucene配置  -->
+	<util:constant id="LUCENE_VERSION" static-field="org.apache.lucene.util.Version.LUCENE_48"></util:constant>
+	<bean id="directory" class="org.apache.lucene.store.SimpleFSDirectory">
+		<constructor-arg>
+			<bean class="java.io.File">
+				<constructor-arg value="/home/justin/Documents/lago/luceneIndexFiles" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="analyzer" class="org.wltea.analyzer.lucene.IKAnalyzer">
+		<constructor-arg value="true"></constructor-arg>
+	</bean>
+	<bean id="indexWriterConfig" class="org.apache.lucene.index.IndexWriterConfig">
+		<constructor-arg name="matchVersion" ref="LUCENE_VERSION" />
+		<constructor-arg name="analyzer" ref="analyzer"></constructor-arg>
+	</bean>
+	<bean id="indexWriter" class="org.apache.lucene.index.IndexWriter">
+		<constructor-arg name="d" ref="directory" />
+		<constructor-arg name="conf" ref="indexWriterConfig" />
+	</bean>
 </beans>

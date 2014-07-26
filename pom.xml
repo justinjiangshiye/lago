@@ -12,7 +12,7 @@
 		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
-		<lucene.version>4.4.0</lucene.version>
+		<lucene.version>4.8.0</lucene.version>
 	</properties>
 	<dependencies>
 		<!-- 此处开始就是Spring 所有的jar了，spring3.0的jar包拆分了，所以很多 -->
@@ -318,20 +318,35 @@
 		</dependency>
 		<!-- Lucene开发包依赖 -->
 		<dependency>
-			<groupId> org.apache.lucene</groupId>
-			<artifactId> lucene-core</artifactId>
-			<version> ${lucene.version}</version>
-		</dependency>
-		<dependency>
-			<groupId> org.apache.lucene</groupId>
-			<artifactId> lucene-analyzers-common</artifactId>
-			<version> ${lucene.version}</version>
-		</dependency>
-		<dependency>
-			<groupId> org.apache.lucene</groupId>
-			<artifactId> lucene-queryparser</artifactId>
-			<version> ${lucene.version}</version>
-		</dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-highlighter</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-memory</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-queries</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-queryparser</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers-common</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

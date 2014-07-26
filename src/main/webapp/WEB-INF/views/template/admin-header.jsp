@@ -45,6 +45,7 @@
 					<li><a href="<c:url value="/admin/" />">概览</a></li>
 					<li><a href="<c:url value="/admin/banner/" />">首页Banner设置</a></li>
 					<li><a href="<c:url value="/admin/articles" />">文章管理</a></li>
+					<li><a href="<c:url value="/admin/indexBuild" />">索引管理</a></li>
 					<li><a href="<c:url value="/admin/friendLinks" />">友情链接管理</a></li>
 					<li><a href="<c:url value="/admin/about" />">关于我们</a></li>
 				</ul>
