@@ -3,8 +3,6 @@ package com.yunding.lago.controller;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.yunding.lago.bean.Article;
 import com.yunding.lago.bean.ArticleWithBLOBs;
-import com.yunding.lago.bean.MyConstants;
 import com.yunding.lago.service.ArticleService;
+import com.yunding.lago.util.MyConstants;
 
 /**
  * Handles requests for the application home page.

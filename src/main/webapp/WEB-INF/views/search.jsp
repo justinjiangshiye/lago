@@ -12,9 +12,9 @@
                 <tbody>
                 <c:forEach items="${searchResult}" var="article">
                     <tr>
-                        <td><c:out value="${article.title}"></c:out></td>
-                        <td><c:out value="${article.category}"></c:out></td>
-                        <td><c:out value="${article.content}"></c:out></td>
+                        <td>${article.title}</td>
+                        <td>${article.category}</td>
+                        <td>${article.content}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

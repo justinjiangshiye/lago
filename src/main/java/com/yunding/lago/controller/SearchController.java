@@ -3,12 +3,10 @@ package com.yunding.lago.controller;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
-
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -26,6 +24,7 @@ import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.util.Version;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,8 +35,8 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import com.yunding.lago.bean.Article;
 import com.yunding.lago.bean.ArticleWithBLOBs;
-import com.yunding.lago.bean.MyConstants;
 import com.yunding.lago.service.ArticleService;
+import com.yunding.lago.util.HtmlToPlainText;
 
 /**
  * Handles requests for the application home page.
@@ -54,7 +53,7 @@ public class SearchController extends BaseController {
 		this.articleService = articleService;
 	}
 
-	@Autowired
+	@Autowired()
 	public void setIndexWriter(IndexWriter indexWriter) {
 		this.indexWriter = indexWriter;
 	}
@@ -81,16 +80,19 @@ public class SearchController extends BaseController {
 
 			List<Article> articles = this.articleService.queryAllArticles();
 
+			HtmlToPlainText formatter = new HtmlToPlainText();
 			for (int i = 0; i < articles.size(); i++) {
 				ArticleWithBLOBs article = this.articleService
 						.queryArticleById(articles.get(i).getId());
 
 				Document doc = new Document();
+				
+				String textContent = formatter.getPlainText(article.getContent());
 				Field category = new Field("category", article.getCategory(),
 						Field.Store.YES, Field.Index.ANALYZED);
 				Field title = new Field("title", article.getTitle(),
 						Field.Store.YES, Field.Index.ANALYZED);
-				Field content = new Field("content", article.getContent(),
+				Field content = new Field("content", textContent,
 						Field.Store.YES, Field.Index.ANALYZED);
 				Field keywords = new Field("keywords", article.getKeywords(),
 						Field.Store.YES, Field.Index.ANALYZED);
@@ -107,6 +109,7 @@ public class SearchController extends BaseController {
 				doc.add(id);
 				this.indexWriter.addDocument(doc);
 			}
+			
 			this.indexWriter.commit();
 			logger.info("Index rebuilt.");
 		} catch (IOException e) {
@@ -158,7 +161,6 @@ public class SearchController extends BaseController {
             tokenStream=analyzer.tokenStream("content", new StringReader(content));
             content=highlighter.getBestFragment(tokenStream, content);
              
-            //正文部分，如果没有匹配的关键字，截取前200个字符
             article.setContent(content==null?(doc.get("content").length()<200?doc.get("content"):doc.get("content").substring(0, 199)):content);
             article.setCategory(doc.get("category"));
             list.add(article);

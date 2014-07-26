@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.yunding.lago.bean.Article;
 import com.yunding.lago.bean.ArticleWithBLOBs;
-import com.yunding.lago.bean.MyConstants;
+import com.yunding.lago.util.MyConstants;
 import com.yunding.lago.dao.ArticleMapper;
 
 @Service

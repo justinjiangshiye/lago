@@ -1,4 +1,4 @@
-package com.yunding.lago.bean;
+package com.yunding.lago.util;
 
 public class MyConstants {
 	// Add menu item related id

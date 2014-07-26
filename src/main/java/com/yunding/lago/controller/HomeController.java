@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.yunding.lago.bean.MyConstants;
+import com.yunding.lago.util.MyConstants;
 import com.yunding.lago.bean.User;
 import com.yunding.lago.service.UserService;
 
