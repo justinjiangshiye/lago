@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yunding.lago.dao.BannerLinkMapper" >
+  <resultMap id="BaseResultMap" type="com.yunding.lago.bean.BannerLink" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="Text" property="text" jdbcType="VARCHAR" />
+    <result column="Order" property="order" jdbcType="INTEGER" />
+    <result column="CreatedOn" property="createdon" jdbcType="TIMESTAMP" />
+    <result column="RecordStatus" property="recordstatus" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yunding.lago.bean.BannerLink" extends="BaseResultMap" >
+    <result column="BannerUrl" property="bannerurl" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, Text, Order, CreatedOn, RecordStatus
+  </sql>
+  <sql id="Blob_Column_List" >
+    BannerUrl
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from BannerLink
+    where Id = #{id,jdbcType=INTEGER} and  RecordStatus = 0
+  </select>
+  <select id="selectAllBannerLinks" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from BannerLink
+    where RecordStatus = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from BannerLink
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yunding.lago.bean.BannerLink" >
+    insert into BannerLink (Text, Order, 
+      CreatedOn, RecordStatus, BannerUrl
+      )
+    values (#{text,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, 
+      #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER}, #{bannerurl,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yunding.lago.bean.BannerLink" >
+    insert into BannerLink
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="text != null" >
+        Text,
+      </if>
+      <if test="order != null" >
+        Order,
+      </if>
+      <if test="createdon != null" >
+        CreatedOn,
+      </if>
+      <if test="recordstatus != null" >
+        RecordStatus,
+      </if>
+      <if test="bannerurl != null" >
+        BannerUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="text != null" >
+        #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=INTEGER},
+      </if>
+      <if test="createdon != null" >
+        #{createdon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordstatus != null" >
+        #{recordstatus,jdbcType=INTEGER},
+      </if>
+      <if test="bannerurl != null" >
+        #{bannerurl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yunding.lago.bean.BannerLink" >
+    update BannerLink
+    <set >
+      <if test="text != null" >
+        Text = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        Order = #{order,jdbcType=INTEGER},
+      </if>
+      <if test="createdon != null" >
+        CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordstatus != null" >
+        RecordStatus = #{recordstatus,jdbcType=INTEGER},
+      </if>
+      <if test="bannerurl != null" >
+        BannerUrl = #{bannerurl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yunding.lago.bean.BannerLink" >
+    update BannerLink
+    set Text = #{text,jdbcType=VARCHAR},
+      Order = #{order,jdbcType=INTEGER},
+      CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      RecordStatus = #{recordstatus,jdbcType=INTEGER},
+      BannerUrl = #{bannerurl,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.BannerLink" >
+    update BannerLink
+    set Text = #{text,jdbcType=VARCHAR},
+      Order = #{order,jdbcType=INTEGER},
+      CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      RecordStatus = #{recordstatus,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

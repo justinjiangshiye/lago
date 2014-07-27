@@ -1,5 +1,7 @@
 package com.yunding.lago.dao;
 
+import java.util.List;
+
 import com.yunding.lago.bean.BulletinBoard;
 
 public interface BulletinBoardMapper {
@@ -10,6 +12,10 @@ public interface BulletinBoardMapper {
     int insertSelective(BulletinBoard record);
 
     BulletinBoard selectByPrimaryKey(Integer id);
+    
+    List<BulletinBoard> selectAllBulletinBorads();
+    
+    List<BulletinBoard> selectPublishedBulletinBoards();
 
     int updateByPrimaryKeySelective(BulletinBoard record);
 

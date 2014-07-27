@@ -25,26 +25,40 @@
     ,
     <include refid="Blob_Column_List" />
     from BulletinBoard
-    where Id = #{id,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER} and RecordStatus = 0
+  </select>
+  <select id="selectAllBulletinBoards" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from BulletinBoard
+    where RecordStatus = 0
+  </select>
+  <select id="selectPublishedBulletinBoards" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from BulletinBoard
+    where RecordStatus = 0 and IsPublished = 1
+    order by `Order`, PublishedDate desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from BulletinBoard
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yunding.lago.bean.BulletinBoard" >
-    insert into BulletinBoard (Id, Summary, `Order`, 
+    insert into BulletinBoard (Summary, `Order`, 
       IsPublished, PublishDate, CreatedOn, 
       RecordStatus, Content)
-    values (#{id,jdbcType=INTEGER}, #{summary,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, 
+    values (#{summary,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, 
       #{ispublished,jdbcType=BIT}, #{publishdate,jdbcType=TIMESTAMP}, #{createdon,jdbcType=TIMESTAMP}, 
       #{recordstatus,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yunding.lago.bean.BulletinBoard" >
     insert into BulletinBoard
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        Id,
-      </if>
       <if test="summary != null" >
         Summary,
       </if>
@@ -68,9 +82,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="summary != null" >
         #{summary,jdbcType=VARCHAR},
       </if>

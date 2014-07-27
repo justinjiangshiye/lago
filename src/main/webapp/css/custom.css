@@ -4,18 +4,55 @@
 .header {
 	background-color: #f4311d;
 }
+.logo {
+	padding-top: 20px;
+}
+.search {
+	padding-top: 20px;
+}
 .navbar {
 	margin: 0;
-	padding: 5px;
+	padding: 0 5 0 5;;
 	min-height: 25px;
+}
+.navbar-default {
+    background-color: #FFF;
+    background-image: none;
 }
 .navbar .navbar-brand {
   padding-top: 0px;
   padding-bottom: 0px;
 }
+.header .container {
+	margin-bottom: 5px;
+}
+.pull-right {
+float: right!important;
+margin-bottom: -5px;
+}
 .navbar .navbar-nav>li>a {
-  padding-top: 0px;
+  padding-top: 5px;
   padding-bottom: 0px;
+}
+.nav-pills>li>a {
+	color: #FFF;
+	font-weight: bold;
+	width: 88px;
+	height: 47px;
+	text-align: center;
+	padding-left: 17px;
+}
+.nav-pills>li>a:hover {
+    background: url("../images/active-menu-item.png");
+    width: 88px;
+    text-align: center;
+    color: #0000FF;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+	background: url("../images/active-menu-item.png");
+	width: 88px;
+    text-align: center;
+    color: #FF0000;
 }
 .footer {
 	border-top: 1px solid #e5e5e5;

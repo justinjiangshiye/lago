@@ -32,12 +32,15 @@
 	<div class="navbar navbar-default navbar-static-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">和家人拉钩，与幸福相约</a>
+				<img class="navbar-brand"
+					src="<c:url value="/images/top-left-logo.png" />" alt="" />
 			</div>
 			<div class="navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="../navbar/">微博帐号登录</a></li>
-					<li><a href="../navbar/">QQ帐号登录</a></li>
+					<li><a href="../navbar/"><img
+							src="<c:url value="/images/weibo.png" />" alt="" />&nbsp;微博帐号登录</a></li>
+					<li><a href="../navbar/"><img
+							src="<c:url value="/images/qq.png" />" alt="" />&nbsp;QQ帐号登录</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -46,11 +49,13 @@
 	<!-- header -->
 	<div class="header">
 		<div class="container">
-			<h3 class="text-muted">51Lago</h3>
-			<div class="navbar-right">
-				<input type="text" id="inputSearch" name="textSearch" />
-				<button id="btnSearch" class="btn"
-					action="<c:url value="/search/" />">搜索</button>
+			<div class="logo">
+				<a href="http://www.51lago.com/"><img
+					src="<c:url value="/images/logo.png" />" alt="" /></a>
+				<div class="navbar-right search">
+					<input type="text" id="inputSearch" name="textSearch" placeholder="请输入关键字搜索" />
+					<button id="btnSearch" class="btn icon-search" action="<c:url value="/search/" />">搜索</button>
+				</div>
 			</div>
 			<ul class="nav nav-pills pull-right">
 				<li <c:if test="${activeMenuItemId==1}"> class="active"</c:if>><a
