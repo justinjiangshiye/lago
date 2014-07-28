@@ -21,6 +21,8 @@
 	src="<c:url value="/js/jquery-1.11.1.min.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/js/bootstrap.min.js" />"></script>
+<script type="text/javascript"
+	src="<c:url value="/js/jquery.marquee.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/global.js" />"></script>
 <!--[if lt IE 9]>
       <script src="<c:url value="/js/html5shiv.min.js" /></script>
@@ -53,8 +55,10 @@
 				<a href="http://www.51lago.com/"><img
 					src="<c:url value="/images/logo.png" />" alt="" /></a>
 				<div class="navbar-right search">
-					<input type="text" id="inputSearch" name="textSearch" placeholder="请输入关键字搜索" />
-					<button id="btnSearch" class="btn icon-search" action="<c:url value="/search/" />">搜索</button>
+					<input type="text" id="inputSearch" name="textSearch"
+						placeholder="请输入关键字搜索" />
+					<button id="btnSearch" class="btn icon-search"
+						action="<c:url value="/search/" />">搜索</button>
 				</div>
 			</div>
 			<ul class="nav nav-pills pull-right">
@@ -75,6 +79,11 @@
 				<li <c:if test="${activeMenuItemId==8}"> class="active"</c:if>><a
 					href="<c:url value="/about" />">关于我们</a></li>
 			</ul>
+		</div>
+	</div>
+	<div class="bulletin">
+		<div class="container">
+			<div class="col-md-1 no-padding">站点公告：</div><div class="col-md-11 marquee">Matching patterns for request [/fonts/glyphicons-halflings-regular.woff] are [/fonts/**]</div>
 		</div>
 	</div>
 	<!-- body -->

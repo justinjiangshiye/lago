@@ -242,4 +242,8 @@ $(function(){
 			.attr("method", "get")
 			.submit();
 	});
+	$('.carousel').carousel({
+		interval : 3000
+	});
+	$('.marquee').marquee();
 });

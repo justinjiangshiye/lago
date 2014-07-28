@@ -23,6 +23,16 @@
   padding-top: 0px;
   padding-bottom: 0px;
 }
+.marquee {
+  overflow: hidden;
+  background: #fff;
+  color: #ff6050;
+}
+.no-padding {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+/* active menu item bottom style begin */
 .header .container {
 	margin-bottom: 5px;
 }
@@ -54,6 +64,43 @@ margin-bottom: -5px;
     text-align: center;
     color: #FF0000;
 }
+/* active menu item bottom style end */
+/* carousel style begin */
+.carousel-control .icon-prev, .carousel-control .icon-next, .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right {
+	top: 45%;
+}
+.carousel-caption {
+	background-color: rgba(0,0,0,0.7);
+	width: 100%;
+	right: 0;
+    left: 0;
+    bottom: 0;
+    text-align: left;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+}
+.carousel-indicators {
+	bottom: 0px;
+	left: 90%;
+	margin-left: -10%;
+	width: 30%;
+}
+.carousel-indicators ul, ol {
+	margin-bottom: 5px;
+}
+.carousel-indicators li {
+	margin: 4px;
+	background-color: #fff;
+	border: none;
+}
+.carousel-indicators .active {
+    margin: 3px;
+    background-color: #ff6050;
+}
+
+/* carousel style end */
+
 .footer {
 	border-top: 1px solid #e5e5e5;
 	text-align: center;
