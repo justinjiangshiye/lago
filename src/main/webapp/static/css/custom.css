@@ -23,10 +23,17 @@
   padding-top: 0px;
   padding-bottom: 0px;
 }
+.bulletin {
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 5px;
+}
 .marquee {
   overflow: hidden;
   background: #fff;
   color: #ff6050;
+}
+.body {
+	padding-top: 10px;
 }
 .no-padding {
 	padding-left: 0px;
@@ -100,6 +107,20 @@ margin-bottom: -5px;
 }
 
 /* carousel style end */
+
+/* home article begin */
+.body .col-xs-6 {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.article-splitter {
+	background: url(../images/home-article-splitter.png) no-repeat 0px 30px;
+	height: 40px;
+	padding: 10px 0px 10px 0px;
+	font-size: 14px;
+	font-weight: bold;
+}
+/* home article end */
 
 .footer {
 	border-top: 1px solid #e5e5e5;

@@ -83,8 +83,11 @@
 	</div>
 	<div class="bulletin">
 		<div class="container">
-			<div class="col-md-1 no-padding">站点公告：</div><div class="col-md-11 marquee">Matching patterns for request [/fonts/glyphicons-halflings-regular.woff] are [/fonts/**]</div>
+			<div class="col-md-1 no-padding">站点公告：</div>
+			<div class="col-md-11 marquee">Matching patterns for request
+				[/fonts/glyphicons-halflings-regular.woff] are [/fonts/**]</div>
 		</div>
 	</div>
 	<!-- body -->
-	<div class="container">
+	<div class="body">
+		<div class="container">

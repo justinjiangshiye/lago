@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yunding.lago.util.MyConstants;
 import com.yunding.lago.bean.User;
+import com.yunding.lago.service.ArticleService;
 import com.yunding.lago.service.UserService;
 
 /**
@@ -19,11 +21,15 @@ import com.yunding.lago.service.UserService;
  */
 @Controller
 public class HomeController extends BaseController {
-		
-	private UserService userService=null;
+	private UserService userService = null;
+	private ArticleService articleService = null;
 	@Autowired
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+	@Autowired
+	public void setArticleService(ArticleService articleService) {
+		this.articleService = articleService;
 	}
 	
 	/**
@@ -34,21 +40,10 @@ public class HomeController extends BaseController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		initialize(model, MyConstants.menuItemHomeId);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		User user = this.userService.queryUserById(1);
-		
-		if (user == null) {
-			model.addAttribute("userNickName", "NULL");
-		}
-		else {
-			model.addAttribute("userNickName", user.getNickname());
-		}
+		model.addAttribute("parent-school", this.articleService.queryHomePageArticles(MyConstants.parentSchoolName));
+		model.addAttribute("grow-up", this.articleService.queryHomePageArticles(MyConstants.growUpName));
+		model.addAttribute("love-family", this.articleService.queryHomePageArticles(MyConstants.loveFamilyName));
+		model.addAttribute("reading", this.articleService.queryHomePageArticles(MyConstants.readingName));
 		
 		return "index";
 	}

@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ include file="template/header.jsp"%>
-<div class="row row-offcanvas row-offcanvas-right">
-	<div class="col-xs-12 col-sm-9">
+<div class="row">
+	<div class="col-xs-10">
+		<!--  Banner图片  -->
 		<div id="myCarousel" class="carousel slide">
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -31,16 +32,38 @@
 				</div>
 			</div>
 			<!-- Controls -->
-			<a class="left carousel-control" href="#myCarousel"
-				role="button" data-slide="prev"> <span
+			<a class="left carousel-control" href="#myCarousel" role="button"
+				data-slide="prev"> <span
 				class="glyphicon glyphicon-chevron-left"></span> <span
 				class="sr-only">Previous</span>
-			</a> <a class="right carousel-control" href="#myCarousel"
-				role="button" data-slide="next"> <span
+			</a> <a class="right carousel-control" href="#myCarousel" role="button"
+				data-slide="next"> <span
 				class="glyphicon glyphicon-chevron-right"></span> <span
 				class="sr-only">Next</span>
 			</a>
 		</div>
+
+		<!--  文章列表  -->
+		<div class="col-xs-6">
+		     <div class="article-splitter">
+		         父母学堂
+		     </div>
+		</div>
+        <div class="col-xs-6">
+             <div class="article-splitter">
+                 守护成长
+             </div>
+        </div>
+        <div class="col-xs-6">
+             <div class="article-splitter">
+                 我爱我家
+             </div>
+        </div>
+        <div class="col-xs-6">
+             <div class="article-splitter">
+                 亲子阅读
+             </div>
+        </div>
 	</div>
 	<%@ include file="template/right.jsp"%>
 </div>
