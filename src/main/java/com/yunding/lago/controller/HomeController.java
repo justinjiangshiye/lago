@@ -40,10 +40,10 @@ public class HomeController extends BaseController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		initialize(model, MyConstants.menuItemHomeId);
 		
-		model.addAttribute("parent-school", this.articleService.queryHomePageArticles(MyConstants.parentSchoolName));
-		model.addAttribute("grow-up", this.articleService.queryHomePageArticles(MyConstants.growUpName));
-		model.addAttribute("love-family", this.articleService.queryHomePageArticles(MyConstants.loveFamilyName));
-		model.addAttribute("reading", this.articleService.queryHomePageArticles(MyConstants.readingName));
+		model.addAttribute("parentschoolList", this.articleService.queryHomePageArticles(MyConstants.parentSchoolName));
+		model.addAttribute("growupList", this.articleService.queryHomePageArticles(MyConstants.growUpName));
+		model.addAttribute("lovefamilyList", this.articleService.queryHomePageArticles(MyConstants.loveFamilyName));
+		model.addAttribute("readingList", this.articleService.queryHomePageArticles(MyConstants.readingName));
 		
 		return "index";
 	}

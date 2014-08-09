@@ -52,7 +52,7 @@
     select 
     <include refid="Base_Column_List" />
     from Article  where Category = #{category,jdbcType=VARCHAR} and RecordStatus = 0 and IsPublished = 1 
-    order by CreatedOn desc
+    order by `Order` asc, CreatedOn desc
   </select>
   <select id="selectHomePageArticles" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -60,6 +60,7 @@
     from Article 
     where Category = #{category,jdbcType=VARCHAR} and RecordStatus = 0 
         and IsPublished = 1 and IsDisplayOnHome = 1
+    order by IsLockTop desc, `Order` asc, CreatedOn desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from Article

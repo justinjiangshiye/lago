@@ -1,7 +1,5 @@
-<%@ include file="template/header.jsp" %>
+<%@ include file="template/header.jsp"%>
 
-			<div>
-			 This is a test
-			</div>
+<div>This is a test</div>
 
-<%@ include file="template/tailer.jsp" %>
+<%@ include file="template/tailer.jsp"%>

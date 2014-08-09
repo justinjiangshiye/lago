@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="template/header.jsp"%>
 <div class="row row-offcanvas row-offcanvas-right">
-	<div class="col-xs-12 col-sm-9">
+	<div class="col-xs-9">
 		<h3>${article.title}</h3>
 		<div>
 			<span><fmt:formatDate value="${article.publishdate}" type="date" pattern="yyyy-MM-dd" /></span>

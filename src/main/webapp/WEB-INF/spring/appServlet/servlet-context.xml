@@ -18,7 +18,7 @@
 	<resources mapping="/fonts/**" location="/static/fonts/" /> 
     <resources mapping="/images/**" location="/static/images/" /> 
     <resources mapping="/js/**" location="/static/js/" />
-    <resources mapping="/file/**" location="/static/file/" />
+    <resources mapping="/files/**" location="/static/files/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
