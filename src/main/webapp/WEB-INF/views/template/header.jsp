@@ -20,9 +20,9 @@
 <script type="text/javascript"
 	src="<c:url value="/js/jquery-1.11.1.min.js" />"></script>
 <script type="text/javascript"
-	src="<c:url value="/js/bootstrap.min.js" />"></script>
+    src="<c:url value="/js/jquery.extends.js" />"></script>
 <script type="text/javascript"
-	src="<c:url value="/js/jquery.marquee.min.js" />"></script>
+	src="<c:url value="/js/bootstrap.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/global.js" />"></script>
 <!--[if lt IE 9]>
       <script src="<c:url value="/js/html5shiv.min.js" /></script>
@@ -84,8 +84,13 @@
 	<div class="bulletin">
 		<div class="container">
 			<div class="col-md-1 no-padding">站点公告：</div>
-			<div class="col-md-11 marquee">Matching patterns for request
-				[/fonts/glyphicons-halflings-regular.woff] are [/fonts/**]</div>
+			<div class="col-md-11 marquee no-padding">
+			    <ul>
+                <c:forEach items="${bulletinBoardList}" var="bulletinBoardItem">
+                    <li><a href="" target="_blank">${bulletinBoardItem.summary}</a></li>
+                </c:forEach>
+			    </ul>
+			</div>
 		</div>
 	</div>
 	<!-- body -->

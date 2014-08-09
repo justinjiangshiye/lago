@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 
 import com.yunding.lago.bean.*;
 import com.yunding.lago.service.ArticleService;
+import com.yunding.lago.service.BulletinBoardService;
 import com.yunding.lago.service.FriendLinkService;
 
 /**
@@ -17,12 +18,18 @@ import com.yunding.lago.service.FriendLinkService;
  */
 public class BaseController {
 	private FriendLinkService friendLinkService = null;
+	private BulletinBoardService bulletinBoardService = null;
 
 	@Autowired
 	public void setFriendLinkService(FriendLinkService friendLinkService) {
 		this.friendLinkService = friendLinkService;
 	}
-	
+
+	@Autowired
+	public void setBulletinBoardService(BulletinBoardService bulletinBoardService) {
+		this.bulletinBoardService = bulletinBoardService;
+	}
+
 	protected static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	protected void initialize(Model model, Integer activeMenuItemId) {
@@ -35,6 +42,9 @@ public class BaseController {
 		//TODO: add menu item list
 		List<MenuItem> menuItems = new ArrayList<MenuItem>();
 		model.addAttribute("menuItemList", menuItems);
+		
+		// Add bulletin boards
+		model.addAttribute("bulletinBoardList", this.bulletinBoardService.queryPublishedBulletinBoards());
 		
 		// Add friend links
 		model.addAttribute("friendLinkList", this.friendLinkService.queryAllFriendLinks());

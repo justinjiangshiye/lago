@@ -42,7 +42,7 @@
     <include refid="Blob_Column_List" />
     from BulletinBoard
     where RecordStatus = 0 and IsPublished = 1
-    order by `Order`, PublishedDate desc
+    order by `Order`, PublishDate desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from BulletinBoard

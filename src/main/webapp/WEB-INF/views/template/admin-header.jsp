@@ -21,6 +21,8 @@
 <script type="text/javascript"
 	src="<c:url value="/js/jquery-1.11.1.min.js" />"></script>
 <script type="text/javascript"
+    src="<c:url value="/js/jquery.extends.js" />"></script>
+<script type="text/javascript"
 	src="<c:url value="/js/bootstrap.min.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/js/jquery.cleditor.min.js" />"></script>
