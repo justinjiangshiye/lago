@@ -39,9 +39,9 @@
 			</div>
 			<div class="navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="../navbar/"><img
+					<li><a href="<c:url value="/user/weibologin" />" ><img
 							src="<c:url value="/images/weibo.png" />" alt="" />&nbsp;微博帐号登录</a></li>
-					<li><a href="../navbar/"><img
+					<li><a href="<c:url value="/user/qqlogin" />" ><img
 							src="<c:url value="/images/qq.png" />" alt="" />&nbsp;QQ帐号登录</a></li>
 				</ul>
 			</div>
