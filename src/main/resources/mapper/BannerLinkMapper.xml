@@ -12,7 +12,7 @@
     <result column="BannerUrl" property="bannerurl" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, Text, Order, CreatedOn, RecordStatus
+    Id, Text, `Order`, CreatedOn, RecordStatus
   </sql>
   <sql id="Blob_Column_List" >
     BannerUrl
@@ -38,7 +38,7 @@
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yunding.lago.bean.BannerLink" >
-    insert into BannerLink (Text, Order, 
+    insert into BannerLink (Text, `Order`, 
       CreatedOn, RecordStatus, BannerUrl
       )
     values (#{text,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, 
@@ -52,7 +52,7 @@
         Text,
       </if>
       <if test="order != null" >
-        Order,
+        `Order`,
       </if>
       <if test="createdon != null" >
         CreatedOn,
@@ -89,7 +89,7 @@
         Text = #{text,jdbcType=VARCHAR},
       </if>
       <if test="order != null" >
-        Order = #{order,jdbcType=INTEGER},
+        `Order` = #{order,jdbcType=INTEGER},
       </if>
       <if test="createdon != null" >
         CreatedOn = #{createdon,jdbcType=TIMESTAMP},
@@ -106,7 +106,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yunding.lago.bean.BannerLink" >
     update BannerLink
     set Text = #{text,jdbcType=VARCHAR},
-      Order = #{order,jdbcType=INTEGER},
+      `Order` = #{order,jdbcType=INTEGER},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       RecordStatus = #{recordstatus,jdbcType=INTEGER},
       BannerUrl = #{bannerurl,jdbcType=LONGVARCHAR}
@@ -115,7 +115,7 @@
   <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.BannerLink" >
     update BannerLink
     set Text = #{text,jdbcType=VARCHAR},
-      Order = #{order,jdbcType=INTEGER},
+      `Order` = #{order,jdbcType=INTEGER},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       RecordStatus = #{recordstatus,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}
