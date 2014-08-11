@@ -1,6 +1,18 @@
 package com.yunding.lago.util;
 
 public class MyConstants {
+	// Add user type
+	public static Integer systemUser = 0;
+	public static Integer anonymousUser = 1;
+	public static Integer qqUser = 2;
+	public static Integer weiboUser = 3;
+	
+	// Add session constrants
+	public static String userTypeSessionKey = "userType";
+	public static String accessTokenSessionKey = "accessToken";
+	public static String accessTokenExpiredInSessionKey = "tgtexpiredin";
+	public static String userLoginIdSessionKey = "loginId";
+	
 	// Add menu item related id
 	public static Integer menuItemHomeId = 1;
 	public static Integer menuItemParentSchoolId =4;
