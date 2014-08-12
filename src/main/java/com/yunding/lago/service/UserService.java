@@ -21,15 +21,15 @@ public class UserService {
 		this.userMapper = userMapper;
 	}
 	
-	public User queryUserByUserId(String userid){
-		return this.userMapper.selectByUserId(userid);
+	public User queryUserByUserId(String loginid){
+		return this.userMapper.selectByUserId(loginid);
 	}
 	
-	public int addArticle(User user) {
+	public int addUser(User user) {
 		return this.userMapper.insertSelective(user);
 	}
 	
-	public int updateArticle(User user) {
+	public int updateUser(User user) {
 		return this.userMapper.updateByPrimaryKeyWithBLOBs(user);
 	}
 }

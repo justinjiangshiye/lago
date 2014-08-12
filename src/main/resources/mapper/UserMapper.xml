@@ -29,7 +29,7 @@
     from User
     where Id = #{id,jdbcType=INTEGER} and RecordStatus = 0
   </select>
-    <select id="selectByLoginId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  <select id="selectByLoginId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     ,

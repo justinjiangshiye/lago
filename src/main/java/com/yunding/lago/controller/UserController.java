@@ -119,14 +119,16 @@ public class UserController extends BaseController {
 						user.setNickname(userInfoBean.getNickname());
 						user.setProfilephotourl(userInfoBean.getAvatar()
 								.getAvatarURL30());
+						user.setLastvisiton(new Date());
 						user.setCreatedon(new Date());
 						user.setRegisteron(user.getCreatedon());
 						user.setRecordstatus(0);
-						this.userService.addArticle(user);
+						this.userService.addUser(user);
 					} else {
 						user.setNickname(userInfoBean.getNickname());
 						user.setProfilephotourl(userInfoBean.getAvatar().getAvatarURL30());
-						this.userService.updateArticle(user);
+						user.setLastvisiton(new Date());
+						this.userService.updateUser(user);
 					}
 				} else {
 					logger.info("很抱歉，我们没能正确获取到您的信息，原因是： "
