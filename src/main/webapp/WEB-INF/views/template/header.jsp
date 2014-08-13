@@ -20,7 +20,7 @@
 <script type="text/javascript"
 	src="<c:url value="/js/jquery-1.11.1.min.js" />"></script>
 <script type="text/javascript"
-    src="<c:url value="/js/jquery.extends.js" />"></script>
+	src="<c:url value="/js/jquery.extends.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/js/bootstrap.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/global.js" />"></script>
@@ -39,10 +39,18 @@
 			</div>
 			<div class="navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="<c:url value="/user/weibologin" />" ><img
-							src="<c:url value="/images/weibo.png" />" alt="" />&nbsp;微博帐号登录</a></li>
-					<li><a href="<c:url value="/user/qqlogin" />" ><img
-							src="<c:url value="/images/qq.png" />" alt="" />&nbsp;QQ帐号登录</a></li>
+					<c:choose>
+						<c:when test="${currentUser==null}">
+							<li><a href="<c:url value="/user/weibologin" />"><img
+									src="<c:url value="/images/weibo.png" />" alt="" />&nbsp;微博帐号登录</a></li>
+							<li><a href="<c:url value="/user/qqlogin" />"><img
+									src="<c:url value="/images/qq.png" />" alt="" />&nbsp;QQ帐号登录</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><img src="${currentUser.profilephotourl }" /></li>
+							<li><span>${currentUser.nickname}</span></li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -85,11 +93,11 @@
 		<div class="container">
 			<div class="col-md-1 no-padding">站点公告：</div>
 			<div class="col-md-11 marquee no-padding">
-			    <ul>
-                <c:forEach items="${bulletinBoardList}" var="bulletinBoardItem">
-                    <li><a href="" target="_blank">${bulletinBoardItem.summary}</a></li>
-                </c:forEach>
-			    </ul>
+				<ul>
+					<c:forEach items="${bulletinBoardList}" var="bulletinBoardItem">
+						<li><a href="" target="_blank">${bulletinBoardItem.summary}</a></li>
+					</c:forEach>
+				</ul>
 			</div>
 		</div>
 	</div>

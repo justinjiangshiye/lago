@@ -3,6 +3,7 @@ package com.yunding.lago.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,6 +53,18 @@ public class UserController extends BaseController {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 * 
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/user/test", method = RequestMethod.GET)
+	public String test(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		this.userService.queryUserByLoginId("290062669");
+		return "redirect:/";
+	}
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -89,8 +102,8 @@ public class UserController extends BaseController {
 				request.getSession().setAttribute(
 						MyConstants.userLoginIdSessionKey, openID);
 
-				User user = this.userService.queryUserByUserId(openID);
-				
+				User user = this.userService.queryUserByLoginId(openID);
+								
 				// 利用获取到的accessToken,openid 去获取用户在Qzone的昵称等信息
 				UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
 				UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();

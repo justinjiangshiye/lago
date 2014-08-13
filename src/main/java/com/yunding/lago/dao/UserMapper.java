@@ -1,5 +1,7 @@
 package com.yunding.lago.dao;
 
+import java.util.List;
+
 import com.yunding.lago.bean.User;
 
 public interface UserMapper {
@@ -11,7 +13,7 @@ public interface UserMapper {
 
     User selectByPrimaryKey(Integer id);
     
-    User selectByUserId(String loginid);
+    User selectByLoginId(String loginid);
 
     int updateByPrimaryKeySelective(User record);
 

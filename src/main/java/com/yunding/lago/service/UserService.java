@@ -3,6 +3,8 @@
  */
 package com.yunding.lago.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,8 @@ public class UserService {
 		this.userMapper = userMapper;
 	}
 	
-	public User queryUserByUserId(String loginid){
-		return this.userMapper.selectByUserId(loginid);
+	public User queryUserByLoginId(String loginid){
+		return this.userMapper.selectByLoginId(loginid);
 	}
 	
 	public int addUser(User user) {
