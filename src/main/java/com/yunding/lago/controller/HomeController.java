@@ -1,41 +1,30 @@
 package com.yunding.lago.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
-import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.yunding.lago.util.MyConstants;
-import com.yunding.lago.bean.BannerLink;
-import com.yunding.lago.bean.User;
 import com.yunding.lago.service.ArticleService;
 import com.yunding.lago.service.BannerLinkService;
-import com.yunding.lago.service.UserService;
+import com.yunding.lago.util.MyConstants;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController extends BaseController {
-	private UserService userService = null;
 	private ArticleService articleService = null;
 	private BannerLinkService bannerLinkService = null;
 	
 	@Autowired
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-	@Autowired
 	public void setArticleService(ArticleService articleService) {
 		this.articleService = articleService;
 	}
+	
 	@Autowired
 	public void setBannerLinkService(BannerLinkService bannerLinkService) {
 		this.bannerLinkService = bannerLinkService;

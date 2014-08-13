@@ -10,8 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
-import com.yunding.lago.bean.*;
-import com.yunding.lago.service.ArticleService;
+import com.yunding.lago.bean.MenuItem;
 import com.yunding.lago.service.BulletinBoardService;
 import com.yunding.lago.service.FriendLinkService;
 import com.yunding.lago.service.UserService;
@@ -24,7 +23,7 @@ public class BaseController {
 	private FriendLinkService friendLinkService = null;
 	private BulletinBoardService bulletinBoardService = null;
 	private UserService userService = null;
-	private HttpSession session = null;
+	private HttpSession httpSession = null;
 
 	@Autowired
 	public void setFriendLinkService(FriendLinkService friendLinkService) {
@@ -42,16 +41,17 @@ public class BaseController {
 	}
 	
 	@Autowired
-	public void setSession(HttpSession session) {
-		this.session = session;
+	public void setHttpSession(HttpSession httpSession) {
+		this.httpSession = httpSession;
 	}
 
 	protected static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	protected void initialize(Model model, Integer activeMenuItemId) {
 		// Add user profile info
-		if (session.getAttribute(MyConstants.userLoginIdSessionKey) != null) {
-			model.addAttribute("currentUser", this.userService.queryUserByLoginId(session.getAttribute(MyConstants.userLoginIdSessionKey).toString()));
+		if (httpSession.getAttribute(MyConstants.userLoginIdSessionKey) != null) {
+			logger.info(httpSession.getAttribute(MyConstants.userLoginIdSessionKey).toString());
+			model.addAttribute("currentUser", this.userService.queryUserByLoginId(httpSession.getAttribute(MyConstants.userLoginIdSessionKey).toString()));
 		}
 		
 		// Add active menu item

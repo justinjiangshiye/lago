@@ -1,9 +1,7 @@
 package com.yunding.lago.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,12 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.qq.connect.QQConnectException;
 import com.qq.connect.api.OpenID;
-import com.qq.connect.api.qzone.PageFans;
 import com.qq.connect.api.qzone.UserInfo;
 import com.qq.connect.javabeans.AccessToken;
-import com.qq.connect.javabeans.qzone.PageFansBean;
 import com.qq.connect.javabeans.qzone.UserInfoBean;
-import com.qq.connect.javabeans.weibo.Company;
 import com.qq.connect.oauth.Oauth;
 import com.yunding.lago.bean.User;
 import com.yunding.lago.service.UserService;
@@ -52,18 +47,6 @@ public class UserController extends BaseController {
 		} catch (QQConnectException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 * 
-	 * @throws IOException
-	 */
-	@RequestMapping(value = "/user/test", method = RequestMethod.GET)
-	public String test(HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
-		this.userService.queryUserByLoginId("290062669");
-		return "redirect:/";
 	}
 
 	/**
@@ -103,7 +86,7 @@ public class UserController extends BaseController {
 						MyConstants.userLoginIdSessionKey, openID);
 
 				User user = this.userService.queryUserByLoginId(openID);
-								
+				
 				// 利用获取到的accessToken,openid 去获取用户在Qzone的昵称等信息
 				UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
 				UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
