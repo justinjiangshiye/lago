@@ -211,3 +211,32 @@ ul.friendlinks li a {
 	padding-right: 5px;
 	color: grey;
 }
+/* article */
+.article-title {
+	padding-bottom: 5px;
+	border-bottom: 3px solid #ff0000;
+}
+.article-share {
+	border-top: 3px solid #ff0000;
+	padding: 5px 5px 5px 500px;
+}
+.article-share ul {
+    list-style: none;
+    padding-left: 0;
+    height: 40px;
+}
+
+.article-share ul li {
+    float: left;
+    color: grey;
+}
+
+.article-share ul li a {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.article-share ul li span {
+	padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
