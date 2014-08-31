@@ -1,6 +1,7 @@
 package com.yunding.lago.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yunding.lago.bean.ArticleWithBLOBs;
+import com.yunding.lago.bean.CommentWithReply;
 import com.yunding.lago.service.ArticleService;
+import com.yunding.lago.service.CommentService;
 import com.yunding.lago.util.MyConstants;
 
 /**
@@ -21,52 +24,66 @@ import com.yunding.lago.util.MyConstants;
 public class ArticleController extends BaseController {
 
 	private ArticleService articleService = null;
+	private CommentService commentService = null;
 
 	@Autowired
 	public void setArticleService(ArticleService articleService) {
 		this.articleService = articleService;
 	}
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	@Autowired
+	public void setCommentService(CommentService commentService) {
+		this.commentService = commentService;
+	}
+
 	@RequestMapping(value = "/category/{articleCategorySlugsUrl}", method = RequestMethod.GET)
 	public String articlesByCatetorySlugsUrl(Locale locale, Model model,
 			@PathVariable String articleCategorySlugsUrl) {
 		logger.info("The client locale is  {}, articleCategory is {}.", locale,
 				articleCategorySlugsUrl);
-		initialize(model, MyConstants.getMenuItemIdFromSlugsUrl(articleCategorySlugsUrl));
-		
-		model.addAttribute("articleList",
-				this.articleService.queryArticlesByCategorySlugsUrl(articleCategorySlugsUrl));
+		initialize(model,
+				MyConstants.getMenuItemIdFromSlugsUrl(articleCategorySlugsUrl));
+
+		model.addAttribute("articleList", this.articleService
+				.queryArticlesByCategorySlugsUrl(articleCategorySlugsUrl));
 
 		return "articlesByCategory";
 	}
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/article/{slugsUrl}", method = RequestMethod.GET)
 	public String articleBySlugsUrl(Locale locale, Model model,
 			@PathVariable String slugsUrl) {
 		logger.info("The client locale is  {}, articleCategory is {}.", locale,
 				slugsUrl);
-		
-		ArticleWithBLOBs article = this.articleService.queryArticleBySlugsUrl(slugsUrl);
+
+		// Get article with blobs
+		ArticleWithBLOBs article = this.articleService
+				.queryArticleBySlugsUrl(slugsUrl);
 		Integer activeMenuItemId = MyConstants.menuItemHomeId;
 		if (article != null) {
-			activeMenuItemId = MyConstants.getMenuItemIdFromCategoryName(article.getCategory());
+			activeMenuItemId = MyConstants
+					.getMenuItemIdFromCategoryName(article.getCategory());
 		}
 		initialize(model, activeMenuItemId);
-		
+
 		model.addAttribute("article", article);
 
+		// Get article comments
+		if (article != null) {
+			List<CommentWithReply> list = this.commentService
+					.queryCommentWithReplyByArticleId(article.getId());
+			if (list.size() > 0) {
+				model.addAttribute("hasComments", true);
+				model.addAttribute("commentList", list);
+			} else {
+				model.addAttribute("hasComments", false);
+			}
+		} else {
+			model.addAttribute("hasComments", false);
+		}
 		return "article";
 	}
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/admin/articles", method = RequestMethod.GET)
 	public String adminArticleList(Locale locale, Model model) {
 		logger.info("The client locale is {}.", locale);
@@ -77,9 +94,6 @@ public class ArticleController extends BaseController {
 		return "admin/articles";
 	}
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/admin/articleAdd", method = RequestMethod.GET)
 	public String adminArticleAdd(Locale locale, Model model) {
 		logger.info("The client locale is {}.", locale);
@@ -89,9 +103,6 @@ public class ArticleController extends BaseController {
 		return "admin/articleAdd";
 	}
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/admin/articleEdit/{articleId}", method = RequestMethod.GET)
 	public String adminArticleEdit(Locale locale, Model model,
 			@PathVariable Integer articleId) {
@@ -119,9 +130,6 @@ public class ArticleController extends BaseController {
 		return "admin/articleEdit";
 	}
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/admin/articleSave", method = RequestMethod.POST)
 	public String adminArticleSave(Locale locale, Model model,
 			ArticleWithBLOBs articleWithBLOBs) {
@@ -151,16 +159,21 @@ public class ArticleController extends BaseController {
 			articleWithBLOBs.setCreatedon(now);
 			this.articleService.addArticle(articleWithBLOBs);
 		} else {
-			ArticleWithBLOBs articleWithBLOBsDB = this.articleService.queryArticleById(articleWithBLOBs.getId());
+			ArticleWithBLOBs articleWithBLOBsDB = this.articleService
+					.queryArticleById(articleWithBLOBs.getId());
 			articleWithBLOBsDB.setCategory(articleWithBLOBs.getCategory());
 			articleWithBLOBsDB.setTitle(articleWithBLOBs.getTitle());
 			articleWithBLOBsDB.setSlugsurl(articleWithBLOBs.getSlugsurl());
-			articleWithBLOBsDB.setAbstractcontent(articleWithBLOBs.getAbstractcontent());
+			articleWithBLOBsDB.setAbstractcontent(articleWithBLOBs
+					.getAbstractcontent());
 			articleWithBLOBsDB.setBannerurl(articleWithBLOBs.getBannerurl());
-			articleWithBLOBsDB.setIsdisplayonhome(articleWithBLOBs.getIsdisplayonhome());
+			articleWithBLOBsDB.setIsdisplayonhome(articleWithBLOBs
+					.getIsdisplayonhome());
 			articleWithBLOBsDB.setIslocktop(articleWithBLOBs.getIslocktop());
-			articleWithBLOBsDB.setIspublished(articleWithBLOBs.getIspublished());
-			articleWithBLOBsDB.setPublishdate(articleWithBLOBs.getPublishdate());
+			articleWithBLOBsDB
+					.setIspublished(articleWithBLOBs.getIspublished());
+			articleWithBLOBsDB
+					.setPublishdate(articleWithBLOBs.getPublishdate());
 			articleWithBLOBsDB.setKeywords(articleWithBLOBs.getKeywords());
 			articleWithBLOBsDB.setContent(articleWithBLOBs.getContent());
 			this.articleService.updateArticle(articleWithBLOBsDB);
@@ -168,19 +181,16 @@ public class ArticleController extends BaseController {
 
 		return "redirect:/admin/articles";
 	}
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+
 	@RequestMapping(value = "/admin/articleDelete/{articleId}", method = RequestMethod.GET)
 	public String adminArticleDelete(Locale locale, Model model,
 			@PathVariable Integer articleId) {
 		logger.info("The client locale is {}.", locale);
-		
+
 		logger.info("Article Id is {}", articleId);
 
 		ArticleWithBLOBs articleWithBLOBs = this.articleService
-				.queryArticleById(articleId);		
+				.queryArticleById(articleId);
 		articleWithBLOBs.setRecordstatus(2);
 		this.articleService.updateArticle(articleWithBLOBs);
 

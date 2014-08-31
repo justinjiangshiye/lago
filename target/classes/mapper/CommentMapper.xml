@@ -25,7 +25,16 @@
     ,
     <include refid="Blob_Column_List" />
     from Comment
-    where Id = #{id,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER} and RecordStatus = 0
+  </select>
+  <select id="selectByArticleId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from Comment
+    where ArticleId = #{articleId,jdbcType=INTEGER} and RecordStatus = 0
+    order by CreatedOn
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from Comment

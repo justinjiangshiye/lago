@@ -1,5 +1,7 @@
 package com.yunding.lago.dao;
 
+import java.util.List;
+
 import com.yunding.lago.bean.Comment;
 
 public interface CommentMapper {
@@ -10,6 +12,8 @@ public interface CommentMapper {
     int insertSelective(Comment record);
 
     Comment selectByPrimaryKey(Integer id);
+    
+    List<Comment> selectByArticleId(Integer articleId);
 
     int updateByPrimaryKeySelective(Comment record);
 

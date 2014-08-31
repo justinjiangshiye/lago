@@ -24,7 +24,23 @@
     ,
     <include refid="Blob_Column_List" />
     from ReplyToComment
-    where Id = #{id,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER} and RecordStatus = 0
+  </select>
+  <select id="selectByCommentId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ReplyToComment
+    where CommentId = #{commentId,jdbcType=INTEGER} and RecordStatus = 0
+    order by CreatedOn
+  </select>
+  <select id="selectByArticleId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select rtc.Id,rtc.CommentId,rtc.UserId, rtc.NickName,rtc.CreatedOn,rtc.RecordStatus,rtc.Content
+    from ReplyToComment rtc
+    inner join Comment c on rtc.CommentId = c.Id
+    where c.ArticleId = #{articleId, jdbcType=INTEGER} and rtc.RecordStatus = 0 and c.RecordStatus = 0
+    order by rtc.CreatedOn
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from ReplyToComment

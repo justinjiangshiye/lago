@@ -33,6 +33,54 @@
 			  <button type="submit" class="btn btn-default">Submit</button>
 			</form>
 		</div>
+		<div>
+		    <c:if test="${hasComments==true}">
+		    <ul>
+		        <c:forEach items="${commentList}" var="comment">
+		        <li>
+		            <div class="col-xs-2">
+		               <img src="<c:url value="/images/default-user-photo.gif" />" />
+		            </div>
+                    <div class="col-xs-10">
+                       <div class="row">
+                          ${comment.nickname}<span><fmt:formatDate value="${comment.createdon}" type="date" pattern="yyyy-MM-dd" /></span>
+                       </div>
+                       <div class="row">
+                          ${comment.content}
+                       </div>
+                       <div class="row">
+                          <a href="#">回复</a>
+                       </div>
+                       <c:if test="${comment.replyToCommentList.size() > 0}">
+                           <div class="row">
+                               <ul>
+                                   <c:forEach items="${comment.replyToCommentList}" var="reply">
+                                   <li>
+                                      <div class="col-xs-2">
+					                      <img src="<c:url value="/images/default-user-photo.gif" />" />
+					                  </div>
+					                  <div class="col-xs-10">
+					                      <div class="row">
+					                         ${reply.nickname}<span><fmt:formatDate value="${reply.createdon}" type="date" pattern="yyyy-MM-dd" /></span>
+					                      </div>
+					                      <div class="row">
+					                         ${reply.content}
+					                      </div>
+					                  </div>
+                                   </li>                                   
+                                   </c:forEach>
+                               </ul>
+                           </div>
+                       </c:if>
+                    </div>
+		        </li>
+		        </c:forEach>
+		    </ul>
+		    </c:if>
+		    <c:if test="${hasComments==false}">
+		        暂无任何评论！
+		    </c:if>
+		</div>
 	</div>
 	<%@ include file="template/right.jsp"%>
 </div>
