@@ -40,6 +40,10 @@ public class BaseController {
 		this.userService = userService;
 	}
 	
+	public UserService getUserService() {
+		return this.userService;
+	}
+	
 	@Autowired
 	public void setHttpSession(HttpSession httpSession) {
 		this.httpSession = httpSession;
@@ -70,5 +74,14 @@ public class BaseController {
 		
 		// Add friend links
 		model.addAttribute("friendLinkList", this.friendLinkService.queryAllFriendLinks());
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected void addMessage(String msg) {
+		if (httpSession.getAttribute(MyConstants.messageListSessionKey) == null) {
+			httpSession.setAttribute(MyConstants.messageListSessionKey, new ArrayList<String>()); 
+		}
+		List<String> list = (ArrayList<String>)httpSession.getAttribute(MyConstants.messageListSessionKey);
+		list.add(msg);
 	}
 }

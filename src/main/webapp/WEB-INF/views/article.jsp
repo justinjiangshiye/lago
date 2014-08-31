@@ -21,14 +21,18 @@
 		    </ul>
 		</div>
 		<div>
-			<form role="form">
+			<form action="<c:url value="/commentSave" />" method="post" role="form">
 			  <div class="form-group">
 			    <label for="inputNickName">昵称</label>
-			    <input type="text" class="form-control" id="inputNickName" placeholder="请输入昵称">
+			    <input type="text" class="form-control" id="inputNickName" name="nickname" placeholder="请输入昵称">
+			    <c:if test="${currentUser==null}">
+			        <input type="hidden" name="userid" value="${currentUser.id}" />
+			    </c:if>
+			    <input type="hidden" name="articleid" value="${article.id}" />
 			  </div>
 			  <div class="form-group">
 			    <label for="inputComments">评论</label>
-			    <textarea class="form-control" rows="3" id="inputComments"></textarea>
+			    <textarea class="form-control" rows="3" id="inputComments" name="content"></textarea>
 			  </div>
 			  <button type="submit" class="btn btn-default">Submit</button>
 			</form>
@@ -38,10 +42,10 @@
 		    <ul>
 		        <c:forEach items="${commentList}" var="comment">
 		        <li>
-		            <div class="col-xs-2">
+		            <div class="col-xs-1">
 		               <img src="<c:url value="/images/default-user-photo.gif" />" />
 		            </div>
-                    <div class="col-xs-10">
+                    <div class="col-xs-11">
                        <div class="row">
                           ${comment.nickname}<span><fmt:formatDate value="${comment.createdon}" type="date" pattern="yyyy-MM-dd" /></span>
                        </div>
@@ -56,10 +60,10 @@
                                <ul>
                                    <c:forEach items="${comment.replyToCommentList}" var="reply">
                                    <li>
-                                      <div class="col-xs-2">
+                                      <div class="col-xs-1">
 					                      <img src="<c:url value="/images/default-user-photo.gif" />" />
 					                  </div>
-					                  <div class="col-xs-10">
+					                  <div class="col-xs-11">
 					                      <div class="row">
 					                         ${reply.nickname}<span><fmt:formatDate value="${reply.createdon}" type="date" pattern="yyyy-MM-dd" /></span>
 					                      </div>

@@ -2,6 +2,7 @@ package com.yunding.lago.controller;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.yunding.lago.bean.Article;
 import com.yunding.lago.bean.ArticleWithBLOBs;
+import com.yunding.lago.bean.Comment;
+import com.yunding.lago.bean.User;
 import com.yunding.lago.service.ArticleService;
 import com.yunding.lago.service.CommentService;
+import com.yunding.lago.service.UserService;
 import com.yunding.lago.util.MyConstants;
 
 /**
@@ -23,7 +28,7 @@ public class CommentController extends BaseController {
 
 	private ArticleService articleService = null;
 	private CommentService commentService = null;
-
+	
 	@Autowired
 	public void setArticleService(ArticleService articleService) {
 		this.articleService = articleService;
@@ -34,65 +39,59 @@ public class CommentController extends BaseController {
 		this.commentService = commentService;
 	}
 
-	@RequestMapping(value = "/article/commentSave", method = RequestMethod.POST)
+	@RequestMapping(value = "/commentSave", method = RequestMethod.POST)
 	public String adminArticleSave(Locale locale, Model model,
-			ArticleWithBLOBs articleWithBLOBs) {
+			Comment comment) {
 		logger.info("The client locale is {}.", locale);
-		logger.info("Article Id is {}", articleWithBLOBs.getId());
-		logger.info("Article Category is {}.", articleWithBLOBs.getCategory());
-		logger.info("Article Title is {}.", articleWithBLOBs.getTitle());
-		logger.info("Article SlugsUrl is {}.", articleWithBLOBs.getSlugsurl());
-		logger.info("Article AbstractContent is {}.",
-				articleWithBLOBs.getAbstractcontent());
-		logger.info("Article BannerUrl is {}.", articleWithBLOBs.getBannerurl());
-		logger.info("Article IsDisplayOnHome is {}.",
-				articleWithBLOBs.getIsdisplayonhome());
-		logger.info("Article IsLockTop is {}.", articleWithBLOBs.getIslocktop());
-		logger.info("Article IsPublished is {}.",
-				articleWithBLOBs.getIspublished());
-		logger.info("Article Keywords is {}.", articleWithBLOBs.getKeywords());
-		logger.info("Article Content is {}.", articleWithBLOBs.getContent());
+		logger.info("Comment Id is {}.", comment.getId());
+		logger.info("Comment UserId is {}.", comment.getUserid());
+		logger.info("Comment ArticleId is {}.", comment.getArticleid());
+		logger.info("Comment Content is {}.", comment.getContent());
 
+		if (comment.getUserid() == null) {
+			String userLoginId = UUID.randomUUID().toString();
+			User anonymousUser = new User();
+			anonymousUser.setType(MyConstants.anonymousUser);
+			anonymousUser.setLoginid(userLoginId);
+			anonymousUser.setNickname(comment.getNickname());
+			anonymousUser.setProfilephotourl("/images/default-user-photo.gif");
+			anonymousUser.setLastvisiton(new Date());
+			anonymousUser.setCreatedon(new Date());
+			anonymousUser.setRegisteron(anonymousUser.getCreatedon());
+			anonymousUser.setRecordstatus(0);
+			this.getUserService().addUser(anonymousUser);
+			anonymousUser = this.getUserService().queryUserByLoginId(userLoginId);
+			comment.setUserid(anonymousUser.getId());
+		}
+		
 		Date now = new Date();
-		if (articleWithBLOBs.getIspublished()) {
-			articleWithBLOBs.setPublishdate(now);
-		}
-		articleWithBLOBs.setRecordstatus(0);
+		// TODO: calculate floor no
+		comment.setFloorno(0);
+		comment.setCreatedon(now);
+		comment.setRecordstatus(0);
+		commentService.addComment(comment);
 
-		if (articleWithBLOBs.getId() == null) {
-			articleWithBLOBs.setCreatedon(now);
-			this.articleService.addArticle(articleWithBLOBs);
-		} else {
-			ArticleWithBLOBs articleWithBLOBsDB = this.articleService.queryArticleById(articleWithBLOBs.getId());
-			articleWithBLOBsDB.setCategory(articleWithBLOBs.getCategory());
-			articleWithBLOBsDB.setTitle(articleWithBLOBs.getTitle());
-			articleWithBLOBsDB.setSlugsurl(articleWithBLOBs.getSlugsurl());
-			articleWithBLOBsDB.setAbstractcontent(articleWithBLOBs.getAbstractcontent());
-			articleWithBLOBsDB.setBannerurl(articleWithBLOBs.getBannerurl());
-			articleWithBLOBsDB.setIsdisplayonhome(articleWithBLOBs.getIsdisplayonhome());
-			articleWithBLOBsDB.setIslocktop(articleWithBLOBs.getIslocktop());
-			articleWithBLOBsDB.setIspublished(articleWithBLOBs.getIspublished());
-			articleWithBLOBsDB.setPublishdate(articleWithBLOBs.getPublishdate());
-			articleWithBLOBsDB.setKeywords(articleWithBLOBs.getKeywords());
-			articleWithBLOBsDB.setContent(articleWithBLOBs.getContent());
-			this.articleService.updateArticle(articleWithBLOBsDB);
-		}
-
-		return "redirect:/admin/articles";
+		this.addMessage("添加评论成功！");
+		
+		Article article = this.articleService.queryArticleById(comment.getArticleid());
+		return "redirect:/article/" + article.getSlugsurl();
 	}
 	
-	@RequestMapping(value = "/article/commentDelete/{commentId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/commentDelete/{commentId}", method = RequestMethod.GET)
 	public String adminArticleDelete(Locale locale, Model model,
-			@PathVariable Integer articleId) {
+			@PathVariable Integer commentId) {
 		logger.info("The client locale is {}.", locale);
 		
-		logger.info("Article Id is {}", articleId);
+		logger.info("Comment Id is {}", commentId);
 
-		ArticleWithBLOBs articleWithBLOBs = this.articleService
-				.queryArticleById(articleId);		
-		articleWithBLOBs.setRecordstatus(2);
-		this.articleService.updateArticle(articleWithBLOBs);
+		Comment comment = this.commentService
+				.queryCommentById(commentId);		
+		comment.setRecordstatus(2);
+		this.commentService.updateComment(comment);
 
-		return "redirect:/admin/articles";
+		this.addMessage("删除评论成功！");
+		
+		Article article = this.articleService.queryArticleById(comment.getArticleid());
+		return "redirect:/article/" + article.getSlugsurl();
 	}
 }

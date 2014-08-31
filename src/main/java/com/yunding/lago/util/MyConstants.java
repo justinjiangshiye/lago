@@ -12,6 +12,7 @@ public class MyConstants {
 	public static String accessTokenSessionKey = "accessToken";
 	public static String accessTokenExpiredInSessionKey = "tgtexpiredin";
 	public static String userLoginIdSessionKey = "loginId";
+	public static String messageListSessionKey = "messageList";
 	
 	// Add menu item related id
 	public static Integer menuItemHomeId = 1;

@@ -47,11 +47,11 @@
 		where Id = #{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="com.yunding.lago.bean.User">
-		insert into User (Id, Type, LoginId,
+		insert into User (Type, LoginId,
 		NickName, Password, RegisterOn,
 		LastVisitOn, CreatedOn, RecordStatus,
 		ProfilePhotoUrl)
-		values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER},
+		values (#{type,jdbcType=INTEGER},
 		#{loginid,jdbcType=VARCHAR},
 		#{nickname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{registeron,jdbcType=TIMESTAMP},
 		#{lastvisiton,jdbcType=TIMESTAMP}, #{createdon,jdbcType=TIMESTAMP},
