@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import weibo4j.model.WeiboException;
+import weibo4j.org.json.JSONException;
+
 import com.qq.connect.QQConnectException;
 import com.qq.connect.api.OpenID;
 import com.qq.connect.api.qzone.UserInfo;
@@ -86,7 +89,7 @@ public class UserController extends BaseController {
 						MyConstants.userLoginIdSessionKey, openID);
 
 				User user = this.userService.queryUserByLoginId(openID);
-				
+
 				// 利用获取到的accessToken,openid 去获取用户在Qzone的昵称等信息
 				UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
 				UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
@@ -107,7 +110,7 @@ public class UserController extends BaseController {
 					logger.info("<image src="
 							+ userInfoBean.getAvatar().getAvatarURL100()
 							+ "/><br/>");
-					
+
 					if (user == null) {
 						user = new User();
 						user.setType(MyConstants.qqUser);
@@ -122,7 +125,8 @@ public class UserController extends BaseController {
 						this.userService.addUser(user);
 					} else {
 						user.setNickname(userInfoBean.getNickname());
-						user.setProfilephotourl(userInfoBean.getAvatar().getAvatarURL30());
+						user.setProfilephotourl(userInfoBean.getAvatar()
+								.getAvatarURL30());
 						user.setLastvisiton(new Date());
 						this.userService.updateUser(user);
 					}
@@ -187,6 +191,71 @@ public class UserController extends BaseController {
 				 */
 			}
 		} catch (QQConnectException e) {
+		}
+		return "redirect:/";
+	}
+
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 * 
+	 */
+	@RequestMapping(value = "/user/weibologin", method = RequestMethod.GET)
+	public void weibologin(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, WeiboException {
+		response.setContentType("text/html;charset=utf-8");
+		try {
+			response.sendRedirect(new weibo4j.Oauth().authorize("code"));
+		} catch (WeiboException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 * @throws JSONException 
+	 * 
+	 */
+	@RequestMapping(value = "/user/afterweibologin", method = RequestMethod.GET)
+	public String afterweibologin(HttpServletRequest request,
+			HttpServletResponse response) throws WeiboException, JSONException {
+		try {
+			weibo4j.Oauth oauth = new weibo4j.Oauth();
+			weibo4j.http.AccessToken accessTokenObj = oauth
+					.getAccessTokenByCode(request.getParameter("code"));
+			String accessToken = accessTokenObj.getAccessToken();
+			weibo4j.Account account = new weibo4j.Account(accessToken);
+			weibo4j.org.json.JSONObject uidJson = account.getUid();
+			String uid = uidJson.getString("uid");
+
+			weibo4j.Users users = new weibo4j.Users(accessToken);
+			weibo4j.model.User weiboUser = users.showUserById(uid);
+
+			logger.info("欢迎你，代号为 " + uid + " 的用户!");
+			request.getSession().setAttribute(
+					MyConstants.userLoginIdSessionKey, uid);
+
+			User user = this.userService.queryUserByLoginId(uid);
+			if (weiboUser != null) {
+				if (user == null) {
+					user = new User();
+					user.setType(MyConstants.weiboUser);
+					user.setLoginid(uid);
+					user.setNickname(weiboUser.getScreenName());
+					user.setProfilephotourl(weiboUser.getProfileImageUrl());
+					user.setLastvisiton(new Date());
+					user.setCreatedon(new Date());
+					user.setRegisteron(user.getCreatedon());
+					user.setRecordstatus(0);
+					this.userService.addUser(user);
+				} else {
+					user.setNickname(weiboUser.getScreenName());
+					user.setProfilephotourl(weiboUser.getProfileImageUrl());
+					user.setLastvisiton(new Date());
+					this.userService.updateUser(user);
+				}
+			}
+		} catch (WeiboException e) {
+			e.printStackTrace();
 		}
 		return "redirect:/";
 	}

@@ -7,11 +7,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
+<meta name="description" content="51拉钩-轻松培养孩子良好的行为习惯">
+<meta name="author" content="云顶畅游">
 <link rel="icon" href="<c:url value="/images/icon.png" />">
 
-<title>51Lago</title>
+<title>51拉钩-轻松培养孩子良好的行为习惯</title>
 
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <link href="<c:url value="/css/bootstrap-theme.min.css" />"
