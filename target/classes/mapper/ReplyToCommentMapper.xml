@@ -11,12 +11,14 @@
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.yunding.lago.bean.ReplyToComment" extends="BaseResultMap" >
     <result column="Content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="ProfilePhotoUrl" property="profilephotourl"
+            jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     Id, CommentId, UserId, NickName, CreatedOn, RecordStatus
   </sql>
   <sql id="Blob_Column_List" >
-    Content
+    Content, ProfilePhotoUrl
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
@@ -36,7 +38,7 @@
     order by CreatedOn
   </select>
   <select id="selectByArticleId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select rtc.Id,rtc.CommentId,rtc.UserId, rtc.NickName,rtc.CreatedOn,rtc.RecordStatus,rtc.Content
+    select rtc.Id,rtc.CommentId,rtc.UserId, rtc.NickName, rtc.ProfilePhotoUrl, rtc.CreatedOn,rtc.RecordStatus,rtc.Content
     from ReplyToComment rtc
     inner join Comment c on rtc.CommentId = c.Id
     where c.ArticleId = #{articleId, jdbcType=INTEGER} and rtc.RecordStatus = 0 and c.RecordStatus = 0
@@ -48,10 +50,10 @@
   </delete>
   <insert id="insert" parameterType="com.yunding.lago.bean.ReplyToComment" >
     insert into ReplyToComment (Id, CommentId, UserId, 
-      NickName, CreatedOn, RecordStatus, 
+      NickName, ProfilePhotoUrl, CreatedOn, RecordStatus, 
       Content)
     values (#{id,jdbcType=INTEGER}, #{commentid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
-      #{nickname,jdbcType=VARCHAR}, #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER}, 
+      #{nickname,jdbcType=VARCHAR}, #{profilephotourl,jdbcType=LONGVARCHAR}, #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yunding.lago.bean.ReplyToComment" >
@@ -68,6 +70,9 @@
       </if>
       <if test="nickname != null" >
         NickName,
+      </if>
+      <if test="profilephotourl != null" >
+        ProfilePhotoUrl,
       </if>
       <if test="createdon != null" >
         CreatedOn,
@@ -92,6 +97,9 @@
       <if test="nickname != null" >
         #{nickname,jdbcType=VARCHAR},
       </if>
+      <if test="profilephotourl != null" >
+        #{profilephotourl,jdbcType=LONGVARCHAR},
+      </if>
       <if test="createdon != null" >
         #{createdon,jdbcType=TIMESTAMP},
       </if>
@@ -115,6 +123,9 @@
       <if test="nickname != null" >
         NickName = #{nickname,jdbcType=VARCHAR},
       </if>
+      <if test="profilephotourl != null" >
+        ProfilePhotoUrl = #{profilephotourl,jdbcType=LONGVARCHAR},
+      </if>
       <if test="createdon != null" >
         CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       </if>
@@ -132,6 +143,7 @@
     set CommentId = #{commentid,jdbcType=INTEGER},
       UserId = #{userid,jdbcType=INTEGER},
       NickName = #{nickname,jdbcType=VARCHAR},
+      ProfilePhotoUrl = #{profilephotourl,jdbcType=LONGVARCHAR},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       RecordStatus = #{recordstatus,jdbcType=INTEGER},
       Content = #{content,jdbcType=LONGVARCHAR}
@@ -142,6 +154,7 @@
     set CommentId = #{commentid,jdbcType=INTEGER},
       UserId = #{userid,jdbcType=INTEGER},
       NickName = #{nickname,jdbcType=VARCHAR},
+      ProfilePhotoUrl = #{profilephotourl,jdbcType=LONGVARCHAR},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       RecordStatus = #{recordstatus,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}

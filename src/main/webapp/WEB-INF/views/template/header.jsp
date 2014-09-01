@@ -73,9 +73,9 @@
 				<li <c:if test="${activeMenuItemId==1}"> class="active"</c:if>><a
 					href="<c:url value="/" />">首页</a></li>
 				<li <c:if test="${activeMenuItemId==2}"> class="active"</c:if>><a
-					href="#">51拉钩</a></li>
+					href="<c:url value="/51lago" />">51拉钩</a></li>
 				<li <c:if test="${activeMenuItemId==3}"> class="active"</c:if>><a
-					href="#">51听听</a></li>
+					href="<c:url value="/51tingting" />">51听听</a></li>
 				<li <c:if test="${activeMenuItemId==4}"> class="active"</c:if>><a
 					href="<c:url value="/category/parent-school" />">父母学堂</a></li>
 				<li <c:if test="${activeMenuItemId==5}"> class="active"</c:if>><a

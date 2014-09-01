@@ -64,6 +64,7 @@ public class CommentController extends BaseController {
 			this.getUserService().addUser(anonymousUser);
 			anonymousUser = this.getUserService().queryUserByLoginId(userLoginId);
 			comment.setUserid(anonymousUser.getId());
+			comment.setProfilephotourl(anonymousUser.getProfilephotourl());
 		}
 		
 		Date now = new Date();
@@ -121,6 +122,7 @@ public class CommentController extends BaseController {
 			this.getUserService().addUser(anonymousUser);
 			anonymousUser = this.getUserService().queryUserByLoginId(userLoginId);
 			replyToComment.setUserid(anonymousUser.getId());
+			replyToComment.setProfilephotourl(anonymousUser.getProfilephotourl());
 		}
 		
 		Date now = new Date();

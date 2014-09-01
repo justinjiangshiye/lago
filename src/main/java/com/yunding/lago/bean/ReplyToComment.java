@@ -12,6 +12,8 @@ public class ReplyToComment {
     private Integer userid;
 
     private String nickname;
+    
+    private String profilephotourl;
 
     private Date createdon;
 
@@ -82,4 +84,12 @@ public class ReplyToComment {
 	public void setArticleid(Integer articleid) {
 		this.articleid = articleid;
 	}
+
+    public String getProfilephotourl() {
+        return profilephotourl;
+    }
+
+    public void setProfilephotourl(String profilephotourl) {
+        this.profilephotourl = profilephotourl;
+    }
 }

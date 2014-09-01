@@ -12,6 +12,8 @@ public class Comment {
     private Integer userid;
 
     private String nickname;
+    
+    private String profilephotourl;
 
     private Date createdon;
 
@@ -81,5 +83,13 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getProfilephotourl() {
+        return profilephotourl;
+    }
+
+    public void setProfilephotourl(String profilephotourl) {
+        this.profilephotourl = profilephotourl;
     }
 }

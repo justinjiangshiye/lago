@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yunding.lago.dao.StaticPageMapper" >
+  <resultMap id="BaseResultMap" type="com.yunding.lago.bean.StaticPage" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="Category" property="category" jdbcType="VARCHAR" />
+    <result column="CreatedOn" property="createdon" jdbcType="TIMESTAMP" />
+    <result column="RecordStatus" property="recordstatus" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yunding.lago.bean.StaticPage" extends="BaseResultMap" >
+    <result column="Content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, Category, CreatedOn, RecordStatus
+  </sql>
+  <sql id="Blob_Column_List" >
+    Content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from StaticPage
+    where Id = #{id,jdbcType=INTEGER} and RecordStatus = 0
+  </select>
+  <select id="selectAllStaticPage" resultMap="ResultMapWithBLOBs" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from StaticPage
+    where RecordStatus = 0
+  </select>
+  <select id="selectByCategory" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from StaticPage
+    where RecordStatus = 0 and Category = #{category,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from StaticPage
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yunding.lago.bean.StaticPage" >
+    insert into StaticPage (Id, Category, CreatedOn, 
+      RecordStatus, Content)
+    values (#{id,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{createdon,jdbcType=TIMESTAMP}, 
+      #{recordstatus,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yunding.lago.bean.StaticPage" >
+    insert into StaticPage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="category != null" >
+        Category,
+      </if>
+      <if test="createdon != null" >
+        CreatedOn,
+      </if>
+      <if test="recordstatus != null" >
+        RecordStatus,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="createdon != null" >
+        #{createdon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordstatus != null" >
+        #{recordstatus,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yunding.lago.bean.StaticPage" >
+    update StaticPage
+    <set >
+      <if test="category != null" >
+        Category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="createdon != null" >
+        CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordstatus != null" >
+        RecordStatus = #{recordstatus,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yunding.lago.bean.StaticPage" >
+    update StaticPage
+    set Category = #{category,jdbcType=VARCHAR},
+      CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      RecordStatus = #{recordstatus,jdbcType=INTEGER},
+      Content = #{content,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.StaticPage" >
+    update StaticPage
+    set Category = #{category,jdbcType=VARCHAR},
+      CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      RecordStatus = #{recordstatus,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -12,12 +12,14 @@
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.yunding.lago.bean.Comment" extends="BaseResultMap" >
     <result column="Content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="ProfilePhotoUrl" property="profilephotourl"
+            jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     Id, ArticleId, FloorNo, UserId, NickName, CreatedOn, RecordStatus
   </sql>
   <sql id="Blob_Column_List" >
-    Content
+    Content, ProfilePhotoUrl
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
@@ -42,10 +44,10 @@
   </delete>
   <insert id="insert" parameterType="com.yunding.lago.bean.Comment" >
     insert into Comment (Id, ArticleId, FloorNo, 
-      UserId, NickName, CreatedOn, 
+      UserId, NickName, ProfilePhotoUrl, CreatedOn, 
       RecordStatus, Content)
     values (#{id,jdbcType=INTEGER}, #{articleid,jdbcType=INTEGER}, #{floorno,jdbcType=INTEGER}, 
-      #{userid,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{createdon,jdbcType=TIMESTAMP}, 
+      #{userid,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{profilephotourl,jdbcType=LONGVARCHAR}, #{createdon,jdbcType=TIMESTAMP}, 
       #{recordstatus,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yunding.lago.bean.Comment" >
@@ -65,6 +67,9 @@
       </if>
       <if test="nickname != null" >
         NickName,
+      </if>
+      <if test="profilephotourl != null" >
+        ProfilePhotoUrl,
       </if>
       <if test="createdon != null" >
         CreatedOn,
@@ -92,6 +97,9 @@
       <if test="nickname != null" >
         #{nickname,jdbcType=VARCHAR},
       </if>
+      <if test="profilephotourl != null" >
+        #{profilephotourl,jdbcType=LONGVARCHAR},
+      </if>
       <if test="createdon != null" >
         #{createdon,jdbcType=TIMESTAMP},
       </if>
@@ -118,6 +126,9 @@
       <if test="nickname != null" >
         NickName = #{nickname,jdbcType=VARCHAR},
       </if>
+      <if test="profilephotourl != null" >
+        ProfilePhotoUrl = #{profilephotourl,jdbcType=LONGVARCHAR},
+      </if>
       <if test="createdon != null" >
         CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       </if>
@@ -136,6 +147,7 @@
       FloorNo = #{floorno,jdbcType=INTEGER},
       UserId = #{userid,jdbcType=INTEGER},
       NickName = #{nickname,jdbcType=VARCHAR},
+      ProfilePhotoUrl = #{profilephotourl,jdbcType=LONGVARCHAR},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       RecordStatus = #{recordstatus,jdbcType=INTEGER},
       Content = #{content,jdbcType=LONGVARCHAR}
@@ -147,6 +159,7 @@
       FloorNo = #{floorno,jdbcType=INTEGER},
       UserId = #{userid,jdbcType=INTEGER},
       NickName = #{nickname,jdbcType=VARCHAR},
+      ProfilePhotoUrl = #{profilephotourl,jdbcType=LONGVARCHAR},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       RecordStatus = #{recordstatus,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}

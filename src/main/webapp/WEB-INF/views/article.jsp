@@ -32,6 +32,7 @@
 					<c:if test="${currentUser!=null}">
 						<input type="hidden" name="userid" value="${currentUser.id}" />
 						<input type="hidden" name="nickname" value="${currentUser.nickname}" />
+						<input type="hidden" name="profilephotourl" value="${currentUser.profilephotourl}" />
 						<img src="${currentUser.profilephotourl}" />
 						<span>${currentUser.nickname}</span>
 					</c:if>
@@ -76,6 +77,7 @@
 											<c:if test="${currentUser!=null}">
 												<input type="hidden" name="userid" value="${currentUser.id}" />
 												<input type="hidden" name="nickname" value="${currentUser.nickname}" />
+												<input type="hidden" name="profilephotourl" value="${currentUser.profilephotourl}" />
 												<img src="${currentUser.profilephotourl}" />
 												<span>${currentUser.nickname}</span>
 											</c:if>

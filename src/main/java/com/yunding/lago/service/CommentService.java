@@ -49,6 +49,7 @@ public class CommentService {
 			commentWithReply.setFloorno(commentList.get(i).getFloorno());
 			commentWithReply.setUserid(commentList.get(i).getUserid());
 			commentWithReply.setNickname(commentList.get(i).getNickname());
+			commentWithReply.setProfilephotourl(commentList.get(i).getProfilephotourl());
 			commentWithReply.setCreatedon(commentList.get(i).getCreatedon());
 			commentWithReply.setRecordstatus(commentList.get(i).getRecordstatus());
 			commentWithReply.setContent(commentList.get(i).getContent());

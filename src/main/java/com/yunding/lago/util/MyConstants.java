@@ -16,6 +16,8 @@ public class MyConstants {
 	
 	// Add menu item related id
 	public static Integer menuItemHomeId = 1;
+	public static Integer menuItem51Lago = 2;
+	public static Integer menuItem51TingTing = 3;
 	public static Integer menuItemParentSchoolId =4;
 	public static Integer menuItemGrowUpId = 5;
 	public static Integer menuItemLoveFamilyId = 6;
@@ -41,6 +43,13 @@ public class MyConstants {
 	public static String loveFamilyName = "我爱我家";
 	public static String readingName = "亲子阅读";
 	
+	// Add static page category
+	public static String category51lago = "51lago";
+	public static String category51tingting = "51tingting";
+	public static String categoryAboutUs = "aboutus";
+	public static String categoryLagoSpirit = "lagospirit";
+	public static String categoryUserGuide = "userguide";
+	public static String categoryContactUs = "contactus";
 
 	public static String getNameFromSlugsUrl(String slugsUrl) {
 		if (slugsUrl.equals(parentSchoolSlugsUrl)) {

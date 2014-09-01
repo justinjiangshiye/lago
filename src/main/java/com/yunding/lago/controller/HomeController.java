@@ -51,17 +51,6 @@ public class HomeController extends BaseController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/about", method = RequestMethod.GET)
-	public String about(Locale locale, Model model) {
-		logger.info("Welcome about! The client locale is {}.", locale);
-		initialize(model, MyConstants.menuItemAboutId);
-		
-		return "about";
-	}
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminIndex(Locale locale, Model model) {
 		logger.info("Welcome admin index! The client locale is {}.", locale);
