@@ -47,7 +47,7 @@
 									src="<c:url value="/images/qq.png" />" alt="" />&nbsp;QQ帐号登录</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><img src="${currentUser.profilephotourl}" /></li>
+							<li><img src="${currentUser.profilephotourl}" width="16px" height="16px" /></li>
 							<li><span>${currentUser.nickname}</span></li>
 						</c:otherwise>
 					</c:choose>

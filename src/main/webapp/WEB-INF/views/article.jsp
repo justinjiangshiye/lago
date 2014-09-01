@@ -33,7 +33,7 @@
 						<input type="hidden" name="userid" value="${currentUser.id}" />
 						<input type="hidden" name="nickname" value="${currentUser.nickname}" />
 						<input type="hidden" name="profilephotourl" value="${currentUser.profilephotourl}" />
-						<img src="${currentUser.profilephotourl}" />
+						<img src="${currentUser.profilephotourl}" width="32px" height="32px" />
 						<span>${currentUser.nickname}</span>
 					</c:if>
 					<c:if test="${currentUser==null}">
@@ -58,7 +58,7 @@
 					<c:forEach items="${commentList}" var="comment">
 						<li>
 							<div class="col-xs-1">
-								<img src="<c:url value="/images/default-user-photo.gif" />" />
+								<img src="<c:url value="${comment.profilephotourl}" width="32px" height="32px" />" />
 							</div>
 							<div class="col-xs-11">
 								<div class="row">
@@ -78,7 +78,7 @@
 												<input type="hidden" name="userid" value="${currentUser.id}" />
 												<input type="hidden" name="nickname" value="${currentUser.nickname}" />
 												<input type="hidden" name="profilephotourl" value="${currentUser.profilephotourl}" />
-												<img src="${currentUser.profilephotourl}" />
+												<img src="${currentUser.profilephotourl}" width="32px" height="32px" />
 												<span>${currentUser.nickname}</span>
 											</c:if>
 											<c:if test="${currentUser==null}">
@@ -105,7 +105,7 @@
 												<li>
 													<div class="col-xs-1">
 														<img
-															src="<c:url value="/images/default-user-photo.gif" />" />
+															src="<c:url value="${reply.profilephotourl}" width="32px" height="32px" />" />
 													</div>
 													<div class="col-xs-11">
 														<div class="row">
