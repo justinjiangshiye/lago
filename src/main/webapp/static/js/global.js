@@ -17,4 +17,8 @@ $(function() {
 		interval : 3000
 	});
 	setInterval('marqueeScrollUp(".marquee")', 3000);
+	$(".reply_link").click(function(){
+		var id = $(this).attr("data");
+		$("#"+id).removeClass("hide").addClass("show");
+	});
 });

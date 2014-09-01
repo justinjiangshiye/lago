@@ -6,6 +6,8 @@ public class ReplyToComment {
     private Integer id;
 
     private Integer commentid;
+    
+    private Integer articleid;
 
     private Integer userid;
 
@@ -72,4 +74,12 @@ public class ReplyToComment {
     public void setContent(String content) {
         this.content = content;
     }
+
+	public Integer getArticleid() {
+		return articleid;
+	}
+
+	public void setArticleid(Integer articleid) {
+		this.articleid = articleid;
+	}
 }

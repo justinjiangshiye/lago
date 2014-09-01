@@ -204,7 +204,7 @@ public class UserController extends BaseController {
 			HttpServletResponse response) throws IOException, WeiboException {
 		response.setContentType("text/html;charset=utf-8");
 		try {
-			response.sendRedirect(new weibo4j.Oauth().authorize("code"));
+			response.sendRedirect(new weibo4j.Oauth().authorize("code", "", "all"));
 		} catch (WeiboException e) {
 			e.printStackTrace();
 		}
@@ -219,18 +219,21 @@ public class UserController extends BaseController {
 	public String afterweibologin(HttpServletRequest request,
 			HttpServletResponse response) throws WeiboException, JSONException {
 		try {
+			logger.info("weibo authorization code is {}", request.getParameter("code"));
 			weibo4j.Oauth oauth = new weibo4j.Oauth();
 			weibo4j.http.AccessToken accessTokenObj = oauth
 					.getAccessTokenByCode(request.getParameter("code"));
 			String accessToken = accessTokenObj.getAccessToken();
+			logger.info("weibo access token is {}", accessToken);
+			
 			weibo4j.Account account = new weibo4j.Account(accessToken);
 			weibo4j.org.json.JSONObject uidJson = account.getUid();
 			String uid = uidJson.getString("uid");
+			logger.info("weibo user id is {}", uid);
 
 			weibo4j.Users users = new weibo4j.Users(accessToken);
 			weibo4j.model.User weiboUser = users.showUserById(uid);
-
-			logger.info("欢迎你，代号为 " + uid + " 的用户!");
+			
 			request.getSession().setAttribute(
 					MyConstants.userLoginIdSessionKey, uid);
 

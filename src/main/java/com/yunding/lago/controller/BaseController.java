@@ -48,6 +48,10 @@ public class BaseController {
 	public void setHttpSession(HttpSession httpSession) {
 		this.httpSession = httpSession;
 	}
+	
+	public HttpSession getHttpSession() {
+		return this.httpSession;
+	}
 
 	protected static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	

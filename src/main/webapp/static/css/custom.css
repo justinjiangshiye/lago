@@ -2,6 +2,14 @@
 	text-align: left;
 }
 
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
 .container {
 	max-width: 1170px;
 }

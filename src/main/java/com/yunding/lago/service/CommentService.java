@@ -58,7 +58,7 @@ public class CommentService {
 					replyList.add(replyToCommentList.get(j));
 				}
 			}
-			commentWithReply.setReplyToCommentList(replyToCommentList);
+			commentWithReply.setReplyToCommentList(replyList);
 			list.add(commentWithReply);
 		}
 		return list;
