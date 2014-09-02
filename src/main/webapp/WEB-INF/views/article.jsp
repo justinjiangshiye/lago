@@ -12,20 +12,11 @@
 		</div>
 		<div>${article.content}</div>
 		<div class="article-share">
-			<ul>
-				<li><span>分享到：</span></li>
-				<li><a href="#"><img
-						src="<c:url value="/images/share2weibo.gif" />" />新浪微博</a></li>
-				<li><a href="#"><img
-						src="<c:url value="/images/share2qqspace.gif" />" />QQ空间</a></li>
-				<li><a href="#"><img
-						src="<c:url value="/images/share2qqweibo.gif" />" />QQ微博</a></li>
-				<li><a href="#"><img
-						src="<c:url value="/images/share2weixin.gif" />" />微信</a></li>
-			</ul>
+			<%@ include file="template/shareSNS.jsp"%>
 		</div>
 		<!-- 评论 -->
 		<div>
+		    <!-- 发表评论 -->
 			<form action="<c:url value="/commentSave" />" method="post"
 				role="form">
 				<div class="form-group">
@@ -53,12 +44,13 @@
 			</form>
 		</div>
 		<div>
+		    <!-- 评论列表 -->
 			<c:if test="${hasComments==true}">
 				<ul>
 					<c:forEach items="${commentList}" var="comment">
 						<li>
 							<div class="col-xs-1">
-								<img src="<c:url value="${comment.profilephotourl}" width="32px" height="32px" />" />
+								<img src="<c:url value="${comment.profilephotourl}"/>" width="32px" height="32px" />
 							</div>
 							<div class="col-xs-11">
 								<div class="row">
@@ -71,6 +63,7 @@
 										href="javascript:void(0);">回复</a>
 								</div>
 								<div id="reply_comment_${comment.id}" class="row hide">
+								    <!-- 回复评论 -->
 									<form action="<c:url value="/replyToCommentSave" />"
 										method="post" role="form">
 										<div class="form-group">
@@ -100,12 +93,13 @@
 								</div>
 								<c:if test="${comment.replyToCommentList.size() > 0}">
 									<div class="row">
+									    <!-- 回复评论列表 -->
 										<ul>
 											<c:forEach items="${comment.replyToCommentList}" var="reply">
 												<li>
 													<div class="col-xs-1">
 														<img
-															src="<c:url value="${reply.profilephotourl}" width="32px" height="32px" />" />
+															src="<c:url value="${reply.profilephotourl}" />" width="32px" height="32px" />
 													</div>
 													<div class="col-xs-11">
 														<div class="row">
