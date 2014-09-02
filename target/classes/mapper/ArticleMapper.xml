@@ -48,7 +48,13 @@
     <include refid="Base_Column_List" />
     from Article where RecordStatus = 0
   </select>
-  <select id="selectArticlesByCategory" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectAllArticlesByCategory" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from Article  where Category = #{category,jdbcType=VARCHAR} and RecordStatus = 0 
+    order by Id
+  </select>
+  <select id="selectPublishedArticlesByCategory" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from Article  where Category = #{category,jdbcType=VARCHAR} and RecordStatus = 0 and IsPublished = 1 

@@ -13,7 +13,7 @@ public interface BulletinBoardMapper {
 
     BulletinBoard selectByPrimaryKey(Integer id);
     
-    List<BulletinBoard> selectAllBulletinBorads();
+    List<BulletinBoard> selectAllBulletinBoards();
     
     List<BulletinBoard> selectPublishedBulletinBoards();
 

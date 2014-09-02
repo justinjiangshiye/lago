@@ -36,7 +36,12 @@ public class ArticleService {
 	
 	public List<Article> queryArticlesByCategorySlugsUrl(String slugsUrl) {
 		String categoryName = MyConstants.getNameFromSlugsUrl(slugsUrl);
-		return this.articleMapper.selectArticlesByCategory(categoryName);
+		return this.articleMapper.selectPublishedArticlesByCategory(categoryName);
+	}
+	
+	public List<Article> queryArticlesByCategorySlugsUrlForAdmin(String slugsUrl) {
+		String categoryName = MyConstants.getNameFromSlugsUrl(slugsUrl);
+		return this.articleMapper.selectAllArticlesByCategory(categoryName);
 	}
 	
 	public int addArticle(ArticleWithBLOBs articleWithBLOBs) {

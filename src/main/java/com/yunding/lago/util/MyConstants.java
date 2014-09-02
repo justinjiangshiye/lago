@@ -26,10 +26,17 @@ public class MyConstants {
 	public static Integer menuItemSearchResultId = 9;
 	
 	// Add admin menu item related id
-	public static Integer adminMenuItemHomeId = 101;
-	public static Integer adminMenuItemArticleId = 102;
-	public static Integer adminMenuItemFriendLinkId = 103;
-	public static Integer adminMenuItemAboutId = 104;
+	public static Integer adminMenuItemHomeId = 100;
+	public static Integer adminMenuItemBulletinBoardId = 101;
+	public static Integer adminMenuItemBannerLinkId = 102;
+	public static Integer adminMenuItemStaticPageId = 103;
+	public static Integer adminMenuItemParentSchoolId = 104;
+	public static Integer adminMenuItemGrowUpId = 105;
+	public static Integer adminMenuItemLoveFamilyId = 106;
+	public static Integer adminMenuItemReadingId = 107;
+	public static Integer adminMenuItemIndexBuildId = 108;
+	public static Integer adminMenuItemFriendLinkId = 109;
+	public static Integer adminMenuItemUsersId = 110;
 	
 	// Add article category related slugs url	
 	public static String parentSchoolSlugsUrl = "parent-school";
@@ -62,6 +69,48 @@ public class MyConstants {
 			return readingName;
 		} else {
 			return "";
+		}
+	}
+	
+	public static String getSlugsUrlFromName(String categoryName) {
+		if (categoryName.equals(parentSchoolName)) {
+			return parentSchoolSlugsUrl;
+		} else if (categoryName.equals(growUpName)) {
+			return growUpSlugsUrl;
+		} else if (categoryName.equals(loveFamilyName)) {
+			return loveFamilySlugsUrl;
+		} else if (categoryName.equals(readingName)) {
+			return readingSlugsUrl;
+		} else {
+			return "";
+		}
+	}
+	
+	public static Integer getAdminMenuItemIdFromSlugsUrl(String slugsUrl) {
+		if (slugsUrl.equals(parentSchoolSlugsUrl)) {
+			return adminMenuItemParentSchoolId;
+		} else if (slugsUrl.equals(growUpSlugsUrl)) {
+			return adminMenuItemGrowUpId;
+		} else if (slugsUrl.equals(loveFamilySlugsUrl)) {
+			return adminMenuItemLoveFamilyId;
+		} else if (slugsUrl.equals(readingSlugsUrl)) {
+			return adminMenuItemReadingId;
+		} else {
+			return adminMenuItemHomeId;
+		}
+	}
+	
+	public static Integer getAdminMenuItemIdFromCategoryName(String categoryName) {
+		if (categoryName.equals(parentSchoolName)) {
+			return adminMenuItemParentSchoolId;
+		} else if (categoryName.equals(growUpName)) {
+			return adminMenuItemGrowUpId;
+		} else if (categoryName.equals(loveFamilyName)) {
+			return adminMenuItemLoveFamilyId;
+		} else if (categoryName.equals(readingName)) {
+			return adminMenuItemReadingId;
+		} else {
+			return adminMenuItemHomeId;
 		}
 	}
 	

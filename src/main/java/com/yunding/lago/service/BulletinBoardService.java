@@ -24,7 +24,7 @@ public class BulletinBoardService {
 	}
 
 	public List<BulletinBoard> queryAllBulletinBoards() {
-		return this.bulletinBoardMapper.selectAllBulletinBorads();
+		return this.bulletinBoardMapper.selectAllBulletinBoards();
 	}
 
 	public List<BulletinBoard> queryPublishedBulletinBoards() {

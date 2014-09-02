@@ -6,12 +6,8 @@
 	<div class="form-group">
 		<label for="selectCategory" class="col-sm-2 control-label">栏目</label>
 		<div class="col-sm-10">
-			<select id="selectCategory" name="Category" class="form-control">
-				<option value="父母学堂">父母学堂</option>
-				<option value="守护成长">守护成长</option>
-				<option value="我爱我家">我爱我家</option>
-				<option value="亲子阅读">亲子阅读</option>
-			</select>
+			<input type="hidden" name="Category" value="${category}" />
+			<span>${category}</span>
 		</div>
 	</div>
 	<div class="form-group">

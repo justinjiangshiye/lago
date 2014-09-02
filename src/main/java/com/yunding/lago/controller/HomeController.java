@@ -39,7 +39,6 @@ public class HomeController extends BaseController {
 		initialize(model, MyConstants.menuItemHomeId);
 		
 		model.addAttribute("bannerlinkList", this.bannerLinkService.queryAllBannerLinks());
-		
 		model.addAttribute("parentschoolList", this.articleService.queryHomePageArticles(MyConstants.parentSchoolName));
 		model.addAttribute("growupList", this.articleService.queryHomePageArticles(MyConstants.growUpName));
 		model.addAttribute("lovefamilyList", this.articleService.queryHomePageArticles(MyConstants.loveFamilyName));
@@ -54,6 +53,7 @@ public class HomeController extends BaseController {
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminIndex(Locale locale, Model model) {
 		logger.info("Welcome admin index! The client locale is {}.", locale);
+		adminInitialize(model, MyConstants.adminMenuItemHomeId);
 		
 		return "admin/index";
 	}

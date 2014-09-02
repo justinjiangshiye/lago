@@ -47,7 +47,8 @@
 									src="<c:url value="/images/qq.png" />" alt="" />&nbsp;QQ帐号登录</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><img src="${currentUser.profilephotourl}" width="16px" height="16px" /></li>
+							<li><img src="${currentUser.profilephotourl}" width="16px"
+								height="16px" /></li>
 							<li><span>${currentUser.nickname}</span></li>
 						</c:otherwise>
 					</c:choose>
@@ -86,6 +87,9 @@
 					href="<c:url value="/category/reading" />">亲子阅读</a></li>
 				<li <c:if test="${activeMenuItemId==8}"> class="active"</c:if>><a
 					href="<c:url value="/about" />">关于我们</a></li>
+				<c:if test="${activeMenuItemId==9}">
+					<li class="active"><a href="<c:url value="/search/" />">搜索结果</a></li>
+				</c:if>
 			</ul>
 		</div>
 	</div>

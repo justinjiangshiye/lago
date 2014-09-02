@@ -37,6 +37,7 @@ import com.yunding.lago.bean.Article;
 import com.yunding.lago.bean.ArticleWithBLOBs;
 import com.yunding.lago.service.ArticleService;
 import com.yunding.lago.util.HtmlToPlainText;
+import com.yunding.lago.util.MyConstants;
 
 /**
  * Handles requests for the application home page.
@@ -65,14 +66,78 @@ public class SearchController extends BaseController {
 	
 	private static final String STARTTAG="<font color='red'>";
     private static final String ENDTAG="</font>";
+	
+	@SuppressWarnings("deprecation")
+    private IndexSearcher getSearcher() throws IOException{
+        return new IndexSearcher(IndexReader.open(indexWriter.getDirectory()));
+    }
+
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 * @throws IOException 
+	 * @throws ParseException 
+	 * @throws InvalidTokenOffsetsException 
+	 */
+	@RequestMapping(value = "/search/{text}", method = RequestMethod.GET)
+	public String luceneSearch(Locale locale, Model model,
+			@PathVariable String text) throws IOException, ParseException, InvalidTokenOffsetsException {
+		logger.info("The search text is {}", text);
+		initialize(model, MyConstants.menuItemSearchResultId);
+		
+		IndexSearcher searcher=getSearcher();
+        QueryParser parser=new MultiFieldQueryParser(Version.LUCENE_48, new String[]{"title","content", "keywords", "category"}, analyzer);
+        parser.setDefaultOperator(QueryParser.Operator.OR);
+        Query query=parser.parse(text);
+        TopDocs td=searcher.search(query,10);
+        ScoreDoc[] sd=td.scoreDocs;
+        logger.info("Search result count is {}", sd.length);
+        SimpleHTMLFormatter simpleHtmlFormatter=new SimpleHTMLFormatter(STARTTAG, ENDTAG);
+        Highlighter highlighter=new Highlighter(simpleHtmlFormatter,new QueryScorer(query));
+        Document doc;
+        TokenStream tokenStream=null;
+        List<ArticleWithBLOBs> list=new ArrayList<ArticleWithBLOBs>();
+
+        for(int i=0;i<sd.length;i++){
+            ArticleWithBLOBs article = new ArticleWithBLOBs();
+             
+            int docId=sd[i].doc;
+            doc=searcher.doc(docId);
+             
+            String title=doc.get("title");
+            tokenStream=analyzer.tokenStream("title", new StringReader(title));
+            title=highlighter.getBestFragment(tokenStream, title);
+            article.setTitle(title==null?doc.get("title"):title);
+         
+            String content=doc.get("content");
+            tokenStream=analyzer.tokenStream("content", new StringReader(content));
+            content=highlighter.getBestFragment(tokenStream, content);
+             
+            article.setContent(content==null?(doc.get("content").length()<200?doc.get("content"):doc.get("content").substring(0, 199)):content);
+            article.setCategory(doc.get("category"));
+            list.add(article);
+        }
+        
+        model.addAttribute("searchResult", list);
+		
+		return "search";
+	}
+	
+	@RequestMapping(value = "/admin/indexBuild", method = RequestMethod.GET)
+	public String adminIndexBuild(Locale locale, Model model){
+		adminInitialize(model, MyConstants.adminMenuItemIndexBuildId);
+		
+		return "admin/indexBuild";
+	}
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 * 
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/admin/indexBuild", method = RequestMethod.GET)
-	public String adminIndexBuild(Locale locale, Model model) throws IOException {
+	@SuppressWarnings("deprecation")
+	@RequestMapping(value = "/admin/indexBuildRun", method = RequestMethod.POST)
+	public String adminIndexBuildRun(Locale locale, Model model) throws IOException {
+		adminInitialize(model, MyConstants.adminMenuItemIndexBuildId);
 
 		try {
 			indexWriter.deleteAll();
@@ -122,57 +187,4 @@ public class SearchController extends BaseController {
 		}
 		return "admin/indexBuild";
 	}
-
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 * @throws IOException 
-	 * @throws ParseException 
-	 * @throws InvalidTokenOffsetsException 
-	 */
-	@RequestMapping(value = "/search/{text}", method = RequestMethod.GET)
-	public String luceneSearch(Locale locale, Model model,
-			@PathVariable String text) throws IOException, ParseException, InvalidTokenOffsetsException {
-		logger.info("The search text is {}", text);
-		IndexSearcher searcher=getSearcher();
-        QueryParser parser=new MultiFieldQueryParser(Version.LUCENE_48, new String[]{"title","content", "keywords", "category"}, analyzer);
-        parser.setDefaultOperator(QueryParser.Operator.OR);
-        Query query=parser.parse(text);
-        TopDocs td=searcher.search(query,10);
-        ScoreDoc[] sd=td.scoreDocs;
-        logger.info("Search result count is {}", sd.length);
-        SimpleHTMLFormatter simpleHtmlFormatter=new SimpleHTMLFormatter(STARTTAG, ENDTAG);
-        Highlighter highlighter=new Highlighter(simpleHtmlFormatter,new QueryScorer(query));
-        Document doc;
-        TokenStream tokenStream=null;
-        List<ArticleWithBLOBs> list=new ArrayList<ArticleWithBLOBs>();
-
-        for(int i=0;i<sd.length;i++){
-            ArticleWithBLOBs article = new ArticleWithBLOBs();
-             
-            int docId=sd[i].doc;
-            doc=searcher.doc(docId);
-             
-            String title=doc.get("title");
-            tokenStream=analyzer.tokenStream("title", new StringReader(title));
-            title=highlighter.getBestFragment(tokenStream, title);
-            article.setTitle(title==null?doc.get("title"):title);
-         
-            String content=doc.get("content");
-            tokenStream=analyzer.tokenStream("content", new StringReader(content));
-            content=highlighter.getBestFragment(tokenStream, content);
-             
-            article.setContent(content==null?(doc.get("content").length()<200?doc.get("content"):doc.get("content").substring(0, 199)):content);
-            article.setCategory(doc.get("category"));
-            list.add(article);
-        }
-        
-        model.addAttribute("searchResult", list);
-		
-		return "search";
-	}
-	
-	@SuppressWarnings("deprecation")
-    private IndexSearcher getSearcher() throws IOException{
-        return new IndexSearcher(IndexReader.open(indexWriter.getDirectory()));
-    }
 }

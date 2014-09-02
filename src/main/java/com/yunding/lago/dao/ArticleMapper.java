@@ -20,7 +20,9 @@ public interface ArticleMapper {
     
     List<Article> selectHomePageArticles(String category);
     
-    List<Article> selectArticlesByCategory(String category);
+    List<Article> selectAllArticlesByCategory(String category);
+    
+    List<Article> selectPublishedArticlesByCategory(String category);
 
 	int updateByPrimaryKeySelective(ArticleWithBLOBs record);
 

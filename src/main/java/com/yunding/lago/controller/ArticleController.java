@@ -84,21 +84,30 @@ public class ArticleController extends BaseController {
 		return "article";
 	}
 
-	@RequestMapping(value = "/admin/articles", method = RequestMethod.GET)
-	public String adminArticleList(Locale locale, Model model) {
+	@RequestMapping(value = "/admin/category/{articleCategorySlugsUrl}", method = RequestMethod.GET)
+	public String adminArticleList(Locale locale, Model model,
+			@PathVariable String articleCategorySlugsUrl) {
 		logger.info("The client locale is {}.", locale);
+		adminInitialize(model,
+				MyConstants.getAdminMenuItemIdFromSlugsUrl(articleCategorySlugsUrl));
 
+		model.addAttribute("articleCategorySlugsUrl", articleCategorySlugsUrl);
+		model.addAttribute("articleCategoryName", MyConstants.getNameFromSlugsUrl(articleCategorySlugsUrl));
 		model.addAttribute("articleList",
-				this.articleService.queryAllArticles());
+				this.articleService.queryArticlesByCategorySlugsUrlForAdmin(articleCategorySlugsUrl));
 
 		return "admin/articles";
 	}
 
-	@RequestMapping(value = "/admin/articleAdd", method = RequestMethod.GET)
-	public String adminArticleAdd(Locale locale, Model model) {
+	@RequestMapping(value = "/admin/articleAdd/{articleCategorySlugsUrl}", method = RequestMethod.GET)
+	public String adminArticleAdd(Locale locale, Model model,
+			@PathVariable String articleCategorySlugsUrl) {
 		logger.info("The client locale is {}.", locale);
+		adminInitialize(model,
+				MyConstants.getAdminMenuItemIdFromSlugsUrl(articleCategorySlugsUrl));
 
 		// Load article edit page
+		model.addAttribute("category", MyConstants.getNameFromSlugsUrl(articleCategorySlugsUrl));
 
 		return "admin/articleAdd";
 	}
@@ -110,6 +119,9 @@ public class ArticleController extends BaseController {
 
 		ArticleWithBLOBs articleWithBLOBs = this.articleService
 				.queryArticleById(articleId);
+		adminInitialize(model,
+				MyConstants.getAdminMenuItemIdFromCategoryName(articleWithBLOBs.getCategory()));
+		
 		model.addAttribute("article", articleWithBLOBs);
 
 		logger.info("Article Id is {}", articleWithBLOBs.getId());
@@ -148,6 +160,8 @@ public class ArticleController extends BaseController {
 				articleWithBLOBs.getIspublished());
 		logger.info("Article Keywords is {}.", articleWithBLOBs.getKeywords());
 		logger.info("Article Content is {}.", articleWithBLOBs.getContent());
+		adminInitialize(model,
+				MyConstants.getAdminMenuItemIdFromCategoryName(articleWithBLOBs.getCategory()));
 
 		Date now = new Date();
 		if (articleWithBLOBs.getIspublished()) {
@@ -179,7 +193,7 @@ public class ArticleController extends BaseController {
 			this.articleService.updateArticle(articleWithBLOBsDB);
 		}
 
-		return "redirect:/admin/articles";
+		return "redirect:/admin/category/" + MyConstants.getSlugsUrlFromName(articleWithBLOBs.getCategory());
 	}
 
 	@RequestMapping(value = "/admin/articleDelete/{articleId}", method = RequestMethod.GET)
@@ -191,9 +205,12 @@ public class ArticleController extends BaseController {
 
 		ArticleWithBLOBs articleWithBLOBs = this.articleService
 				.queryArticleById(articleId);
+		adminInitialize(model,
+				MyConstants.getAdminMenuItemIdFromCategoryName(articleWithBLOBs.getCategory()));
+		
 		articleWithBLOBs.setRecordstatus(2);
 		this.articleService.updateArticle(articleWithBLOBs);
 
-		return "redirect:/admin/articles";
+		return "redirect:/admin/category/" + MyConstants.getSlugsUrlFromName(articleWithBLOBs.getCategory());
 	}
 }

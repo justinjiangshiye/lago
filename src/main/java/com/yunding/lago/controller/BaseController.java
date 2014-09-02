@@ -55,6 +55,25 @@ public class BaseController {
 
 	protected static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	protected void adminInitialize(Model model, Integer activeMenuItemId) {
+		// Add user profile info
+		if (httpSession.getAttribute(MyConstants.userLoginIdSessionKey) != null) {
+			logger.info(httpSession.getAttribute(MyConstants.userLoginIdSessionKey).toString());
+			model.addAttribute("currentUser", this.userService.queryUserByLoginId(httpSession.getAttribute(MyConstants.userLoginIdSessionKey).toString()));
+		}
+		
+		// Add active menu item
+		if (activeMenuItemId == null) {
+			activeMenuItemId = 1;
+		}
+		logger.info("The activeMenuItemId is {}", activeMenuItemId);
+		model.addAttribute("activeMenuItemId", activeMenuItemId);
+		
+		//TODO: add menu item list
+		List<MenuItem> menuItems = new ArrayList<MenuItem>();
+		model.addAttribute("menuItemList", menuItems);
+	}
+	
 	protected void initialize(Model model, Integer activeMenuItemId) {
 		// Add user profile info
 		if (httpSession.getAttribute(MyConstants.userLoginIdSessionKey) != null) {

@@ -61,4 +61,12 @@ public class StaticPageController extends BaseController {
 		
 		return "about";
 	}
+	
+	@RequestMapping(value = "/admin/staticPage", method = RequestMethod.GET)
+	public String adminStaticPageList(Locale locale, Model model) {
+		logger.info("Welcome about! The client locale is {}.", locale);
+		adminInitialize(model, MyConstants.adminMenuItemStaticPageId);
+		
+		return "admin/staticPages";
+	}
 }
