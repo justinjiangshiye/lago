@@ -2,30 +2,50 @@
 	pageEncoding="utf-8"%>
 <ul>
 	<li><span>分享到：</span></li>
-	<li><a href="#"><img
+	<li><a href="javascript:void(0)"
+		onclick="shareSinaWeibo();return false;"><img
 			src="<c:url value="/images/share2weibo.gif" />" />新浪微博</a></li>
 	<li><a href="javascript:void(0)"
-		onclick="postQQSpace();return false;"><img
+		onclick="shareQQSpace();return false;"><img
 			src="<c:url value="/images/share2qqspace.gif" />" />QQ空间</a></li>
 	<li><a href="javascript:void(0)"
-		onclick="postToWb();return false;"><img
+		onclick="shareQQWeibo();return false;"><img
 			src="<c:url value="/images/share2qqweibo.gif" />" />腾讯微博</a></li>
-	<li><a href="#"><img
+	<li><a href="javascript:void(0)" class="jiathis_button_weixin"><img
 			src="<c:url value="/images/share2weixin.gif" />" />微信</a></li>
 </ul>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript"
+	src="http://v3.jiathis.com/code/jia.js?uid=1" charset="utf-8"></script>
+<!-- JiaThis Button END -->
 <script type="text/javascript">
-	function postQQSpace() {
+	function shareSinaWeibo() {
 		var p = {
 			url : location.href,
-			showcount : '1',/*是否显示分享总数,显示：'1'，不显示：'0' */
-			desc : '这片美文真心很赞，快来看看吧！',/*默认分享理由(可选)*/
-			summary : '${article.abstractcontent}',/*分享摘要(可选)*/
-			title : '${article.title}',/*分享标题(可选)*/
-			site : '51拉钩',/*分享来源 如：腾讯网(可选)*/
-			pics : [ encodeURIComponent("${article.bannerurl}") ].join("|"), /*分享图片的路径(可选)*/
-			style : '202',
-			width : 105,
-			height : 31
+			type : 'buttn',
+			language : 'zh_cn',
+			appkey : '356903098',
+			title : '【${article.title}】' + '${article.abstractcontent}'
+		};
+		var s = [];
+		for ( var i in p) {
+			s.push(i + '=' + encodeURIComponent(p[i] || ''));
+		}
+		var _u = 'http://service.weibo.com/share/share.php?' + s.join('&');
+		window
+				.open(
+						_u,
+						'',
+						'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no');
+	}
+
+	function shareQQSpace() {
+		var p = {
+			url : location.href,
+			title : '${article.title}',
+			site : '51拉钩',
+			pics : [ "${article.bannerurl}" ].join("|"),
+			summary : '${article.abstractcontent}'
 		};
 		var s = [];
 		for ( var i in p) {
@@ -39,7 +59,7 @@
 						'',
 						'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no');
 	}
-	function postToWb() {
+	function shareQQWeibo() {
 		var _url = encodeURIComponent(document.location);
 		var _assname = encodeURI("");//你注册的帐号，不是昵称
 		var _appkey = encodeURI("801537802");//你从腾讯获得的appkey
