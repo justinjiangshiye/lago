@@ -30,6 +30,6 @@ public class BulletinBoardController extends BaseController {
 		
 		model.addAttribute("bulletinBoardList", this.bulletinBoardService.queryAllBulletinBoards());
 		
-		return "/admin/bulletinBoards";
+		return "admin/bulletinBoards";
 	}
 }

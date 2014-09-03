@@ -61,7 +61,7 @@
 							<span class="selected"></span>
 						</c:if></li>
 					<li <c:if test="${activeMenuItemId==103}"> class="active"</c:if>><a
-						href="<c:url value="/admin/staticPage/" />"><span
+						href="<c:url value="/admin/staticPage/51lago" />"><span
 							class="glyphicon glyphicon-pushpin"></span>&nbsp;&nbsp;展示页管理</a> <c:if
 							test="${activeMenuItemId==103}">
 							<span class="selected"></span>

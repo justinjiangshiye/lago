@@ -2,19 +2,21 @@
 	pageEncoding="utf-8"%>
 <%@ include file="../template/admin-header.jsp"%>
 <h3 class="sub-header">编辑文章</h3>
-<form class="form-horizontal" role="form" method="post" action="<c:url value="/admin/articleSave"/>">
+<form class="form-horizontal" role="form" method="post"
+	action="<c:url value="/admin/articleSave"/>">
 	<div class="form-group">
 		<label for="selectCategory" class="col-sm-2 control-label">栏目</label>
 		<div class="col-sm-10">
-		      <span id="selectCategory">${article.category}</span>
-		      <input type="hidden" name="Id" value="${article.id}">
-		      <input type="hidden" name="Category" value="${article.category}">
+			<span id="selectCategory">${article.category}</span> <input
+				type="hidden" name="Id" value="${article.id}"> <input
+				type="hidden" name="Category" value="${article.category}">
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="inputTitle" class="col-sm-2 control-label">标题</label>
 		<div class="col-sm-4">
-			<input id="inputTitle" name="Title" type="text" class="form-control" value="${article.title}">
+			<input id="inputTitle" name="Title" type="text" class="form-control"
+				value="${article.title}">
 		</div>
 		<label for="inputSlugsUrl" class="col-sm-2 control-label">友好链接标识</label>
 		<div class="col-sm-4">
@@ -40,7 +42,8 @@
 		<label for="inputIsDisplayOnHome" class="col-sm-2 control-label">是否首页显示</label>
 		<div class="col-sm-4">
 			<input id="inputIsDisplayOnHome" name="Isdisplayonhome"
-				type="checkbox" class="form-control" checked="${article.isdisplayonhome}">
+				type="checkbox" class="form-control"
+				checked="${article.isdisplayonhome}">
 		</div>
 		<label for="inputIsLockTop" class="col-sm-2 control-label">是否置顶</label>
 		<div class="col-sm-4">
@@ -51,7 +54,8 @@
 	<div class="form-group">
 		<label for="inputOrder" class="col-sm-2 control-label">排序</label>
 		<div class="col-sm-4">
-			<input id="inputOrder" name="Order" type="text" class="form-control" value="${article.order}">
+			<input id="inputOrder" name="Order" type="text" class="form-control"
+				value="${article.order}">
 		</div>
 		<label for="inputIsPublished" class="col-sm-2 control-label">是否发布</label>
 		<div class="col-sm-4">
@@ -80,8 +84,8 @@
 	</div>
 </form>
 <script type="text/javascript">
-	        $(document).ready(function () { 
-	        	   $("#inputContent").cleditor(); 
-	        });
-        </script>
+	$(document).ready(function() {
+		$("#inputContent").cleditor();
+	});
+</script>
 <%@ include file="../template/admin-tailer.jsp"%>
