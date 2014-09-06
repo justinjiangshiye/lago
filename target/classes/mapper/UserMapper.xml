@@ -33,6 +33,15 @@
 		from User
 		where Id = #{id,jdbcType=INTEGER} and RecordStatus = 0
 	</select>
+    <select id="selectAllUser" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from User
+        where RecordStatus = 0
+        order by Id
+    </select>
 	<select id="selectByLoginId" resultMap="ResultMapWithBLOBs"
 		parameterType="java.lang.String">
 		select

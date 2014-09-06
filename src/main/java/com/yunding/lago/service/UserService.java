@@ -23,6 +23,10 @@ public class UserService {
 		this.userMapper = userMapper;
 	}
 	
+	public List<User> queryAllUser() {
+		return this.userMapper.selectAllUser();
+	}
+	
 	public User queryUserByLoginId(String loginid){
 		return this.userMapper.selectByLoginId(loginid);
 	}

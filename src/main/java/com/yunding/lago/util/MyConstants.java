@@ -1,6 +1,11 @@
 package com.yunding.lago.util;
 
 public class MyConstants {
+	// Add config key
+	public static String configWebsiteUrl = "website_url";
+	public static String configWebsiteUploadFolder = "website_uploadFolder";
+	public static String configWebsiteDownloadUrlPrefix = "website_downloadUrlPrefix";
+	
 	// Add user type
 	public static Integer systemUser = 0;
 	public static Integer anonymousUser = 1;
@@ -13,6 +18,7 @@ public class MyConstants {
 	public static String accessTokenExpiredInSessionKey = "tgtexpiredin";
 	public static String userLoginIdSessionKey = "loginId";
 	public static String messageListSessionKey = "messageList";
+	public static String AdminLoginedKey = "adminLogined";
 	
 	// Add menu item related id
 	public static Integer menuItemHomeId = 1;

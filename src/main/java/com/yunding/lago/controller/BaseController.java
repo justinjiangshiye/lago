@@ -20,10 +20,10 @@ import com.yunding.lago.util.MyConstants;
  * Base controller
  */
 public class BaseController {
-	private FriendLinkService friendLinkService = null;
-	private BulletinBoardService bulletinBoardService = null;
-	private UserService userService = null;
-	private HttpSession httpSession = null;
+	protected FriendLinkService friendLinkService = null;
+	protected BulletinBoardService bulletinBoardService = null;
+	protected UserService userService = null;
+	protected HttpSession httpSession = null;
 
 	@Autowired
 	public void setFriendLinkService(FriendLinkService friendLinkService) {
@@ -53,7 +53,7 @@ public class BaseController {
 		return this.httpSession;
 	}
 
-	protected static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 	
 	protected void adminInitialize(Model model, Integer activeMenuItemId) {
 		// Add user profile info

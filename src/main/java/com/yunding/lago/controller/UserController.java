@@ -22,6 +22,7 @@ import com.qq.connect.api.qzone.UserInfo;
 import com.qq.connect.javabeans.AccessToken;
 import com.qq.connect.javabeans.qzone.UserInfoBean;
 import com.qq.connect.oauth.Oauth;
+import com.qq.connect.utils.http.BASE64Encoder;
 import com.yunding.lago.bean.User;
 import com.yunding.lago.service.UserService;
 import com.yunding.lago.util.MyConstants;
@@ -31,8 +32,6 @@ import com.yunding.lago.util.MyConstants;
  */
 @Controller
 public class UserController extends BaseController {
-	private UserService userService = null;
-
 	@Autowired
 	public void setUserService(UserService userService) {
 		this.userService = userService;
@@ -267,9 +266,38 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
 	public String adminUserList(Locale locale, Model model) {
-		logger.info("Welcome about! The client locale is {}.", locale);
+		
 		adminInitialize(model, MyConstants.adminMenuItemUsersId);
-				
+		
+		model.addAttribute("userList", this.userService.queryAllUser());
+		
 		return "admin/users";
+	}
+	
+	@RequestMapping(value="/admin/login", method = RequestMethod.GET)
+	public String adminUserLogin(Locale locale, Model model) {
+		logger.info("Access: /admin/login");
+		return "admin/login";
+	}
+	
+	@RequestMapping(value="/admin/doLogin", method = RequestMethod.POST)
+	public String adminUserDoLogin(Locale locale, Model model, User user) {
+		logger.info("Access: /admin/login POST");
+		
+		User dbUser = this.userService.queryUserByLoginId(user.getLoginid());
+		
+		if (dbUser != null && dbUser.getType() == MyConstants.systemUser) {
+			if (BASE64Encoder.encode(user.getPassword().getBytes()).equals(dbUser.getPassword())){
+				this.getHttpSession().setAttribute(MyConstants.AdminLoginedKey, true);
+				this.getHttpSession().setAttribute(MyConstants.userTypeSessionKey, dbUser.getType());
+				this.getHttpSession().setAttribute(MyConstants.userLoginIdSessionKey, dbUser.getLoginid());
+				return "redirect:/admin/";
+			}
+		}
+		
+		model.addAttribute("loginStatus", false);
+		model.addAttribute("msg", "登录失败，请重试！");
+		
+		return "admin/login";
 	}
 }
