@@ -31,6 +31,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import com.yunding.lago.bean.Article;
@@ -78,9 +79,9 @@ public class SearchController extends BaseController {
 	 * @throws ParseException 
 	 * @throws InvalidTokenOffsetsException 
 	 */
-	@RequestMapping(value = "/search/{text}", method = RequestMethod.GET)
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String luceneSearch(Locale locale, Model model,
-			@PathVariable String text) throws IOException, ParseException, InvalidTokenOffsetsException {
+			@RequestParam("text") String text) throws IOException, ParseException, InvalidTokenOffsetsException {
 		logger.info("The search text is {}", text);
 		initialize(model, MyConstants.menuItemSearchResultId);
 		

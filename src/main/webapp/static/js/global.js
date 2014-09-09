@@ -10,15 +10,15 @@ function marqueeScrollUp(obj) {
 $(function() {
 	$("#btnSearch").click(
 			function() {
-				$.dynamicForm($(this).attr("action") + $("#inputSearch").val())
-						.attr("method", "get").submit();
+				$.dynamicForm($(this).attr("action")).addHidden("text",
+						$("#inputSearch").val()).submit();
 			});
 	$('.carousel').carousel({
 		interval : 3000
 	});
 	setInterval('marqueeScrollUp(".marquee")', 3000);
-	$(".reply_link").click(function(){
+	$(".reply_link").click(function() {
 		var id = $(this).attr("data");
-		$("#"+id).removeClass("hide").addClass("show");
+		$("#" + id).removeClass("hide").addClass("show");
 	});
 });

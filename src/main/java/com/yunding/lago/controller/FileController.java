@@ -33,8 +33,7 @@ import com.yunding.lago.util.WebConfig;
 public class FileController extends BaseController {
 
 	@RequestMapping(value = "/admin/upload", method = RequestMethod.GET)
-	public @ResponseBody
-	String upload(Locale locale, Model model,
+	public String upload(Locale locale, Model model,
 			@RequestParam("file") CommonsMultipartFile file) {
 		String url = "";
 		if (!file.isEmpty()) {
