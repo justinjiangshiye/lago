@@ -96,6 +96,7 @@ public class FriendLinkController extends BaseController {
 			friendLinkWithBLOBsDB.setWebsiteurl(friendLinkWithBLOBs
 					.getWebsiteurl());
 			friendLinkWithBLOBsDB.setLogourl(friendLinkWithBLOBs.getLogourl());
+			friendLinkWithBLOBsDB.setOrder(friendLinkWithBLOBs.getOrder());
 			this.friendLinkService.updateFriendLink(friendLinkWithBLOBsDB);
 		}
 

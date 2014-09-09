@@ -2,23 +2,24 @@
 	pageEncoding="utf-8"%>
 <%@ include file="../template/admin-header.jsp"%>
 <h3 class="sub-header">新增友情链接</h3>
-<form class="form-horizontal" role="form" method="post" action="<c:url value="/admin/friendLinkSave"/>">
+<form class="form-horizontal" role="form" method="post" action="<c:url value="/admin/bulletinBoardSave"/>">
 	<div class="form-group">
-		<label for="inputWebsitename" class="col-sm-2 control-label">网站名称</label>
+		<label for="inputSummary" class="col-sm-2 control-label">公告</label>
 		<div class="col-sm-10">
-			<input id="inputWebsitename" name="Websitename" type="text" class="form-control">
+			<input id="inputSummary" name="Summary" type="text" class="form-control">
 		</div>
 	</div>
 	<div class="form-group">
-        <label for="inputWebsiteurl" class="col-sm-2 control-label">网站链接</label>
+        <label for="inputContent" class="col-sm-2 control-label">公告详情</label>
         <div class="col-sm-10">
-            <input id="inputWebsiteurl" name="Websiteurl" type="text" class="form-control">
+            <input id="inputContent" name="Content" type="text" class="form-control">
         </div>
     </div>
     <div class="form-group">
-        <label for="inputlogourl" class="col-sm-2 control-label">网站链接</label>
+        <label for="inputIsPublished" class="col-sm-2 control-label">是否发布</label>
         <div class="col-sm-10">
-            <input id="inputlogourl" name="logourl" type="text" class="form-control">
+            <input id="inputIsPublished" name="Ispublished" type="checkbox"
+                class="form-control">
         </div>
     </div>
 	<div class="form-group">

@@ -163,6 +163,15 @@ public class ArticleController extends BaseController {
 		adminInitialize(model,
 				MyConstants.getAdminMenuItemIdFromCategoryName(articleWithBLOBs.getCategory()));
 
+		if (articleWithBLOBs.getIsdisplayonhome() == null) {
+			articleWithBLOBs.setIsdisplayonhome(false);
+		}
+		if (articleWithBLOBs.getIslocktop() == null) {
+			articleWithBLOBs.setIslocktop(false);
+		}
+		if (articleWithBLOBs.getIspublished() == null) {
+			articleWithBLOBs.setIspublished(false);
+		}
 		Date now = new Date();
 		if (articleWithBLOBs.getIspublished()) {
 			articleWithBLOBs.setPublishdate(now);

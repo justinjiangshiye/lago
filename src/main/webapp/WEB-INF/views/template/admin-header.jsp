@@ -49,7 +49,7 @@
 							<span class="selected"></span>
 						</c:if></li>
 				    <li <c:if test="${activeMenuItemId==101}"> class="active"</c:if>><a
-                        href="<c:url value="/admin/bulletinBoard/" />"><span
+                        href="<c:url value="/admin/bulletinBoards/" />"><span
                             class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;公告栏管理</a> <c:if
                             test="${activeMenuItemId==101}">
                             <span class="selected"></span>
