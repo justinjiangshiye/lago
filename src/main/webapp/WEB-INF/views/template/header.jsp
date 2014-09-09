@@ -50,6 +50,7 @@
 							<li><img src="${currentUser.profilephotourl}" width="16px"
 								height="16px" /></li>
 							<li><span>${currentUser.nickname}</span></li>
+							<li><a href="<c:url value="/user/logout" />">注销</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -88,7 +89,7 @@
 				<li <c:if test="${activeMenuItemId==8}"> class="active"</c:if>><a
 					href="<c:url value="/about" />">关于我们</a></li>
 				<c:if test="${activeMenuItemId==9}">
-					<li class="active"><a href="<c:url value="/search/" />">搜索结果</a></li>
+					<li class="active"><a href="javascript:void(0);">搜索结果</a></li>
 				</c:if>
 			</ul>
 		</div>

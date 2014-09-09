@@ -64,69 +64,82 @@ public class SearchController extends BaseController {
 	public void setIKAnalyzer(IKAnalyzer analyzer) {
 		this.analyzer = analyzer;
 	}
-	
-	private static final String STARTTAG="<font color='red'>";
-    private static final String ENDTAG="</font>";
-	
+
+	private static final String STARTTAG = "<font color='red'>";
+	private static final String ENDTAG = "</font>";
+
 	@SuppressWarnings("deprecation")
-    private IndexSearcher getSearcher() throws IOException{
-        return new IndexSearcher(IndexReader.open(indexWriter.getDirectory()));
-    }
+	private IndexSearcher getSearcher() throws IOException {
+		return new IndexSearcher(IndexReader.open(indexWriter.getDirectory()));
+	}
 
 	/**
 	 * Simply selects the home view to render by returning its name.
-	 * @throws IOException 
-	 * @throws ParseException 
-	 * @throws InvalidTokenOffsetsException 
+	 * 
+	 * @throws IOException
+	 * @throws ParseException
+	 * @throws InvalidTokenOffsetsException
 	 */
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String luceneSearch(Locale locale, Model model,
-			@RequestParam("text") String text) throws IOException, ParseException, InvalidTokenOffsetsException {
+			@RequestParam("text") String text) throws IOException,
+			ParseException, InvalidTokenOffsetsException {
 		logger.info("The search text is {}", text);
 		initialize(model, MyConstants.menuItemSearchResultId);
-		
-		IndexSearcher searcher=getSearcher();
-        QueryParser parser=new MultiFieldQueryParser(Version.LUCENE_48, new String[]{"title","content", "keywords", "category"}, analyzer);
-        parser.setDefaultOperator(QueryParser.Operator.OR);
-        Query query=parser.parse(text);
-        TopDocs td=searcher.search(query,10);
-        ScoreDoc[] sd=td.scoreDocs;
-        logger.info("Search result count is {}", sd.length);
-        SimpleHTMLFormatter simpleHtmlFormatter=new SimpleHTMLFormatter(STARTTAG, ENDTAG);
-        Highlighter highlighter=new Highlighter(simpleHtmlFormatter,new QueryScorer(query));
-        Document doc;
-        TokenStream tokenStream=null;
-        List<ArticleWithBLOBs> list=new ArrayList<ArticleWithBLOBs>();
 
-        for(int i=0;i<sd.length;i++){
-            ArticleWithBLOBs article = new ArticleWithBLOBs();
-             
-            int docId=sd[i].doc;
-            doc=searcher.doc(docId);
-             
-            String title=doc.get("title");
-            tokenStream=analyzer.tokenStream("title", new StringReader(title));
-            title=highlighter.getBestFragment(tokenStream, title);
-            article.setTitle(title==null?doc.get("title"):title);
-         
-            String content=doc.get("content");
-            tokenStream=analyzer.tokenStream("content", new StringReader(content));
-            content=highlighter.getBestFragment(tokenStream, content);
-             
-            article.setContent(content==null?(doc.get("content").length()<200?doc.get("content"):doc.get("content").substring(0, 199)):content);
-            article.setCategory(doc.get("category"));
-            list.add(article);
-        }
-        
-        model.addAttribute("searchResult", list);
-		
+		IndexSearcher searcher = getSearcher();
+		QueryParser parser = new MultiFieldQueryParser(Version.LUCENE_48,
+				new String[] { "title", "content", "keywords", "category" },
+				analyzer);
+		parser.setDefaultOperator(QueryParser.Operator.OR);
+		Query query = parser.parse(text);
+		TopDocs td = searcher.search(query, 30);
+		ScoreDoc[] sd = td.scoreDocs;
+		logger.info("Search result count is {}", sd.length);
+
+		SimpleHTMLFormatter simpleHtmlFormatter = new SimpleHTMLFormatter(
+				STARTTAG, ENDTAG);
+		Highlighter highlighter = new Highlighter(simpleHtmlFormatter,
+				new QueryScorer(query));
+		Document doc;
+		TokenStream tokenStream = null;
+
+		List<ArticleWithBLOBs> list = new ArrayList<ArticleWithBLOBs>();
+
+		for (int i = 0; i < sd.length; i++) {
+			ArticleWithBLOBs article = new ArticleWithBLOBs();
+
+			int docId = sd[i].doc;
+			doc = searcher.doc(docId);
+
+			String title = doc.get("title");
+			tokenStream = analyzer
+					.tokenStream("title", new StringReader(title));
+			title = highlighter.getBestFragment(tokenStream, title);
+			article.setTitle(title == null ? doc.get("title") : title);
+
+			String content = doc.get("content");
+			tokenStream = analyzer.tokenStream("content", new StringReader(
+					content));
+			content = highlighter.getBestFragment(tokenStream, content);
+			article.setContent(content == null ? (doc.get("content").length() < 200 ? doc
+					.get("content") : doc.get("content").substring(0, 199))
+					: content);
+
+			article.setCategory(doc.get("category"));
+			article.setSlugsurl(doc.get("slugsurl"));
+			list.add(article);
+		}
+
+		model.addAttribute("searchResult", list);
+
 		return "search";
 	}
-	
+
 	@RequestMapping(value = "/admin/indexBuild", method = RequestMethod.GET)
-	public String adminIndexBuild(Locale locale, Model model){
+	public String adminIndexBuild(Locale locale, Model model) {
 		adminInitialize(model, MyConstants.adminMenuItemIndexBuildId);
-		
+
 		return "admin/indexBuild";
 	}
 
@@ -137,7 +150,8 @@ public class SearchController extends BaseController {
 	 */
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/admin/indexBuildRun", method = RequestMethod.POST)
-	public String adminIndexBuildRun(Locale locale, Model model) throws IOException {
+	public String adminIndexBuildRun(Locale locale, Model model)
+			throws IOException {
 		adminInitialize(model, MyConstants.adminMenuItemIndexBuildId);
 
 		try {
@@ -152,8 +166,9 @@ public class SearchController extends BaseController {
 						.queryArticleById(articles.get(i).getId());
 
 				Document doc = new Document();
-				
-				String textContent = formatter.getPlainText(article.getContent());
+
+				String textContent = formatter.getPlainText(article
+						.getContent());
 				Field category = new Field("category", article.getCategory(),
 						Field.Store.YES, Field.Index.ANALYZED);
 				Field title = new Field("title", article.getTitle(),
@@ -165,6 +180,8 @@ public class SearchController extends BaseController {
 				Field abstractContent = new Field("abstractContent",
 						article.getAbstractcontent(), Field.Store.YES,
 						Field.Index.ANALYZED);
+				Field slugsUrl = new Field("slugsurl", article.getSlugsurl(),
+						Field.Store.YES, Field.Index.NO);
 				Field id = new Field("id", article.getId().toString(),
 						Field.Store.YES, Field.Index.NO);
 				doc.add(category);
@@ -172,10 +189,11 @@ public class SearchController extends BaseController {
 				doc.add(content);
 				doc.add(keywords);
 				doc.add(abstractContent);
+				doc.add(slugsUrl);
 				doc.add(id);
 				this.indexWriter.addDocument(doc);
 			}
-			
+
 			this.indexWriter.commit();
 			logger.info("Index rebuilt.");
 		} catch (IOException e) {
@@ -186,6 +204,7 @@ public class SearchController extends BaseController {
 				e1.printStackTrace();
 			}
 		}
+
 		return "admin/indexBuild";
 	}
 }

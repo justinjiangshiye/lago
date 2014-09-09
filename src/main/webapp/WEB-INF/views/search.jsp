@@ -16,7 +16,7 @@
 				<tbody>
 					<c:forEach items="${searchResult}" var="article">
 						<tr>
-							<td>${article.title}</td>
+							<td><a href="<c:url value="/article/${article.slugsurl}" />">${article.title}</a></td>
 							<td>${article.category}</td>
 							<td>${article.content}</td>
 						</tr>

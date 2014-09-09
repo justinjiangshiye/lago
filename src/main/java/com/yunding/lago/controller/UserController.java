@@ -205,7 +205,8 @@ public class UserController extends BaseController {
 			HttpServletResponse response) throws IOException, WeiboException {
 		response.setContentType("text/html;charset=utf-8");
 		try {
-			response.sendRedirect(new weibo4j.Oauth().authorize("code", "", "all"));
+			response.sendRedirect(new weibo4j.Oauth().authorize("code", "",
+					"all"));
 		} catch (WeiboException e) {
 			e.printStackTrace();
 		}
@@ -213,20 +214,22 @@ public class UserController extends BaseController {
 
 	/**
 	 * Simply selects the home view to render by returning its name.
-	 * @throws JSONException 
+	 * 
+	 * @throws JSONException
 	 * 
 	 */
 	@RequestMapping(value = "/user/afterweibologin", method = RequestMethod.GET)
 	public String afterweibologin(HttpServletRequest request,
 			HttpServletResponse response) throws WeiboException, JSONException {
 		try {
-			logger.info("weibo authorization code is {}", request.getParameter("code"));
+			logger.info("weibo authorization code is {}",
+					request.getParameter("code"));
 			weibo4j.Oauth oauth = new weibo4j.Oauth();
 			weibo4j.http.AccessToken accessTokenObj = oauth
 					.getAccessTokenByCode(request.getParameter("code"));
 			String accessToken = accessTokenObj.getAccessToken();
 			logger.info("weibo access token is {}", accessToken);
-			
+
 			weibo4j.Account account = new weibo4j.Account(accessToken);
 			weibo4j.org.json.JSONObject uidJson = account.getUid();
 			String uid = uidJson.getString("uid");
@@ -234,7 +237,7 @@ public class UserController extends BaseController {
 
 			weibo4j.Users users = new weibo4j.Users(accessToken);
 			weibo4j.model.User weiboUser = users.showUserById(uid);
-			
+
 			request.getSession().setAttribute(
 					MyConstants.userLoginIdSessionKey, uid);
 
@@ -264,40 +267,52 @@ public class UserController extends BaseController {
 		return "redirect:/";
 	}
 
+	@RequestMapping(value = "/user/logout", method = RequestMethod.GET)
+	public String userLogout(Locale locale, Model model) {
+		logger.info("Access: /user/logout");
+
+		this.getHttpSession().invalidate();
+		return "redirect:/";
+	}
+
 	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
 	public String adminUserList(Locale locale, Model model) {
-		
+
 		adminInitialize(model, MyConstants.adminMenuItemUsersId);
-		
+
 		model.addAttribute("userList", this.userService.queryAllUser());
-		
+
 		return "admin/users";
 	}
-	
-	@RequestMapping(value="/admin/login", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
 	public String adminUserLogin(Locale locale, Model model) {
 		logger.info("Access: /admin/login");
 		return "admin/login";
 	}
-	
-	@RequestMapping(value="/admin/doLogin", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/admin/doLogin", method = RequestMethod.POST)
 	public String adminUserDoLogin(Locale locale, Model model, User user) {
 		logger.info("Access: /admin/login POST");
-		
+
 		User dbUser = this.userService.queryUserByLoginId(user.getLoginid());
-		
+
 		if (dbUser != null && dbUser.getType() == MyConstants.systemUser) {
-			if (BASE64Encoder.encode(user.getPassword().getBytes()).equals(dbUser.getPassword())){
-				this.getHttpSession().setAttribute(MyConstants.AdminLoginedKey, true);
-				this.getHttpSession().setAttribute(MyConstants.userTypeSessionKey, dbUser.getType());
-				this.getHttpSession().setAttribute(MyConstants.userLoginIdSessionKey, dbUser.getLoginid());
+			if (BASE64Encoder.encode(user.getPassword().getBytes()).equals(
+					dbUser.getPassword())) {
+				this.getHttpSession().setAttribute(MyConstants.AdminLoginedKey,
+						true);
+				this.getHttpSession().setAttribute(
+						MyConstants.userTypeSessionKey, dbUser.getType());
+				this.getHttpSession().setAttribute(
+						MyConstants.userLoginIdSessionKey, dbUser.getLoginid());
 				return "redirect:/admin/";
 			}
 		}
-		
+
 		model.addAttribute("loginStatus", false);
 		model.addAttribute("msg", "登录失败，请重试！");
-		
+
 		return "admin/login";
 	}
 }
