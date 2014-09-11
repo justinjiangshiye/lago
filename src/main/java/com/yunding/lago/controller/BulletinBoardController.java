@@ -102,7 +102,7 @@ public class BulletinBoardController extends BaseController {
 		return "redirect:/admin/bulletinBoards";
 	}
 
-	@RequestMapping(value = "/admin/bulletinBoardDelete/{bulletinBoardId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/bulletinBoardDelete/{bulletinBoardId}", method = RequestMethod.POST)
 	public String adminbulletinBoardDelete(Locale locale, Model model,
 			@PathVariable Integer bulletinBoardId) {
 		logger.info("The client locale is {}.", locale);

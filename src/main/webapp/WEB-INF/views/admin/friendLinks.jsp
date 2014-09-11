@@ -25,7 +25,7 @@
 						<td><c:out value="${friendLink.logourl}"></c:out></td>
 						<td><c:out value="${friendLink.order}"></c:out></td>
 						<td><a href="<c:url value="/admin/friendLinkEdit/${friendLink.id}"/>">编辑</a>&nbsp;
-						<a href="<c:url value="/admin/friendLinkDelete/${friendLink.id}"/>">删除</a>
+						<a class="delete" href="javascript:void(0);" action="<c:url value="/admin/friendLinkDelete/${friendLink.id}"/>">删除</a>
 						</td>
 	                </tr>
                 </c:forEach>

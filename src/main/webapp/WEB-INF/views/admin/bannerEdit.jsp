@@ -7,15 +7,16 @@
 	<div class="form-group">
 		<label for="inputText" class="col-sm-2 control-label">标题</label>
 		<div class="col-sm-10">
-			<input id="inputText" name="Text" type="text" class="form-control">
+			<input id="inputText" name="Text" type="text" class="form-control" value="${bannerLink.text}">
+			<input type="hidden" name="Id" value="${bannerLink.id}">
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="inputBannerUrl" class="col-sm-2 control-label">图片</label>
 		<div class="col-sm-10">
 			<input id="inputBannerUrl" name="Bannerurl" type="hidden"
-				class="form-control">
-			<img id="imgBanner" src="<c:url value="/images/default-banner.gif" />" width="100%" />
+				class="form-control" value="${bannerLink.bannerurl}">
+			<img id="imgBanner" src="<c:url value="${bannerLink.bannerurl}" />" width="100%" />
 			<iframe src="<c:url value="/admin/uploadFile" />" frameborder="0" scrolling="no" width="700px" height="40px"></iframe>
 		</div>
 	</div>
@@ -23,13 +24,13 @@
 		<label for="inputContentUrl" class="col-sm-2 control-label">链接</label>
 		<div class="col-sm-10">
 			<input id="inputContentUrl" name="Contenturl" type="text"
-				class="form-control">
+				class="form-control" value="${bannerLink.contenturl}">
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="inputOrder" class="col-sm-2 control-label">排序</label>
 		<div class="col-sm-10">
-			<input id="inputOrder" name="Order" type="text" class="form-control">
+			<input id="inputOrder" name="Order" type="text" class="form-control" value="${bannerLink.order}">
 		</div>
 	</div>
 	<div class="form-group">

@@ -26,7 +26,7 @@
 	src="<c:url value="/js/bootstrap.min.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/js/jquery.cleditor.min.js" />"></script>
-<script type="text/javascript" src="<c:url value="/js/global.js" />"></script>
+<script type="text/javascript" src="<c:url value="/js/admin.js" />"></script>
 <!--[if lt IE 9]>
       <script src="<c:url value="/js/html5shiv.min.js" /></script>
       <script src="<c:url value="/js/respond.min.js" /></script>

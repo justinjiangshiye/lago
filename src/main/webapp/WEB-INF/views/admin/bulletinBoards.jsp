@@ -29,7 +29,7 @@
                         </c:choose></td>
                         <td><c:out value="${bulletinBoard.order}"></c:out></td>
                         <td><a href="<c:url value="/admin/bulletinBoardEdit/${bulletinBoard.id}"/>">编辑</a>&nbsp;
-                        <a href="<c:url value="/admin/bulletinBoardDelete/${bulletinBoard.id}"/>">删除</a>
+                        <a class="delete" href="javascript:void(0);" action="<c:url value="/admin/bulletinBoardDelete/${bulletinBoard.id}"/>">删除</a>
                         </td>
                     </tr>
                 </c:forEach>

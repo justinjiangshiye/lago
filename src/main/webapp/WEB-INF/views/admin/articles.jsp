@@ -41,7 +41,7 @@
                         </c:choose></td>
 					<td><a
 						href="<c:url value="/admin/articleEdit/${article.id}"/>">编辑</a>&nbsp;
-						<a href="<c:url value="/admin/articleDelete/${article.id}"/>">删除</a>
+						<a class="delete" href="javascript:void(0);" action="<c:url value="/admin/articleDelete/${article.id}"/>">删除</a>
 					</td>
 				</tr>
 			</c:forEach>

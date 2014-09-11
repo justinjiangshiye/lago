@@ -14,6 +14,7 @@
 				<th>图片</th>
 				<th>链接</th>
 				<th>排序</th>
+                <th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,8 +24,10 @@
 					<td>${bannerLink.text}</td>
 					<td><img src="<c:url value="${bannerLink.bannerurl}" />" width="95px" height="41px" /></td>
 					<td>${bannerLink.contenturl}</td>
+					<td>${bannerLink.order}</td>
 					<td>
-						<a href="<c:url value="/admin/bannerDelete/${bannerLink.id}"/>">删除</a>
+					    <a href="<c:url value="/admin/bannerEdit/${bannerLink.id}"/>">编辑</a>&nbsp;
+						<a class="delete" action="<c:url value="/admin/bannerDelete/${bannerLink.id}"/>" href="javascript:void(0);">删除</a>
 					</td>
 				</tr>
 			</c:forEach>

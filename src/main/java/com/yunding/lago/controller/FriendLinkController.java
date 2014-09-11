@@ -106,7 +106,7 @@ public class FriendLinkController extends BaseController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/admin/friendLinkDelete/{friendLinkId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/friendLinkDelete/{friendLinkId}", method = RequestMethod.POST)
 	public String adminFriendLinkDelete(Locale locale, Model model,
 			@PathVariable Integer friendLinkId) {
 		logger.info("The client locale is {}.", locale);

@@ -205,7 +205,7 @@ public class ArticleController extends BaseController {
 		return "redirect:/admin/category/" + MyConstants.getSlugsUrlFromName(articleWithBLOBs.getCategory());
 	}
 
-	@RequestMapping(value = "/admin/articleDelete/{articleId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/articleDelete/{articleId}", method = RequestMethod.POST)
 	public String adminArticleDelete(Locale locale, Model model,
 			@PathVariable Integer articleId) {
 		logger.info("The client locale is {}.", locale);
