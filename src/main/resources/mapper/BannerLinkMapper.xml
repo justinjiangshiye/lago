@@ -10,12 +10,13 @@
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.yunding.lago.bean.BannerLink" extends="BaseResultMap" >
     <result column="BannerUrl" property="bannerurl" jdbcType="LONGVARCHAR" />
+    <result column="ContentUrl" property="contenturl" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     Id, Text, `Order`, CreatedOn, RecordStatus
   </sql>
   <sql id="Blob_Column_List" >
-    BannerUrl
+    BannerUrl, ContentUrl
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
@@ -39,10 +40,11 @@
   </delete>
   <insert id="insert" parameterType="com.yunding.lago.bean.BannerLink" >
     insert into BannerLink (Text, `Order`, 
-      CreatedOn, RecordStatus, BannerUrl
+      CreatedOn, RecordStatus, BannerUrl, ContentUrl
       )
     values (#{text,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, 
-      #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER}, #{bannerurl,jdbcType=LONGVARCHAR}
+      #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER}, 
+      #{bannerurl,jdbcType=LONGVARCHAR, #{contenturl,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yunding.lago.bean.BannerLink" >
@@ -63,6 +65,9 @@
       <if test="bannerurl != null" >
         BannerUrl,
       </if>
+      <if test="contenturl != null" >
+        ContentUrl,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="text != null" >
@@ -79,6 +84,9 @@
       </if>
       <if test="bannerurl != null" >
         #{bannerurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contenturl != null" >
+        #{contenturl,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -100,6 +108,9 @@
       <if test="bannerurl != null" >
         BannerUrl = #{bannerurl,jdbcType=LONGVARCHAR},
       </if>
+      <if test="contenturl != null" >
+        ContentUrl = #{contenturl,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
@@ -109,7 +120,8 @@
       `Order` = #{order,jdbcType=INTEGER},
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       RecordStatus = #{recordstatus,jdbcType=INTEGER},
-      BannerUrl = #{bannerurl,jdbcType=LONGVARCHAR}
+      BannerUrl = #{bannerurl,jdbcType=LONGVARCHAR},
+      ContentUrl = #{contenturl,jdbcType=LONGVARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.BannerLink" >

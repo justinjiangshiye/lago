@@ -14,6 +14,8 @@ public class BannerLink {
     private Integer recordstatus;
 
     private String bannerurl;
+    
+    private String contenturl;
 
     public Integer getId() {
         return id;
@@ -62,4 +64,12 @@ public class BannerLink {
     public void setBannerurl(String bannerurl) {
         this.bannerurl = bannerurl;
     }
+
+	public String getContenturl() {
+		return contenturl;
+	}
+
+	public void setContenturl(String contenturl) {
+		this.contenturl = contenturl;
+	}
 }

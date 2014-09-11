@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yunding.lago.dao.AppDownloadMapper" >
+  <resultMap id="BaseResultMap" type="com.yunding.lago.bean.AppDownload" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="AppName" property="appname" jdbcType="VARCHAR" />
+    <result column="IsIosAppPublished" property="isiosapppublished" jdbcType="BIT" />
+    <result column="IsAndroidAppPublished" property="isandroidapppublished" jdbcType="BIT" />
+    <result column="CreatedOn" property="createdon" jdbcType="TIMESTAMP" />
+    <result column="RecordStatus" property="recordstatus" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yunding.lago.bean.AppDownloadWithBLOBs" extends="BaseResultMap" >
+    <result column="IosQRCodeUrl" property="iosqrcodeurl" jdbcType="LONGVARCHAR" />
+    <result column="IosDownloadUrl" property="iosdownloadurl" jdbcType="LONGVARCHAR" />
+    <result column="AndroidQRCodeUrl" property="androidqrcodeurl" jdbcType="LONGVARCHAR" />
+    <result column="AndroidDownloadUrl" property="androiddownloadurl" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, AppName, IsIosAppPublished, IsAndroidAppPublished, CreatedOn, RecordStatus
+  </sql>
+  <sql id="Blob_Column_List" >
+    IosQRCodeUrl, IosDownloadUrl, AndroidQRCodeUrl, AndroidDownloadUrl
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from AppDownload
+    where Id = #{id,jdbcType=INTEGER} and RecordStatus = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from AppDownload
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yunding.lago.bean.AppDownloadWithBLOBs" >
+    insert into AppDownload (Id, AppName, IsIosAppPublished, 
+      IsAndroidAppPublished, CreatedOn, RecordStatus, 
+      IosQRCodeUrl, IosDownloadUrl, AndroidQRCodeUrl, 
+      AndroidDownloadUrl)
+    values (#{id,jdbcType=INTEGER}, #{appname,jdbcType=VARCHAR}, #{isiosapppublished,jdbcType=BIT}, 
+      #{isandroidapppublished,jdbcType=BIT}, #{createdon,jdbcType=TIMESTAMP}, #{recordstatus,jdbcType=INTEGER}, 
+      #{iosqrcodeurl,jdbcType=LONGVARCHAR}, #{iosdownloadurl,jdbcType=LONGVARCHAR}, #{androidqrcodeurl,jdbcType=LONGVARCHAR}, 
+      #{androiddownloadurl,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yunding.lago.bean.AppDownloadWithBLOBs" >
+    insert into AppDownload
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="appname != null" >
+        AppName,
+      </if>
+      <if test="isiosapppublished != null" >
+        IsIosAppPublished,
+      </if>
+      <if test="isandroidapppublished != null" >
+        IsAndroidAppPublished,
+      </if>
+      <if test="createdon != null" >
+        CreatedOn,
+      </if>
+      <if test="recordstatus != null" >
+        RecordStatus,
+      </if>
+      <if test="iosqrcodeurl != null" >
+        IosQRCodeUrl,
+      </if>
+      <if test="iosdownloadurl != null" >
+        IosDownloadUrl,
+      </if>
+      <if test="androidqrcodeurl != null" >
+        AndroidQRCodeUrl,
+      </if>
+      <if test="androiddownloadurl != null" >
+        AndroidDownloadUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appname != null" >
+        #{appname,jdbcType=VARCHAR},
+      </if>
+      <if test="isiosapppublished != null" >
+        #{isiosapppublished,jdbcType=BIT},
+      </if>
+      <if test="isandroidapppublished != null" >
+        #{isandroidapppublished,jdbcType=BIT},
+      </if>
+      <if test="createdon != null" >
+        #{createdon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordstatus != null" >
+        #{recordstatus,jdbcType=INTEGER},
+      </if>
+      <if test="iosqrcodeurl != null" >
+        #{iosqrcodeurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="iosdownloadurl != null" >
+        #{iosdownloadurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="androidqrcodeurl != null" >
+        #{androidqrcodeurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="androiddownloadurl != null" >
+        #{androiddownloadurl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yunding.lago.bean.AppDownloadWithBLOBs" >
+    update AppDownload
+    <set >
+      <if test="appname != null" >
+        AppName = #{appname,jdbcType=VARCHAR},
+      </if>
+      <if test="isiosapppublished != null" >
+        IsIosAppPublished = #{isiosapppublished,jdbcType=BIT},
+      </if>
+      <if test="isandroidapppublished != null" >
+        IsAndroidAppPublished = #{isandroidapppublished,jdbcType=BIT},
+      </if>
+      <if test="createdon != null" >
+        CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordstatus != null" >
+        RecordStatus = #{recordstatus,jdbcType=INTEGER},
+      </if>
+      <if test="iosqrcodeurl != null" >
+        IosQRCodeUrl = #{iosqrcodeurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="iosdownloadurl != null" >
+        IosDownloadUrl = #{iosdownloadurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="androidqrcodeurl != null" >
+        AndroidQRCodeUrl = #{androidqrcodeurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="androiddownloadurl != null" >
+        AndroidDownloadUrl = #{androiddownloadurl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yunding.lago.bean.AppDownloadWithBLOBs" >
+    update AppDownload
+    set AppName = #{appname,jdbcType=VARCHAR},
+      IsIosAppPublished = #{isiosapppublished,jdbcType=BIT},
+      IsAndroidAppPublished = #{isandroidapppublished,jdbcType=BIT},
+      CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      RecordStatus = #{recordstatus,jdbcType=INTEGER},
+      IosQRCodeUrl = #{iosqrcodeurl,jdbcType=LONGVARCHAR},
+      IosDownloadUrl = #{iosdownloadurl,jdbcType=LONGVARCHAR},
+      AndroidQRCodeUrl = #{androidqrcodeurl,jdbcType=LONGVARCHAR},
+      AndroidDownloadUrl = #{androiddownloadurl,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.AppDownload" >
+    update AppDownload
+    set AppName = #{appname,jdbcType=VARCHAR},
+      IsIosAppPublished = #{isiosapppublished,jdbcType=BIT},
+      IsAndroidAppPublished = #{isandroidapppublished,jdbcType=BIT},
+      CreatedOn = #{createdon,jdbcType=TIMESTAMP},
+      RecordStatus = #{recordstatus,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

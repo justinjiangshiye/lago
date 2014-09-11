@@ -2,22 +2,20 @@ package com.yunding.lago.bean;
 
 import java.util.Date;
 
-public class ShareStat {
+public class ArticleReadStat {
     private Integer id;
 
     private Integer articleid;
 
     private Integer userid;
 
-    private String thridpartyname;
+    private String ip;
 
-    private String thirdpartylink;
+    private String sessionid;
 
     private Date createdon;
 
     private Integer recordstatus;
-
-    private String sharedcontent;
 
     public Integer getId() {
         return id;
@@ -43,20 +41,20 @@ public class ShareStat {
         this.userid = userid;
     }
 
-    public String getThridpartyname() {
-        return thridpartyname;
+    public String getIp() {
+        return ip;
     }
 
-    public void setThridpartyname(String thridpartyname) {
-        this.thridpartyname = thridpartyname;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
-    public String getThirdpartylink() {
-        return thirdpartylink;
+    public String getSessionid() {
+        return sessionid;
     }
 
-    public void setThirdpartylink(String thirdpartylink) {
-        this.thirdpartylink = thirdpartylink;
+    public void setSessionid(String sessionid) {
+        this.sessionid = sessionid;
     }
 
     public Date getCreatedon() {
@@ -73,13 +71,5 @@ public class ShareStat {
 
     public void setRecordstatus(Integer recordstatus) {
         this.recordstatus = recordstatus;
-    }
-
-    public String getSharedcontent() {
-        return sharedcontent;
-    }
-
-    public void setSharedcontent(String sharedcontent) {
-        this.sharedcontent = sharedcontent;
     }
 }
