@@ -32,6 +32,19 @@ public class BannerLinkController extends BaseController {
 		logger.info("Welcome admin index! The client locale is {}.", locale);
 		adminInitialize(model, MyConstants.adminMenuItemBannerLinkId);
 		
+		model.addAttribute("bannerLinkList", this.bannerLinkService.queryAllBannerLinks());
+		
 		return "admin/banners";
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/admin/bannerAdd", method = RequestMethod.GET)
+	public String adminBannerLinkAdd(Locale locale, Model model) {
+		logger.info("Welcome admin index! The client locale is {}.", locale);
+		adminInitialize(model, MyConstants.adminMenuItemBannerLinkId);
+				
+		return "admin/bannerAdd";
 	}
 }
