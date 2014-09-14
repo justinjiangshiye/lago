@@ -48,12 +48,12 @@
 							test="${activeMenuItemId==100}">
 							<span class="selected"></span>
 						</c:if></li>
-				    <li <c:if test="${activeMenuItemId==101}"> class="active"</c:if>><a
-                        href="<c:url value="/admin/bulletinBoards/" />"><span
-                            class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;公告栏管理</a> <c:if
-                            test="${activeMenuItemId==101}">
-                            <span class="selected"></span>
-                        </c:if></li>
+					<li <c:if test="${activeMenuItemId==101}"> class="active"</c:if>><a
+						href="<c:url value="/admin/bulletinBoards/" />"><span
+							class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;公告栏管理</a> <c:if
+							test="${activeMenuItemId==101}">
+							<span class="selected"></span>
+						</c:if></li>
 					<li <c:if test="${activeMenuItemId==102}"> class="active"</c:if>><a
 						href="<c:url value="/admin/banner/" />"><span
 							class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;首页Banner管理</a>
@@ -68,7 +68,7 @@
 						</c:if></li>
 					<li><a href="javascript:(0)"><span
 							class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;文章管理&nbsp;&nbsp;<span
-                        class="glyphicon glyphicon-chevron-down open"></span></a></li>
+							class="glyphicon glyphicon-chevron-down open"></span></a></li>
 					<li <c:if test="${activeMenuItemId==104}"> class="active"</c:if>><a
 						href="<c:url value="/admin/category/parent-school" />">&nbsp;&nbsp;<span
 							class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;父母学堂
@@ -111,6 +111,8 @@
 							test="${activeMenuItemId==110}">
 							<span class="selected"></span>
 						</c:if></li>
+					<li><a href="<c:url value="/user/logout" />"><span
+                            class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;注销</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

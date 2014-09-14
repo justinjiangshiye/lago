@@ -229,6 +229,7 @@ ul.friendlinks li a {
 .article-share {
 	border-top: 3px solid #ff0000;
 	padding: 5px 5px 5px 500px;
+	margin-top: 20px;
 }
 .article-share ul {
     list-style: none;
@@ -249,4 +250,7 @@ ul.friendlinks li a {
 	padding-top: 10px;
     padding-left: 5px;
     padding-right: 5px;
+}
+.article-title-comment {
+	padding: 5px 10px 20px 10px;
 }

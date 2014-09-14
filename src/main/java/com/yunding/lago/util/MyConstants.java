@@ -30,6 +30,8 @@ public class MyConstants {
 	public static Integer menuItemReadingId = 7;	
 	public static Integer menuItemAboutId = 8;
 	public static Integer menuItemSearchResultId = 9;
+	public static Integer menuItemHotArticleId = 10;
+	public static Integer menuItemBulletinBoardId = 11;
 	
 	// Add admin menu item related id
 	public static Integer adminMenuItemHomeId = 100;

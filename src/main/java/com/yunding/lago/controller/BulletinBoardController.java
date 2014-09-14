@@ -18,12 +18,30 @@ import com.yunding.lago.util.MyConstants;
  * Handles requests for the application home page.
  */
 @Controller
-public class BulletinBoardController extends BaseController {
-	private BulletinBoardService bulletinBoardService = null;
-	
+public class BulletinBoardController extends BaseController {	
 	@Autowired
 	public void setBulletinBoardService(BulletinBoardService bulletinBoardService) {
 		this.bulletinBoardService = bulletinBoardService;
+	}
+	
+	@RequestMapping(value = "/bulletinBoard/{bulletinBoardId}", method = RequestMethod.GET)
+	public String bulletinBoard(Locale locale, Model model,
+			@PathVariable Integer bulletinBoardId) {
+		logger.info("The client locale is {}.", locale);
+		initialize(model, MyConstants.menuItemBulletinBoardId);
+
+		BulletinBoard bulletinBoard = this.bulletinBoardService
+				.queryBulletinBoardById(bulletinBoardId);
+		
+		model.addAttribute("bulletinBoard", bulletinBoard);
+
+		logger.info("bulletinBoard Id is {}", bulletinBoard.getId());
+		logger.info("bulletinBoard Summary is {}.", bulletinBoard.getSummary());
+		logger.info("bulletinBoard Content is {}.", bulletinBoard.getContent());
+		logger.info("bulletinBoard IsPublished is {}.", bulletinBoard.getIspublished());
+		logger.info("bulletinBoard Order is {}.", bulletinBoard.getOrder());;
+
+		return "bulletinBoard";
 	}
 
 	@RequestMapping(value = "/admin/bulletinBoards", method = RequestMethod.GET)

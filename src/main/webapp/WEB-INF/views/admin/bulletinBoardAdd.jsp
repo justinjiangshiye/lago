@@ -12,7 +12,8 @@
 	<div class="form-group">
         <label for="inputContent" class="col-sm-2 control-label">公告详情</label>
         <div class="col-sm-10">
-            <input id="inputContent" name="Content" type="text" class="form-control">
+            <textarea id="inputContent" name="Content" class="form-control"
+                    rows="20"></textarea>
         </div>
     </div>
     <div class="form-group">
@@ -34,4 +35,9 @@
 		</div>
 	</div>
 </form>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#inputContent").cleditor({height:200});
+    });
+</script>
 <%@ include file="../template/admin-tailer.jsp"%>

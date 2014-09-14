@@ -23,6 +23,7 @@ import com.qq.connect.javabeans.AccessToken;
 import com.qq.connect.javabeans.qzone.UserInfoBean;
 import com.qq.connect.oauth.Oauth;
 import com.qq.connect.utils.http.BASE64Encoder;
+import com.yunding.lago.bean.BannerLink;
 import com.yunding.lago.bean.User;
 import com.yunding.lago.service.UserService;
 import com.yunding.lago.util.MyConstants;
@@ -277,12 +278,48 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
 	public String adminUserList(Locale locale, Model model) {
-
 		adminInitialize(model, MyConstants.adminMenuItemUsersId);
 
 		model.addAttribute("userList", this.userService.queryAllUser());
 
 		return "admin/users";
+	}
+	
+	@RequestMapping(value = "/admin/userAdd", method = RequestMethod.GET)
+	public String adminUserAdd(Locale locale, Model model) {
+		adminInitialize(model, MyConstants.adminMenuItemUsersId);
+
+		return "admin/userAdd";
+	}
+	
+	@RequestMapping(value = "/admin/userSave", method = RequestMethod.POST)
+	public String adminUserSave(Locale locale, Model model, User user) {
+		adminInitialize(model, MyConstants.adminMenuItemUsersId);
+
+		logger.info("user Id is {}", user.getId());
+		logger.info("user Loginid is {}.", user.getLoginid());
+		logger.info("user Nickname is {}.", user.getNickname());
+		logger.info("user Profilephotourl is {}.", user.getProfilephotourl());
+
+		Date now = new Date();
+		user.setRecordstatus(0);
+
+		if (user.getId() == null) {
+			user.setRegisteron(now);
+			user.setLastvisiton(now);
+			user.setCreatedon(now);
+			user.setPassword(BASE64Encoder.encode(user.getPassword().getBytes()));
+			user.setType(MyConstants.systemUser);
+			this.userService.addUser(user);
+		} else {
+			User userDB = this.userService.queryUserByLoginId(user.getLoginid());
+			userDB.setLoginid(user.getLoginid());
+			userDB.setNickname(user.getNickname());
+			userDB.setProfilephotourl(user.getProfilephotourl());
+			this.userService.updateUser(userDB);
+		}
+		
+		return "redirect:/admin/users";
 	}
 
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)

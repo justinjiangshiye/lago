@@ -16,7 +16,7 @@
 				<c:forEach items="${bannerlinkList}" var="item"
 					varStatus="itemStatus">
 					<div class="<c:if test="${itemStatus.first==true}">active </c:if>item">
-						<img alt="" src="<c:url value="${item.bannerurl}" />">
+						<img alt="" src="<c:url value="${item.bannerurl}" />" width="945px" height="405px">
 						<div class="carousel-caption">
 							<h5>${item.text}</h5>
 						</div>
@@ -63,6 +63,7 @@
 							</c:if>
 						</c:forEach>
 					</ul>
+					<div><a href="<c:url value="/category/parent-school" />">更多</a></div>
 				</div>
 			</div>
 			<div class="col-xs-6 home-article">
@@ -89,6 +90,7 @@
 							</c:if>
 						</c:forEach>
 					</ul>
+					<div><a href="<c:url value="/category/grow-up" />">更多</a></div>
 				</div>
 			</div>
 		</div>
@@ -119,6 +121,7 @@
 							</c:if>
 						</c:forEach>
 					</ul>
+					<div><a href="<c:url value="/category/love-family" />">更多</a></div>
 				</div>
 			</div>
 			<div class="col-xs-6 home-article">
@@ -147,6 +150,7 @@
 							</c:if>
 						</c:forEach>
 					</ul>
+					<div><a href="<c:url value="/category/reading" />">更多</a></div>
 				</div>
 			</div>
 		</div>

@@ -7,7 +7,7 @@ public class ArticleReadStat {
 
     private Integer articleid;
 
-    private Integer userid;
+    private String userloginid;
 
     private String ip;
 
@@ -33,12 +33,12 @@ public class ArticleReadStat {
         this.articleid = articleid;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public String getUserloginid() {
+        return userloginid;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserloginid(String userloginid) {
+        this.userloginid = userloginid;
     }
 
     public String getIp() {

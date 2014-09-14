@@ -1,5 +1,7 @@
 package com.yunding.lago.dao;
 
+import java.util.List;
+
 import com.yunding.lago.bean.ArticleReadStat;
 
 public interface ArticleReadStatMapper {
@@ -10,6 +12,10 @@ public interface ArticleReadStatMapper {
     int insertSelective(ArticleReadStat record);
 
     ArticleReadStat selectByPrimaryKey(Integer id);
+    
+    int selectReadingTimes(Integer articleid);
+    
+    List<ArticleReadStat> selectReadingHistory(ArticleReadStat record);
 
     int updateByPrimaryKeySelective(ArticleReadStat record);
 

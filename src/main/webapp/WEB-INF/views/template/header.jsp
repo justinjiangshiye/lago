@@ -91,6 +91,12 @@
 				<c:if test="${activeMenuItemId==9}">
 					<li class="active"><a href="javascript:void(0);">搜索结果</a></li>
 				</c:if>
+                <c:if test="${activeMenuItemId==10}">
+                    <li class="active"><a href="javascript:void(0);">热读文章</a></li>
+                </c:if>
+                <c:if test="${activeMenuItemId==11}">
+                    <li class="active"><a href="javascript:void(0);">公告</a></li>
+                </c:if>
 			</ul>
 		</div>
 	</div>
@@ -100,7 +106,7 @@
 			<div class="col-md-11 marquee no-padding">
 				<ul>
 					<c:forEach items="${bulletinBoardList}" var="bulletinBoardItem">
-						<li><a href="" target="_blank">${bulletinBoardItem.summary}</a></li>
+						<li><a href="<c:url value="/bulletinBoard/${bulletinBoardItem.id}" />" target="_blank">${bulletinBoardItem.summary}</a></li>
 					</c:forEach>
 				</ul>
 			</div>

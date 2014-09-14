@@ -5,10 +5,11 @@
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="col-xs-10">
 		<h3 class="article-title">${article.title}</h3>
-		<div>
+		<div class="article-title-comment">
 			<span><fmt:formatDate value="${article.publishdate}"
 					type="date" pattern="yyyy-MM-dd" /></span> <span>${article.category}</span>
-			<span>评论&nbsp;TODO</span>
+			<span>阅读次数:&nbsp;${articleReadTime}</span>
+			<span>评论数：&nbsp;${articleCommentsCount}</span>
 		</div>
 		<div>${article.content}</div>
 		<div class="article-share">

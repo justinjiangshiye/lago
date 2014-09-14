@@ -67,6 +67,7 @@
     where Category = #{category,jdbcType=VARCHAR} and RecordStatus = 0 
         and IsPublished = 1 and IsDisplayOnHome = 1
     order by IsLockTop desc, `Order` asc, CreatedOn desc
+    limit 6
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from Article
