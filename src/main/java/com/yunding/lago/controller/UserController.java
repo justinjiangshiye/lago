@@ -73,6 +73,9 @@ public class UserController extends BaseController {
 			if (accessTokenObj.getAccessToken().equals("")) { // 我们的网站被CSRF攻击了或者用户取消了授权做一些数据统计工作
 				logger.info("没有获取到响应参数");
 			} else {
+				// Clean session for new login user
+				request.getSession().invalidate();
+				
 				accessToken = accessTokenObj.getAccessToken();
 				tokenExpireIn = accessTokenObj.getExpireIn();
 
@@ -239,6 +242,9 @@ public class UserController extends BaseController {
 			weibo4j.Users users = new weibo4j.Users(accessToken);
 			weibo4j.model.User weiboUser = users.showUserById(uid);
 
+			// Clean session for new login user
+			request.getSession().invalidate();
+			
 			request.getSession().setAttribute(
 					MyConstants.userLoginIdSessionKey, uid);
 

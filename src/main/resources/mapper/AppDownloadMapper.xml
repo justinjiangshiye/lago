@@ -29,6 +29,14 @@
     from AppDownload
     where Id = #{id,jdbcType=INTEGER} and RecordStatus = 0
   </select>
+  <select id="selectAllAppDownload" resultMap="ResultMapWithBLOBs" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from AppDownload
+    where RecordStatus = 0
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from AppDownload
     where Id = #{id,jdbcType=INTEGER}

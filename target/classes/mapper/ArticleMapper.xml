@@ -52,13 +52,13 @@
     select 
     <include refid="Base_Column_List" />
     from Article  where Category = #{category,jdbcType=VARCHAR} and RecordStatus = 0 
-    order by Id
+    order by `Order` desc, CreatedOn desc
   </select>
   <select id="selectPublishedArticlesByCategory" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from Article  where Category = #{category,jdbcType=VARCHAR} and RecordStatus = 0 and IsPublished = 1 
-    order by `Order` asc, CreatedOn desc
+    order by `Order` desc, CreatedOn desc
   </select>
   <select id="selectHomePageArticles" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -66,8 +66,39 @@
     from Article 
     where Category = #{category,jdbcType=VARCHAR} and RecordStatus = 0 
         and IsPublished = 1 and IsDisplayOnHome = 1
-    order by IsLockTop desc, `Order` asc, CreatedOn desc
+    order by IsLockTop desc, `Order` desc, CreatedOn desc
     limit 6
+  </select>
+  <select id="selectTop10HotReadArticles" resultMap="BaseResultMap" >
+    select b.Id, b.Category, b.Title, b.SlugsUrl
+	from (
+	    select a.Id, count(r.id) ReadTimes
+	    from Article a
+	    left join ArticleReadStat r on a.Id = r.ArticleId
+	    where a.RecordStatus = 0 
+	        and a.IsPublished = 1 
+	        and r.RecordStatus = 0
+	    group by a.Id
+	) i 
+	inner join Article b on i.Id = b.Id
+	order by i.ReadTimes asc, b.CreatedOn desc
+	limit 10
+  </select>
+  <select id="selectTop50HotReadArticles" resultMap="BaseResultMap" >
+    select b.Id, b.Category, b.Title, b.SlugsUrl, b.BannerUrl, b.AbstractContent, b.IsDisplayOnHome, b.IsLockTop, b.`Order`, 
+        b.IsPublished, b.PublishDate, b.CreatedOn, b.RecordStatus
+    from (
+        select a.Id, count(r.id) ReadTimes
+        from Article a
+        left join ArticleReadStat r on a.Id = r.ArticleId
+        where a.RecordStatus = 0 
+            and a.IsPublished = 1 
+            and r.RecordStatus = 0
+        group by a.Id
+    ) i 
+    inner join Article b on i.Id = b.Id
+    order by i.ReadTimes asc, b.CreatedOn desc
+    limit 50
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from Article

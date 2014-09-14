@@ -33,7 +33,7 @@
     <include refid="Blob_Column_List" />
     from FriendLink
     where RecordStatus=0
-    order by `Order`, WebsiteName
+    order by `Order` desc, WebsiteName
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from FriendLink

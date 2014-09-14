@@ -46,7 +46,6 @@ import com.yunding.lago.util.MyConstants;
 @Controller
 public class SearchController extends BaseController {
 
-	private ArticleService articleService = null;
 	private IndexWriter indexWriter = null;
 	private IKAnalyzer analyzer = null;
 

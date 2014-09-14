@@ -186,17 +186,19 @@
 	border-width: 0px 0;
 	padding: 5px 10px 5px 10px
 }
+
 .home-article .panel>.list-group .list-group-item a {
 	color: #000;
 }
+
 .category .thumbnail {
 	border: 0px solid #ddd;
 	border-radius: 0px;
-	-webkit-box-shadow: 0 0px 0px rgba(0,0,0,0.075);
-    box-shadow: 0 0px 0px rgba(0,0,0,0.075);
-    border-bottom: 3px solid #ff0000;
-    margin-right: 10px;
-    height: 430px;
+	-webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.075);
+	box-shadow: 0 0px 0px rgba(0, 0, 0, 0.075);
+	border-bottom: 3px solid #ff0000;
+	margin-right: 10px;
+	height: 430px;
 }
 /* home article end */
 .footer {
@@ -226,31 +228,75 @@ ul.friendlinks li a {
 	padding-bottom: 5px;
 	border-bottom: 3px solid #ff0000;
 }
+
 .article-share {
 	border-top: 3px solid #ff0000;
 	padding: 5px 5px 5px 500px;
 	margin-top: 20px;
 }
+
 .article-share ul {
-    list-style: none;
-    padding-left: 0;
-    height: 40px;
+	list-style: none;
+	padding-left: 0;
+	height: 40px;
 }
 
 .article-share ul li {
-    float: left;
-    color: grey;
+	float: left;
+	color: grey;
 }
 
 .article-share ul li a {
-    padding-left: 5px;
-    padding-right: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
+
 .article-share ul li span {
 	padding-top: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
+
 .article-title-comment {
 	padding: 5px 10px 20px 10px;
+}
+
+/* App Download */
+.appDownload .panel-body {
+	padding: 0px;
+}
+
+.appDownload p {
+	text-align: center;
+	padding: 15px;
+}
+
+.appDownload img {
+	width: 130px;
+	padding-bottom: 10px;
+}
+
+.appDownload hr {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border: 0;
+	border-top: 1px dashed #ddd;
+}
+
+.androidDownload {
+	background-image: url(../images/android-download-buttn.gif);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	width: 100%;
+	height: 38px;
+	display: block;
+}
+
+.iosDownload {
+	background-image: url(../images/ios-download-buttn.gif);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	width: 100%;
+	height: 38px;
+	display: block;
 }

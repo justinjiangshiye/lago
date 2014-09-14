@@ -17,7 +17,6 @@ import com.yunding.lago.util.MyConstants;
  */
 @Controller
 public class HomeController extends BaseController {
-	private ArticleService articleService = null;
 	private BannerLinkService bannerLinkService = null;
 	
 	@Autowired

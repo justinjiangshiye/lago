@@ -30,7 +30,6 @@ import com.yunding.lago.util.MyConstants;
 @Controller
 public class ArticleController extends BaseController {
 
-	private ArticleService articleService = null;
 	private CommentService commentService = null;
 	private ArticleReadStatService articleReadStatService = null;
 
@@ -60,6 +59,15 @@ public class ArticleController extends BaseController {
 
 		model.addAttribute("articleList", this.articleService
 				.queryArticlesByCategorySlugsUrl(articleCategorySlugsUrl));
+
+		return "articlesByCategory";
+	}
+
+	@RequestMapping(value = "/article/hotreading", method = RequestMethod.GET)
+	public String articlesHotReading(Locale locale, Model model) {
+		initialize(model, MyConstants.menuItemHotArticleId);
+
+		model.addAttribute("articleList", this.articleService.queryTop50HotReadArticles());
 
 		return "articlesByCategory";
 	}

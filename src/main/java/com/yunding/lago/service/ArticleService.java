@@ -44,6 +44,14 @@ public class ArticleService {
 		return this.articleMapper.selectAllArticlesByCategory(categoryName);
 	}
 	
+	public List<Article> queryTop10HotReadArticles() {
+		return this.articleMapper.selectTop10HotReadArticles();
+	}
+	
+	public List<Article> queryTop50HotReadArticles() {
+		return this.articleMapper.selectTop50HotReadArticles();
+	}
+	
 	public int addArticle(ArticleWithBLOBs articleWithBLOBs) {
 		return this.articleMapper.insertSelective(articleWithBLOBs);
 	}

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import com.yunding.lago.bean.MenuItem;
+import com.yunding.lago.service.AppDownloadService;
+import com.yunding.lago.service.ArticleService;
 import com.yunding.lago.service.BulletinBoardService;
 import com.yunding.lago.service.FriendLinkService;
 import com.yunding.lago.service.UserService;
@@ -24,6 +26,8 @@ public class BaseController {
 	protected BulletinBoardService bulletinBoardService = null;
 	protected UserService userService = null;
 	protected HttpSession httpSession = null;
+	protected AppDownloadService appDownloadService = null;
+	protected ArticleService articleService = null;
 
 	@Autowired
 	public void setFriendLinkService(FriendLinkService friendLinkService) {
@@ -33,6 +37,16 @@ public class BaseController {
 	@Autowired
 	public void setBulletinBoardService(BulletinBoardService bulletinBoardService) {
 		this.bulletinBoardService = bulletinBoardService;
+	}
+	
+	@Autowired
+	public void setAppDownloadService(AppDownloadService appDownloadService) {
+		this.appDownloadService = appDownloadService;
+	}
+	
+	@Autowired
+	public void setArticleService(ArticleService articleService) {
+		this.articleService = articleService;
 	}
 
 	@Autowired
@@ -97,6 +111,12 @@ public class BaseController {
 		
 		// Add friend links
 		model.addAttribute("friendLinkList", this.friendLinkService.queryAllFriendLinks());
+		
+		// Add app downloads
+		model.addAttribute("appDownloadList", this.appDownloadService.queryAllAppDownloads());
+		
+		// Add hotread articles
+		model.addAttribute("hotReadArticleList", this.articleService.queryTop10HotReadArticles());
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -33,6 +33,7 @@
     <include refid="Blob_Column_List" />
     from BannerLink
     where RecordStatus = 0
+    order by `Order` desc, CreatedOn desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from BannerLink

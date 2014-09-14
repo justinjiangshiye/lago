@@ -23,6 +23,10 @@ public interface ArticleMapper {
     List<Article> selectAllArticlesByCategory(String category);
     
     List<Article> selectPublishedArticlesByCategory(String category);
+    
+    List<Article> selectTop10HotReadArticles();
+    
+    List<Article> selectTop50HotReadArticles();
 
 	int updateByPrimaryKeySelective(ArticleWithBLOBs record);
 
