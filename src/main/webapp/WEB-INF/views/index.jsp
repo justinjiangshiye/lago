@@ -16,7 +16,7 @@
 				<c:forEach items="${bannerlinkList}" var="item"
 					varStatus="itemStatus">
 					<div class="<c:if test="${itemStatus.first==true}">active </c:if>item">
-						<img alt="" src="<c:url value="${item.bannerurl}" />" width="945px" height="405px">
+						<a target="_blank" href="<c:url value="${item.contenturl}" />"><img alt="" src="<c:url value="${item.bannerurl}" />" width="945px" height="405px"></a>
 						<div class="carousel-caption">
 							<h5>${item.text}</h5>
 						</div>

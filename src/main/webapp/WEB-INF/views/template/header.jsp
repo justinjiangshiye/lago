@@ -20,9 +20,13 @@
 <script type="text/javascript"
 	src="<c:url value="/js/jquery-1.11.1.min.js" />"></script>
 <script type="text/javascript"
+    src="<c:url value="/js/bootstrap.min.js" />"></script>
+<script type="text/javascript"
 	src="<c:url value="/js/jquery.extends.js" />"></script>
 <script type="text/javascript"
-	src="<c:url value="/js/bootstrap.min.js" />"></script>
+	src="<c:url value="/js/jquery.validate.min.js" />"></script>
+<script type="text/javascript"
+    src="<c:url value="/js/additional-methods.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/global.js" />"></script>
 <!--[if lt IE 9]>
       <script src="<c:url value="/js/html5shiv.min.js" /></script>

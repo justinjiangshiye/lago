@@ -81,7 +81,7 @@
 	    group by a.Id
 	) i 
 	inner join Article b on i.Id = b.Id
-	order by i.ReadTimes asc, b.CreatedOn desc
+	order by i.ReadTimes desc, b.CreatedOn desc
 	limit 10
   </select>
   <select id="selectTop50HotReadArticles" resultMap="BaseResultMap" >
@@ -97,7 +97,7 @@
         group by a.Id
     ) i 
     inner join Article b on i.Id = b.Id
-    order by i.ReadTimes asc, b.CreatedOn desc
+    order by i.ReadTimes desc, b.CreatedOn desc
     limit 50
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

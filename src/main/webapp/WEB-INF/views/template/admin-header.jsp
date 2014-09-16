@@ -25,6 +25,10 @@
 <script type="text/javascript"
 	src="<c:url value="/js/bootstrap.min.js" />"></script>
 <script type="text/javascript"
+    src="<c:url value="/js/jquery.validate.min.js" />"></script>
+<script type="text/javascript"
+    src="<c:url value="/js/additional-methods.js" />"></script>
+<script type="text/javascript"
 	src="<c:url value="/js/jquery.cleditor.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/admin.js" />"></script>
 <!--[if lt IE 9]>

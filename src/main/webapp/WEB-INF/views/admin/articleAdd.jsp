@@ -2,12 +2,12 @@
 	pageEncoding="utf-8"%>
 <%@ include file="../template/admin-header.jsp"%>
 <h3 class="sub-header">新增文章</h3>
-<form class="form-horizontal" role="form" method="post" action="<c:url value="/admin/articleSave"/>">
+<form id="form" class="form-horizontal" role="form" method="post"
+	action="<c:url value="/admin/articleSave"/>">
 	<div class="form-group">
 		<label for="selectCategory" class="col-sm-2 control-label">栏目</label>
 		<div class="col-sm-10">
-			<input type="hidden" name="Category" value="${category}" />
-			<span>${category}</span>
+			<input type="hidden" name="Category" value="${category}" /> <span>${category}</span>
 		</div>
 	</div>
 	<div class="form-group">
@@ -39,12 +39,11 @@
 		<label for="inputIsDisplayOnHome" class="col-sm-2 control-label">是否首页显示</label>
 		<div class="col-sm-4">
 			<input id="inputIsDisplayOnHome" name="Isdisplayonhome"
-				type="checkbox" class="form-control">
+				type="checkbox">
 		</div>
 		<label for="inputIsLockTop" class="col-sm-2 control-label">是否置顶</label>
 		<div class="col-sm-4">
-			<input id="inputIsLockTop" name="Islocktop" type="checkbox"
-				class="form-control">
+			<input id="inputIsLockTop" name="Islocktop" type="checkbox">
 		</div>
 	</div>
 	<div class="form-group">
@@ -54,8 +53,7 @@
 		</div>
 		<label for="inputIsPublished" class="col-sm-2 control-label">是否发布</label>
 		<div class="col-sm-4">
-			<input id="inputIsPublished" name="Ispublished" type="checkbox"
-				class="form-control">
+			<input id="inputIsPublished" name="Ispublished" type="checkbox">
 		</div>
 	</div>
 	<div class="form-group">
@@ -79,8 +77,58 @@
 	</div>
 </form>
 <script type="text/javascript">
-	        $(document).ready(function () { 
-	        	   $("#inputContent").cleditor(); 
-	        });
-        </script>
+	$(document).ready(
+			function() {
+				$("#inputContent").cleditor();
+				$('#form').validate(
+						{
+							rules : {
+								Title : {
+									required : true
+								},
+								Slugsurl : {
+									required : true
+								},
+								Bannerurl : {
+									required : true
+								},
+								Abstractcontent : {
+									required : true
+								},
+								Order : {
+                                    required : true
+                                },
+                                Keywords : {
+                                    required : true
+                                },
+                                Content : {
+                                    required : true
+                                }
+							},
+							messages:{
+                                Title : {
+                                    required : "此项不能为空！"
+                                },
+                                Slugsurl : {
+                                    required : "此项不能为空！"
+                                },
+                                Bannerurl : {
+                                    required : "此项不能为空！"
+                                },
+                                Abstractcontent : {
+                                    required : "此项不能为空！"
+                                },
+                                Order : {
+                                    required : "此项不能为空！"
+                                },
+                                Keywords : {
+                                    required : "此项不能为空！"
+                                },
+                                Content : {
+                                    required : "此项不能为空！"
+                                }
+							}
+						});
+			});
+</script>
 <%@ include file="../template/admin-tailer.jsp"%>
