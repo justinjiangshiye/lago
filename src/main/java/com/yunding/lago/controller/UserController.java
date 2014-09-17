@@ -281,6 +281,14 @@ public class UserController extends BaseController {
 		this.getHttpSession().invalidate();
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value = "/admin/logout", method = RequestMethod.GET)
+	public String adminLogout(Locale locale, Model model) {
+		logger.info("Access: /admin/logout");
+
+		this.getHttpSession().invalidate();
+		return "redirect:/admin/";
+	}
 
 	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
 	public String adminUserList(Locale locale, Model model) {

@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ include file="../template/admin-header.jsp"%>
 <h3 class="sub-header">编辑文章</h3>
-<form class="form-horizontal" role="form" method="post"
+<form id="form" class="form-horizontal" role="form" method="post"
 	action="<c:url value="/admin/articleSave"/>">
 	<div class="form-group">
 		<label for="selectCategory" class="col-sm-2 control-label">栏目</label>
@@ -20,8 +20,8 @@
 		</div>
 		<label for="inputSlugsUrl" class="col-sm-2 control-label">友好链接标识</label>
 		<div class="col-sm-4">
-			<input id="inputSlugsUrl" name="Slugsurl" type="text"
-				class="form-control" value="${article.slugsurl}">
+			<span>${article.slugsurl}</span> <input id="inputSlugsUrl"
+				name="Slugsurl" type="hidden" value="${article.slugsurl}">
 		</div>
 	</div>
 	<div class="form-group">
@@ -42,13 +42,13 @@
 		<label for="inputIsDisplayOnHome" class="col-sm-2 control-label">是否首页显示</label>
 		<div class="col-sm-4">
 			<input id="inputIsDisplayOnHome" name="Isdisplayonhome"
-				type="checkbox" class="form-control"
-				checked="${article.isdisplayonhome}">
+				type="checkbox"
+				<c:if test="${article.isdisplayonhome==true}">checked="checked"</c:if>>
 		</div>
 		<label for="inputIsLockTop" class="col-sm-2 control-label">是否置顶</label>
 		<div class="col-sm-4">
 			<input id="inputIsLockTop" name="Islocktop" type="checkbox"
-				class="form-control" checked="${article.islocktop}">
+				<c:if test="${article.islocktop==true}">checked="checked"</c:if>>
 		</div>
 	</div>
 	<div class="form-group">
@@ -60,7 +60,7 @@
 		<label for="inputIsPublished" class="col-sm-2 control-label">是否发布</label>
 		<div class="col-sm-4">
 			<input id="inputIsPublished" name="Ispublished" type="checkbox"
-				class="form-control" checked="${article.ispublished}">
+				<c:if test="${article.ispublished==true}">checked="checked"</c:if>>
 		</div>
 	</div>
 	<div class="form-group">
@@ -86,6 +86,56 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#inputContent").cleditor();
+		$('#form').validate({
+			rules : {
+				Title : {
+					required : true,
+					minlength : 2,
+					maxlength : 50
+				},
+				Bannerurl : {
+					required : true
+				},
+				Abstractcontent : {
+					required : true,
+					minlength : 30,
+					maxlength : 100
+				},
+				Order : {
+					required : true
+				},
+				Keywords : {
+					required : true
+				},
+				Content : {
+					required : true
+				}
+			},
+			messages : {
+				Title : {
+					required : "此项不能为空！",
+					minlength : "字符长度不能少于2个字符",
+					maxlength : "字符长度不能少多于50个字符"
+				},
+				Bannerurl : {
+					required : "此项不能为空！"
+				},
+				Abstractcontent : {
+					required : "此项不能为空！",
+					minlength : "字符长度不能少于30个字符",
+					maxlength : "字符长度不能少多于100个字符"
+				},
+				Order : {
+					required : "此项不能为空！"
+				},
+				Keywords : {
+					required : "此项不能为空！"
+				},
+				Content : {
+					required : "此项不能为空！"
+				}
+			}
+		});
 	});
 </script>
 <%@ include file="../template/admin-tailer.jsp"%>

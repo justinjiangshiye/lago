@@ -19,8 +19,7 @@
     <div class="form-group">
         <label for="inputIsPublished" class="col-sm-2 control-label">是否发布</label>
         <div class="col-sm-10">
-            <input id="inputIsPublished" name="Ispublished" type="checkbox"
-                class="form-control">
+            <input id="inputIsPublished" name="Ispublished" type="checkbox">
         </div>
     </div>
 	<div class="form-group">

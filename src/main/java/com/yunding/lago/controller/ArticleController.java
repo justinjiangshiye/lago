@@ -7,13 +7,13 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yunding.lago.bean.ArticleReadStat;
 import com.yunding.lago.bean.ArticleWithBLOBs;
@@ -47,6 +47,17 @@ public class ArticleController extends BaseController {
 	public void setArticleReadStatService(
 			ArticleReadStatService articleReadStatService) {
 		this.articleReadStatService = articleReadStatService;
+	}
+	
+	@RequestMapping(value = "/admin/verifyArticleSlugsUrl", method = RequestMethod.GET)
+	public @ResponseBody Boolean verifySlugsUrl(Locale locale, Model model, @RequestParam String Slugsurl) {
+		ArticleWithBLOBs article = this.articleService
+				.queryArticleBySlugsUrl(Slugsurl);
+		Boolean result = true;
+		if (article != null) {
+			result = false;
+		}
+		return result;
 	}
 
 	@RequestMapping(value = "/category/{articleCategorySlugsUrl}", method = RequestMethod.GET)

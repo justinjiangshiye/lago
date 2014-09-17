@@ -115,7 +115,7 @@
 							test="${activeMenuItemId==110}">
 							<span class="selected"></span>
 						</c:if></li>
-					<li><a href="<c:url value="/user/logout" />"><span
+					<li><a href="<c:url value="/admin/logout" />"><span
                             class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;注销</a></li>
 				</ul>
 			</div>

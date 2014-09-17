@@ -77,58 +77,70 @@
 	</div>
 </form>
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				$("#inputContent").cleditor();
-				$('#form').validate(
-						{
-							rules : {
-								Title : {
-									required : true
-								},
-								Slugsurl : {
-									required : true
-								},
-								Bannerurl : {
-									required : true
-								},
-								Abstractcontent : {
-									required : true
-								},
-								Order : {
-                                    required : true
-                                },
-                                Keywords : {
-                                    required : true
-                                },
-                                Content : {
-                                    required : true
-                                }
-							},
-							messages:{
-                                Title : {
-                                    required : "此项不能为空！"
-                                },
-                                Slugsurl : {
-                                    required : "此项不能为空！"
-                                },
-                                Bannerurl : {
-                                    required : "此项不能为空！"
-                                },
-                                Abstractcontent : {
-                                    required : "此项不能为空！"
-                                },
-                                Order : {
-                                    required : "此项不能为空！"
-                                },
-                                Keywords : {
-                                    required : "此项不能为空！"
-                                },
-                                Content : {
-                                    required : "此项不能为空！"
-                                }
-							}
-						});
-			});
+	$(document).ready(function() {
+		$("#inputContent").cleditor();
+		$('#form').validate({
+			rules : {
+				Title : {
+					required : true,
+					minlength : 2,
+					maxlength : 50
+				},
+				Slugsurl : {
+					required : true,
+					minlength : 2,
+					maxlength : 30,
+					remote : "<c:url value="/admin/verifyArticleSlugsUrl" />"
+				},
+				Bannerurl : {
+					required : true
+				},
+				Abstractcontent : {
+					required : true,
+					minlength : 30,
+					maxlength : 100
+				},
+				Order : {
+					required : true
+				},
+				Keywords : {
+					required : true
+				},
+				Content : {
+					required : true
+				}
+			},
+			messages : {
+				Title : {
+					required : "此项不能为空！",
+					minlength : "字符长度不能少于2个字符",
+					maxlength : "字符长度不能少多于50个字符"
+				},
+				Slugsurl : {
+					required : "此项不能为空！",
+					minlength : "字符长度不能少于2个字符",
+					maxlength : "字符长度不能少多于30个字符",
+					remote : "已经存在！"
+				},
+				Bannerurl : {
+					required : "此项不能为空！"
+				},
+				Abstractcontent : {
+					required : "此项不能为空！",
+					minlength : "字符长度不能少于30个字符",
+					maxlength : "字符长度不能少多于100个字符"
+				},
+				Order : {
+					required : "此项不能为空！"
+				},
+				Keywords : {
+					required : "此项不能为空！"
+				},
+				Content : {
+					required : "此项不能为空！"
+				}
+			}
+		});
+	});
 </script>
 <%@ include file="../template/admin-tailer.jsp"%>
