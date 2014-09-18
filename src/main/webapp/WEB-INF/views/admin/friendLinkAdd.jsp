@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ include file="../template/admin-header.jsp"%>
 <h3 class="sub-header">新增友情链接</h3>
-<form class="form-horizontal" role="form" method="post" action="<c:url value="/admin/friendLinkSave"/>">
+<form id="form" class="form-horizontal" role="form" method="post" action="<c:url value="/admin/friendLinkSave"/>">
 	<div class="form-group">
 		<label for="inputWebsitename" class="col-sm-2 control-label">网站名称</label>
 		<div class="col-sm-10">
@@ -28,4 +28,26 @@
 		</div>
 	</div>
 </form>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#form').validate({
+            rules : {
+            	Websitename : {
+                    required : true
+                },
+                Websiteurl : {
+                    required : true
+                }
+            },
+            messages : {
+            	Websitename : {
+                    required : "此项不能为空！"
+                },
+                Websiteurl : {
+                    required : "此项不能为空！"
+                }
+            }
+        });
+    });
+</script>
 <%@ include file="../template/admin-tailer.jsp"%>

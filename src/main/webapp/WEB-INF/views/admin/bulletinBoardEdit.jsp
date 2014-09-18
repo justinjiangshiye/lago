@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ include file="../template/admin-header.jsp"%>
 <h3 class="sub-header">编辑公告</h3>
-<form class="form-horizontal" role="form" method="post" action="<c:url value="/admin/bulletinBoardSave"/>">
+<form id="form" class="form-horizontal" role="form" method="post" action="<c:url value="/admin/bulletinBoardSave"/>">
 	<div class="form-group">
         <label for="inputSummary" class="col-sm-2 control-label">公告</label>
         <div class="col-sm-10">
@@ -34,6 +34,32 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#inputContent").cleditor({height:200});
+        $('#form').validate({
+            rules : {
+                Summary : {
+                    required : true,
+                    minlength : 2,
+                    maxlength : 50
+                },
+                Content : {
+                    required : true,
+                    minlength : 2,
+                    maxlength : 2000
+                }
+            },
+            messages : {
+                Summary : {
+                    required : "此项不能为空！",
+                    minlength : "字符长度不能少于2个字符",
+                    maxlength : "字符长度不能多于50个字符"
+                },
+                Content : {
+                    required : "此项不能为空！",
+                    minlength : "字符长度不能少于2个字符",
+                    maxlength : "字符长度不能多于2000个字符"
+                }
+            }
+        });
     });
 </script>
 <%@ include file="../template/admin-tailer.jsp"%>

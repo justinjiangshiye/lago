@@ -51,8 +51,7 @@
 									src="<c:url value="/images/qq.png" />" alt="" />&nbsp;QQ帐号登录</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><img src="${currentUser.profilephotourl}" width="16px"
-								height="16px" /></li>
+							<li><img src="<c:url value="${currentUser.profilephotourl}" />" width="16px" height="16px" /></li>
 							<li><span>${currentUser.nickname}</span></li>
 							<li><a href="<c:url value="/user/logout" />">注销</a></li>
 						</c:otherwise>

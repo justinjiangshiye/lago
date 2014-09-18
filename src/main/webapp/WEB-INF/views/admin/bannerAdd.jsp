@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ include file="../template/admin-header.jsp"%>
 <h3 class="sub-header">新增Banner</h3>
-<form class="form-horizontal" role="form" method="post"
+<form id="form" class="form-horizontal" role="form" method="post"
 	action="<c:url value="/admin/bannerSave"/>">
 	<div class="form-group">
 		<label for="inputText" class="col-sm-2 control-label">标题</label>
@@ -38,5 +38,36 @@
     	$("#inputBannerUrl").val(url);
     	$("#imgBanner").attr("src", url);
     }
+    $(document).ready(function() {
+        $("#inputContent").cleditor();
+        $('#form').validate({
+            rules : {
+            	Text : {
+                    required : true,
+                    minlength : 2,
+                    maxlength : 50
+                },
+                Bannerurl : {
+                    required : true
+                },
+                Contenturl : {
+                    required : true
+                }
+            },
+            messages : {
+            	Text : {
+                    required : "此项不能为空！",
+                    minlength : "字符长度不能少于2个字符",
+                    maxlength : "字符长度不能少多于50个字符"
+                },
+                Bannerurl : {
+                    required : "此项不能为空！"
+                },
+                Contenturl : {
+                    required : "此项不能为空！"
+                }
+            }
+        });
+    });
 </script>
 <%@ include file="../template/admin-tailer.jsp"%>

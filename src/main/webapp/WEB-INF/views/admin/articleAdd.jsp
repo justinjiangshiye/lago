@@ -26,8 +26,11 @@
 	<div class="form-group">
 		<label for="inputBannerUrl" class="col-sm-2 control-label">Banner图</label>
 		<div class="col-sm-10">
-			<input id="inputBannerUrl" name="Bannerurl" type="text"
-				class="form-control">
+			<input id="inputBannerUrl" name="Bannerurl" type="hidden"
+				class="form-control"> <img id="imgBanner"
+				src="<c:url value="/images/default-article-banner.gif" />" width="480px" />
+			<iframe src="<c:url value="/admin/uploadFile" />" frameborder="0"
+				scrolling="no" width="700px" height="40px"></iframe>
 		</div>
 	</div>
 	<div class="form-group">
@@ -39,20 +42,16 @@
 	</div>
 	<div class="form-group">
 		<label for="inputIsDisplayOnHome" class="col-sm-2 control-label">是否首页显示</label>
-		<div class="col-sm-10">
+		<div class="col-sm-2">
 			<input id="inputIsDisplayOnHome" name="Isdisplayonhome"
 				type="checkbox">
 		</div>
-	</div>
-	<div class="form-group">
 		<label for="inputIsLockTop" class="col-sm-2 control-label">是否置顶</label>
-		<div class="col-sm-10">
+		<div class="col-sm-2">
 			<input id="inputIsLockTop" name="Islocktop" type="checkbox">
 		</div>
-	</div>
-	<div class="form-group">
 		<label for="inputIsPublished" class="col-sm-2 control-label">是否发布</label>
-		<div class="col-sm-10">
+		<div class="col-sm-2">
 			<input id="inputIsPublished" name="Ispublished" type="checkbox">
 		</div>
 	</div>
@@ -72,12 +71,18 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-		    <a href="<c:url value="/admin/category/${articleCategorySlugsUrl}" />" class="btn btn-default">返回</a>
+			<a
+				href="<c:url value="/admin/category/${articleCategorySlugsUrl}" />"
+				class="btn btn-default">返回</a>
 			<button type="submit" class="btn btn-primary">保存</button>
 		</div>
 	</div>
 </form>
 <script type="text/javascript">
+	function fileUploaded(url) {
+		$("#inputBannerUrl").val(url);
+		$("#imgBanner").attr("src", url);
+	}
 	$(document).ready(function() {
 		$("#inputContent").cleditor();
 		$('#form').validate({
@@ -126,7 +131,7 @@
 				Abstractcontent : {
 					required : "此项不能为空！",
 					minlength : "字符长度不能少于30个字符",
-					maxlength : "字符长度不能少多于100个字符"
+					maxlength : "字符长度不能多于100个字符"
 				},
 				Keywords : {
 					required : "此项不能为空！"
