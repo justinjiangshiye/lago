@@ -2,6 +2,10 @@
 	pageEncoding="utf-8"%>
 <%@ include file="../template/admin-header.jsp"%>
 <h3 class="sub-header">索引管理</h3>
+<c:if test="${msg!=null}">
+	<br />
+	<div class="alert alert-warning" role="alert">${msg}</div>
+</c:if>
 <div>
 	新建、更新或删除文章后，请点击下面重建索引按钮，重建索引，否则，全文搜索可能失效或导致搜索结果有误。
 	<br /><br />

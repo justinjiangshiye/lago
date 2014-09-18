@@ -8,8 +8,7 @@
 		<div class="article-title-comment">
 			<span><fmt:formatDate value="${article.publishdate}"
 					type="date" pattern="yyyy-MM-dd" /></span> <span>${article.category}</span>
-			<span>阅读次数:&nbsp;${articleReadTime}</span>
-			<span>评论数：&nbsp;${articleCommentsCount}</span>
+			<span>阅读次数:&nbsp;${articleReadTime}</span> <span>评论数：&nbsp;${articleCommentsCount}</span>
 		</div>
 		<div>${article.content}</div>
 		<div class="article-share">
@@ -17,23 +16,28 @@
 		</div>
 		<!-- 评论 -->
 		<div>
-		    <!-- 发表评论 -->
+			<!-- 发表评论 -->
 			<form action="<c:url value="/commentSave" />" method="post"
 				role="form">
 				<div class="form-group">
-					<c:if test="${currentUser!=null}">
-						<input type="hidden" name="userid" value="${currentUser.id}" />
-						<input type="hidden" name="nickname" value="${currentUser.nickname}" />
-						<input type="hidden" name="profilephotourl" value="${currentUser.profilephotourl}" />
-						<img src="${currentUser.profilephotourl}" width="32px" height="32px" />
-						<span>${currentUser.nickname}</span>
-					</c:if>
-					<c:if test="${currentUser==null}">
-						<label for="inputNickName">昵称</label>
-						<input type="text" class="form-control" id="inputNickName"
-							name="nickname" placeholder="请输入昵称">
-						<input type="hidden" name="userid" value="" />
-					</c:if>
+					<c:choose>
+						<c:when test="${currentUser!=null}">
+							<input type="hidden" name="userid" value="${currentUser.id}" />
+							<input type="hidden" name="nickname"
+								value="${currentUser.nickname}" />
+							<input type="hidden" name="profilephotourl"
+								value="${currentUser.profilephotourl}" />
+							<img src="${currentUser.profilephotourl}" width="32px"
+								height="32px" />
+							<span>${currentUser.nickname}</span>
+						</c:when>
+						<c:otherwise>
+							<label for="inputNickName">昵称</label>
+							<input type="text" class="form-control" id="inputNickName"
+								name="nickname" placeholder="请输入昵称">
+							<input type="hidden" name="userid" value="" />
+						</c:otherwise>
+					</c:choose>
 					<input type="hidden" name="articleid" value="${article.id}" />
 				</div>
 				<div class="form-group">
@@ -45,13 +49,14 @@
 			</form>
 		</div>
 		<div>
-		    <!-- 评论列表 -->
+			<!-- 评论列表 -->
 			<c:if test="${hasComments==true}">
 				<ul>
 					<c:forEach items="${commentList}" var="comment">
 						<li>
 							<div class="col-xs-1">
-								<img src="<c:url value="${comment.profilephotourl}"/>" width="32px" height="32px" />
+								<img src="<c:url value="${comment.profilephotourl}"/>"
+									width="32px" height="32px" />
 							</div>
 							<div class="col-xs-11">
 								<div class="row">
@@ -64,23 +69,29 @@
 										href="javascript:void(0);">回复</a>
 								</div>
 								<div id="reply_comment_${comment.id}" class="row hide">
-								    <!-- 回复评论 -->
+									<!-- 回复评论 -->
 									<form action="<c:url value="/replyToCommentSave" />"
 										method="post" role="form">
 										<div class="form-group">
-											<c:if test="${currentUser!=null}">
-												<input type="hidden" name="userid" value="${currentUser.id}" />
-												<input type="hidden" name="nickname" value="${currentUser.nickname}" />
-												<input type="hidden" name="profilephotourl" value="${currentUser.profilephotourl}" />
-												<img src="${currentUser.profilephotourl}" width="32px" height="32px" />
-												<span>${currentUser.nickname}</span>
-											</c:if>
-											<c:if test="${currentUser==null}">
-												<label for="inputNickName">昵称</label>
-												<input type="text" class="form-control" id="inputNickName"
-													name="nickname" placeholder="请输入昵称">
-												<input type="hidden" name="userid" value="" />
-											</c:if>
+											<c:choose>
+												<c:when test="${currentUser!=null}">
+													<input type="hidden" name="userid"
+														value="${currentUser.id}" />
+													<input type="hidden" name="nickname"
+														value="${currentUser.nickname}" />
+													<input type="hidden" name="profilephotourl"
+														value="${currentUser.profilephotourl}" />
+													<img src="${currentUser.profilephotourl}" width="32px"
+														height="32px" />
+													<span>${currentUser.nickname}</span>
+												</c:when>
+												<c:otherwise>
+													<label for="inputNickName">昵称</label>
+													<input type="text" class="form-control" id="inputNickName"
+														name="nickname" placeholder="请输入昵称">
+													<input type="hidden" name="userid" value="" />
+												</c:otherwise>
+											</c:choose>
 											<input type="hidden" name="commentid" value="${comment.id}" />
 											<input type="hidden" name="articleid" value="${article.id}" />
 										</div>
@@ -94,13 +105,13 @@
 								</div>
 								<c:if test="${comment.replyToCommentList.size() > 0}">
 									<div class="row">
-									    <!-- 回复评论列表 -->
+										<!-- 回复评论列表 -->
 										<ul>
 											<c:forEach items="${comment.replyToCommentList}" var="reply">
 												<li>
 													<div class="col-xs-1">
-														<img
-															src="<c:url value="${reply.profilephotourl}" />" width="32px" height="32px" />
+														<img src="<c:url value="${reply.profilephotourl}" />"
+															width="32px" height="32px" />
 													</div>
 													<div class="col-xs-11">
 														<div class="row">

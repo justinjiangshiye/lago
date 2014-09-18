@@ -195,6 +195,9 @@ public class SearchController extends BaseController {
 
 			this.indexWriter.commit();
 			logger.info("Index rebuilt.");
+			
+			model.addAttribute("msg", "重建索引成功！");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			try {

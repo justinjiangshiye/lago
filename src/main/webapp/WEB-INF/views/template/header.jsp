@@ -109,7 +109,9 @@
 			<div class="col-md-11 marquee no-padding">
 				<ul>
 					<c:forEach items="${bulletinBoardList}" var="bulletinBoardItem">
-						<li><a href="<c:url value="/bulletinBoard/${bulletinBoardItem.id}" />" target="_blank">${bulletinBoardItem.summary}</a></li>
+						<%--改为不可跳转--%>
+						<%-- <li><a href="<c:url value="/bulletinBoard/${bulletinBoardItem.id}" />" target="_blank">${bulletinBoardItem.summary}</a></li> --%>
+						<li><a href="javascript:void(0);" title="${bulletinBoardItem.content}">${bulletinBoardItem.summary}</a></li>
 					</c:forEach>
 				</ul>
 			</div>
