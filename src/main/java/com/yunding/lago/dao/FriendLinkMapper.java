@@ -15,10 +15,20 @@ public interface FriendLinkMapper {
     FriendLinkWithBLOBs selectByPrimaryKey(Integer id);
     
     List<FriendLinkWithBLOBs> selectAllFriendLinks();
+    
+    int selectCount();
 
     int updateByPrimaryKeySelective(FriendLinkWithBLOBs record);
 
     int updateByPrimaryKeyWithBLOBs(FriendLinkWithBLOBs record);
 
     int updateByPrimaryKey(FriendLink record);
+	
+	int updateFriendLinkLogicDelete(Integer id);
+	
+	int updateReorderFriendLink(Integer id);
+	
+	int updateMoveUp(Integer id);
+	
+	int updateMoveDown(Integer id);
 }

@@ -84,6 +84,11 @@
 	order by i.ReadTimes desc, b.CreatedOn desc
 	limit 10
   </select>
+  <select id="selectCountByCategory" resultType="int" parameterType="java.lang.String" >
+    select count(Id)
+    from Article
+    where RecordStatus = 0 and Category = #{category,jdbcType=VARCHAR}
+  </select>
   <select id="selectTop50HotReadArticles" resultMap="BaseResultMap" >
     select b.Id, b.Category, b.Title, b.SlugsUrl, b.BannerUrl, b.AbstractContent, b.IsDisplayOnHome, b.IsLockTop, b.`Order`, 
         b.IsPublished, b.PublishDate, b.CreatedOn, b.RecordStatus
@@ -288,5 +293,41 @@
       CreatedOn = #{createdon,jdbcType=TIMESTAMP},
       RecordStatus = #{recordstatus,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateArticleLogicDelete" parameterType="java.lang.Integer" >
+    update Article
+    set RecordStatus = 2
+    where Id = #{id,jdbcType=INTEGER}
+        and RecordStatus = 0
+  </update>
+  <update id="updateReorderArticle" parameterType="java.lang.Integer" >
+    update Article a,
+        Article b
+    set a.`Order` = a.`Order` - 1
+    where b.Id = #{id,jdbcType=INTEGER} 
+        and a.Category = b.Category
+        and a.`Order` > b.`Order`
+        and a.RecordStatus = 0
+        and b.RecordStatus = 0
+  </update>
+  <update id="updateMoveUp" parameterType="java.lang.Integer" >
+    update Article a
+    inner join Article b on a.Category = b.Category 
+        and a.`Order` = b.`Order` + 1
+    set a.`Order` = a.`Order` - 1,
+        b.`Order` = b.`Order` + 1
+    where b.Id = #{id,jdbcType=INTEGER} 
+        and a.RecordStatus = 0 
+        and b.RecordStatus = 0
+  </update>
+  <update id="updateMoveDown" parameterType="java.lang.Integer" >
+    update Article a
+    inner join Article b on a.Category = b.Category 
+        and a.`Order` = b.`Order` - 1
+    set a.`Order` = a.`Order` + 1,
+        b.`Order` = b.`Order` - 1
+    where b.Id = #{id,jdbcType=INTEGER} 
+        and a.RecordStatus = 0 
+        and b.RecordStatus = 0
   </update>
 </mapper>

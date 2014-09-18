@@ -14,10 +14,20 @@ public interface BannerLinkMapper {
     BannerLink selectByPrimaryKey(Integer id);
     
     List<BannerLink> selectAllBannerLinks();
+    
+    int selectCount();
 
     int updateByPrimaryKeySelective(BannerLink record);
 
     int updateByPrimaryKeyWithBLOBs(BannerLink record);
 
     int updateByPrimaryKey(BannerLink record);
+	
+	int updateBannerLinkLogicDelete(Integer id);
+	
+	int updateReorderBannerLink(Integer id);
+	
+	int updateMoveUp(Integer id);
+	
+	int updateMoveDown(Integer id);
 }

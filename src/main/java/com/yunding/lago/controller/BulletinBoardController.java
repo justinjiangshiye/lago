@@ -105,6 +105,7 @@ public class BulletinBoardController extends BaseController {
 
 		if (bulletinBoard.getId() == null) {
 			bulletinBoard.setCreatedon(now);
+			bulletinBoard.setOrder(this.bulletinBoardService.queryCount() + 1);
 			this.bulletinBoardService.addBulletinBoard(bulletinBoard);
 		} else {
 			BulletinBoard bulletinBoardDB = this.bulletinBoardService
@@ -112,7 +113,6 @@ public class BulletinBoardController extends BaseController {
 			bulletinBoardDB.setSummary(bulletinBoard.getSummary());
 			bulletinBoardDB.setContent(bulletinBoard.getContent());
 			bulletinBoardDB.setIspublished(bulletinBoard.getIspublished());
-			bulletinBoardDB.setOrder(bulletinBoard.getOrder());
 			bulletinBoardDB.setPublishdate(bulletinBoard.getPublishdate());
 			this.bulletinBoardService.updateBulletinBoard(bulletinBoardDB);
 		}
@@ -124,15 +124,31 @@ public class BulletinBoardController extends BaseController {
 	public String adminbulletinBoardDelete(Locale locale, Model model,
 			@PathVariable Integer bulletinBoardId) {
 		logger.info("The client locale is {}.", locale);
-		adminInitialize(model, MyConstants.adminMenuItemBulletinBoardId);
+		logger.info("BulletinBoard Id is {}", bulletinBoardId);
 
-		logger.info("bulletinBoard Id is {}", bulletinBoardId);
+		this.bulletinBoardService.deleteBulletinBoardByPrimaryKey(bulletinBoardId);
 
-		BulletinBoard bulletinBoard = this.bulletinBoardService
-				.queryBulletinBoardById(bulletinBoardId);
-		
-		bulletinBoard.setRecordstatus(2);
-		this.bulletinBoardService.updateBulletinBoard(bulletinBoard);
+		return "redirect:/admin/bulletinBoards";
+	}
+	
+	@RequestMapping(value = "/admin/bulletinBoardMoveUp/{bulletinBoardId}", method = RequestMethod.POST)
+	public String adminBulletinBoardMoveUp(Locale locale, Model model,
+			@PathVariable Integer bulletinBoardId) {
+		logger.info("The client locale is {}.", locale);
+		logger.info("BulletinBoard Id is {}", bulletinBoardId);
+
+		this.bulletinBoardService.updateMoveUp(bulletinBoardId);
+
+		return "redirect:/admin/bulletinBoards";
+	}
+	
+	@RequestMapping(value = "/admin/bulletinBoardMoveDown/{bulletinBoardId}", method = RequestMethod.POST)
+	public String adminBulletinBoardMoveDown(Locale locale, Model model,
+			@PathVariable Integer bulletinBoardId) {
+		logger.info("The client locale is {}.", locale);
+		logger.info("BulletinBoard Id is {}", bulletinBoardId);
+
+		this.bulletinBoardService.updateMoveDown(bulletinBoardId);
 
 		return "redirect:/admin/bulletinBoards";
 	}

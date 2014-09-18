@@ -17,6 +17,14 @@ $.validator.setDefaults({
     }
 });
 $(function() {
+	$(".moveUp").click(function() {
+		var url = $(this).attr("action");
+		$.dynamicForm(url).submit();
+	});
+	$(".moveDown").click(function() {
+		var url = $(this).attr("action");
+		$.dynamicForm(url).submit();
+	});
 	$(".delete").click(function() {
 		var url = $(this).attr("action");
 		if (confirm("您确定要删除吗？")) {

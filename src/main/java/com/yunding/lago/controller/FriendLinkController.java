@@ -96,7 +96,6 @@ public class FriendLinkController extends BaseController {
 			friendLinkWithBLOBsDB.setWebsiteurl(friendLinkWithBLOBs
 					.getWebsiteurl());
 			friendLinkWithBLOBsDB.setLogourl(friendLinkWithBLOBs.getLogourl());
-			friendLinkWithBLOBsDB.setOrder(friendLinkWithBLOBs.getOrder());
 			this.friendLinkService.updateFriendLink(friendLinkWithBLOBsDB);
 		}
 
@@ -110,14 +109,31 @@ public class FriendLinkController extends BaseController {
 	public String adminFriendLinkDelete(Locale locale, Model model,
 			@PathVariable Integer friendLinkId) {
 		logger.info("The client locale is {}.", locale);
-		logger.info("Article Id is {}", friendLinkId);
+		logger.info("FriendLink Id is {}", friendLinkId);
 		
-		adminInitialize(model, MyConstants.adminMenuItemFriendLinkId);
+		this.friendLinkService.deleteFriendLinkByPrimaryKey(friendLinkId);
 
-		FriendLinkWithBLOBs friendLinkWithBLOBs = this.friendLinkService
-				.queryFriendLinkById(friendLinkId);
-		friendLinkWithBLOBs.setRecordstatus(2);
-		this.friendLinkService.updateFriendLink(friendLinkWithBLOBs);
+		return "redirect:/admin/friendLinks";
+	}
+	
+	@RequestMapping(value = "/admin/bulletinBoardMoveUp/{friendLinkId}", method = RequestMethod.POST)
+	public String adminFriendLinkMoveUp(Locale locale, Model model,
+			@PathVariable Integer friendLinkId) {
+		logger.info("The client locale is {}.", locale);
+		logger.info("BulletinBoard Id is {}", friendLinkId);
+
+		this.friendLinkService.updateMoveUp(friendLinkId);
+
+		return "redirect:/admin/friendLinks";
+	}
+	
+	@RequestMapping(value = "/admin/bulletinBoardMoveDown/{friendLinkId}", method = RequestMethod.POST)
+	public String adminFriendLinkMoveDown(Locale locale, Model model,
+			@PathVariable Integer friendLinkId) {
+		logger.info("The client locale is {}.", locale);
+		logger.info("BulletinBoard Id is {}", friendLinkId);
+
+		this.friendLinkService.updateMoveDown(friendLinkId);
 
 		return "redirect:/admin/friendLinks";
 	}

@@ -24,15 +24,10 @@
                 <c:if test="${bulletinBoard.ispublished==true}">checked="checked"</c:if> >
         </div>
     </div>
-    <div class="form-group">
-        <label for="inputOrder" class="col-sm-2 control-label">排序</label>
-        <div class="col-sm-10">
-            <input id="inputOrder" name="Order" type="text" class="form-control" value="${bulletinBoard.order}">
-        </div>
-    </div>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-default">保存</button>
+            <a href="<c:url value="/admin/bulletinBoards" />" class="btn btn-default">返回</a>
+            <button type="submit" class="btn btn-primary">保存</button>
 		</div>
 	</div>
 </form>

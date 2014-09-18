@@ -24,11 +24,28 @@ public class BannerLinkService {
 		return this.bannerLinkMapper.selectByPrimaryKey(id);
 	}
 	
+	public int queryCount() {
+		return this.bannerLinkMapper.selectCount();
+	}
+	
 	public int addBannerLink(BannerLink bannerLink) {
 		return this.bannerLinkMapper.insertSelective(bannerLink);
 	}
 	
 	public int updateBannerLink(BannerLink bannerLink) {
 		return this.bannerLinkMapper.updateByPrimaryKeyWithBLOBs(bannerLink);
+	}
+	
+	public int deleteBannerLinkByPrimaryKey(Integer id) {
+		this.bannerLinkMapper.updateReorderBannerLink(id);
+		return this.bannerLinkMapper.updateBannerLinkLogicDelete(id);
+	}
+	
+	public int updateMoveUp(Integer id) {
+		return this.bannerLinkMapper.updateMoveUp(id);
+	}
+	
+	public int updateMoveDown(Integer id) {
+		return this.bannerLinkMapper.updateMoveDown(id);
 	}
 }

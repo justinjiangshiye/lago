@@ -17,20 +17,15 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="inputLogourl" class="col-sm-2 control-label">网站链接</label>
+        <label for="inputLogourl" class="col-sm-2 control-label">图标链接</label>
         <div class="col-sm-10">
             <input id="inputLogourl" name="Logourl" type="text" class="form-control" value="${friendLink.logourl}">
         </div>
     </div>
-    <div class="form-group">
-        <label for="inputOrder" class="col-sm-2 control-label">排序</label>
-        <div class="col-sm-10">
-            <input id="inputOrder" name="Order" type="text" class="form-control" value="${friendLink.order}">
-        </div>
-    </div>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-default">保存</button>
+            <a href="<c:url value="/admin/friendLinks" />" class="btn btn-default">返回</a>
+            <button type="submit" class="btn btn-primary">保存</button>
 		</div>
 	</div>
 </form>

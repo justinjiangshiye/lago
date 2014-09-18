@@ -27,10 +27,20 @@ public interface ArticleMapper {
     List<Article> selectTop10HotReadArticles();
     
     List<Article> selectTop50HotReadArticles();
+    
+    int selectCountByCategory(String category);
 
 	int updateByPrimaryKeySelective(ArticleWithBLOBs record);
 
 	int updateByPrimaryKeyWithBLOBs(ArticleWithBLOBs record);
 
 	int updateByPrimaryKey(Article record);
+	
+	int updateArticleLogicDelete(Integer id);
+	
+	int updateReorderArticle(Integer id);
+	
+	int updateMoveUp(Integer id);
+	
+	int updateMoveDown(Integer id);
 }

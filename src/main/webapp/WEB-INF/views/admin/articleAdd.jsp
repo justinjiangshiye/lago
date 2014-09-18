@@ -12,11 +12,13 @@
 	</div>
 	<div class="form-group">
 		<label for="inputTitle" class="col-sm-2 control-label">标题</label>
-		<div class="col-sm-4">
+		<div class="col-sm-10">
 			<input id="inputTitle" name="Title" type="text" class="form-control">
 		</div>
+	</div>
+	<div class="form-group">
 		<label for="inputSlugsUrl" class="col-sm-2 control-label">友好链接标识</label>
-		<div class="col-sm-4">
+		<div class="col-sm-10">
 			<input id="inputSlugsUrl" name="Slugsurl" type="text"
 				class="form-control">
 		</div>
@@ -37,22 +39,20 @@
 	</div>
 	<div class="form-group">
 		<label for="inputIsDisplayOnHome" class="col-sm-2 control-label">是否首页显示</label>
-		<div class="col-sm-4">
+		<div class="col-sm-10">
 			<input id="inputIsDisplayOnHome" name="Isdisplayonhome"
 				type="checkbox">
 		</div>
+	</div>
+	<div class="form-group">
 		<label for="inputIsLockTop" class="col-sm-2 control-label">是否置顶</label>
-		<div class="col-sm-4">
+		<div class="col-sm-10">
 			<input id="inputIsLockTop" name="Islocktop" type="checkbox">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="inputOrder" class="col-sm-2 control-label">排序</label>
-		<div class="col-sm-4">
-			<input id="inputOrder" name="Order" type="text" class="form-control">
-		</div>
 		<label for="inputIsPublished" class="col-sm-2 control-label">是否发布</label>
-		<div class="col-sm-4">
+		<div class="col-sm-10">
 			<input id="inputIsPublished" name="Ispublished" type="checkbox">
 		</div>
 	</div>
@@ -72,7 +72,8 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-default">保存</button>
+		    <a href="<c:url value="/admin/category/${articleCategorySlugsUrl}" />" class="btn btn-default">返回</a>
+			<button type="submit" class="btn btn-primary">保存</button>
 		</div>
 	</div>
 </form>
@@ -100,9 +101,6 @@
 					minlength : 30,
 					maxlength : 100
 				},
-				Order : {
-					required : true
-				},
 				Keywords : {
 					required : true
 				},
@@ -129,9 +127,6 @@
 					required : "此项不能为空！",
 					minlength : "字符长度不能少于30个字符",
 					maxlength : "字符长度不能少多于100个字符"
-				},
-				Order : {
-					required : "此项不能为空！"
 				},
 				Keywords : {
 					required : "此项不能为空！"

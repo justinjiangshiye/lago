@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.yunding.lago.bean.ArticleWithBLOBs;
 import com.yunding.lago.bean.BannerLink;
 import com.yunding.lago.bean.BulletinBoard;
 import com.yunding.lago.service.ArticleService;
@@ -87,6 +88,7 @@ public class BannerLinkController extends BaseController {
 		bannerLink.setRecordstatus(0);
 
 		if (bannerLink.getId() == null) {
+			bannerLink.setOrder(this.bannerLinkService.queryCount() + 1);
 			bannerLink.setCreatedon(now);
 			this.bannerLinkService.addBannerLink(bannerLink);
 		} else {
@@ -95,7 +97,6 @@ public class BannerLinkController extends BaseController {
 			bannerLinkDB.setText(bannerLink.getText());
 			bannerLinkDB.setBannerurl(bannerLink.getBannerurl());
 			bannerLinkDB.setContenturl(bannerLink.getContenturl());
-			bannerLinkDB.setOrder(bannerLink.getOrder());
 			this.bannerLinkService.updateBannerLink(bannerLinkDB);
 		}
 
@@ -106,15 +107,31 @@ public class BannerLinkController extends BaseController {
 	public String adminbannerLinkDelete(Locale locale, Model model,
 			@PathVariable Integer bannerLinkId) {
 		logger.info("The client locale is {}.", locale);
-		adminInitialize(model, MyConstants.adminMenuItemBannerLinkId);
-
 		logger.info("bannerLink Id is {}", bannerLinkId);
 
-		BannerLink bannerLink = this.bannerLinkService
-				.queryBannerLinkById(bannerLinkId);
-		
-		bannerLink.setRecordstatus(2);
-		this.bannerLinkService.updateBannerLink(bannerLink);
+		this.bannerLinkService.deleteBannerLinkByPrimaryKey(bannerLinkId);
+
+		return "redirect:/admin/banner";
+	}
+	
+	@RequestMapping(value = "/admin/bannerMoveUp/{bannerLinkId}", method = RequestMethod.POST)
+	public String adminBannerLinkMoveUp(Locale locale, Model model,
+			@PathVariable Integer bannerLinkId) {
+		logger.info("The client locale is {}.", locale);
+		logger.info("BannerLink Id is {}", bannerLinkId);
+
+		this.bannerLinkService.updateMoveUp(bannerLinkId);
+
+		return "redirect:/admin/banner";
+	}
+	
+	@RequestMapping(value = "/admin/bannerMoveDown/{bannerLinkId}", method = RequestMethod.POST)
+	public String adminBannerLinkMoveDown(Locale locale, Model model,
+			@PathVariable Integer bannerLinkId) {
+		logger.info("The client locale is {}.", locale);
+		logger.info("BannerLink Id is {}", bannerLinkId);
+
+		this.bannerLinkService.updateMoveDown(bannerLinkId);
 
 		return "redirect:/admin/banner";
 	}

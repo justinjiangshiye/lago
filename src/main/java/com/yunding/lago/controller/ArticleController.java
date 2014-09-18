@@ -48,9 +48,11 @@ public class ArticleController extends BaseController {
 			ArticleReadStatService articleReadStatService) {
 		this.articleReadStatService = articleReadStatService;
 	}
-	
+
 	@RequestMapping(value = "/admin/verifyArticleSlugsUrl", method = RequestMethod.GET)
-	public @ResponseBody Boolean verifySlugsUrl(Locale locale, Model model, @RequestParam String Slugsurl) {
+	public @ResponseBody
+	Boolean verifySlugsUrl(Locale locale, Model model,
+			@RequestParam String Slugsurl) {
 		ArticleWithBLOBs article = this.articleService
 				.queryArticleBySlugsUrl(Slugsurl);
 		Boolean result = true;
@@ -78,7 +80,8 @@ public class ArticleController extends BaseController {
 	public String articlesHotReading(Locale locale, Model model) {
 		initialize(model, MyConstants.menuItemHotArticleId);
 
-		model.addAttribute("articleList", this.articleService.queryTop50HotReadArticles());
+		model.addAttribute("articleList",
+				this.articleService.queryTop50HotReadArticles());
 
 		return "articlesByCategory";
 	}
@@ -181,6 +184,7 @@ public class ArticleController extends BaseController {
 		// Load article edit page
 		model.addAttribute("category",
 				MyConstants.getNameFromSlugsUrl(articleCategorySlugsUrl));
+		model.addAttribute("articleCategorySlugsUrl", articleCategorySlugsUrl);
 
 		return "admin/articleAdd";
 	}
@@ -197,6 +201,7 @@ public class ArticleController extends BaseController {
 						.getCategory()));
 
 		model.addAttribute("article", articleWithBLOBs);
+		model.addAttribute("articleCategorySlugsUrl", MyConstants.getSlugsUrlFromName(articleWithBLOBs.getCategory()));
 
 		logger.info("Article Id is {}", articleWithBLOBs.getId());
 		logger.info("Article Category is {}.", articleWithBLOBs.getCategory());
@@ -254,6 +259,8 @@ public class ArticleController extends BaseController {
 		articleWithBLOBs.setRecordstatus(0);
 
 		if (articleWithBLOBs.getId() == null) {
+			articleWithBLOBs.setOrder(this.articleService
+					.queryCountByCategory(articleWithBLOBs.getCategory()) + 1);
 			articleWithBLOBs.setCreatedon(now);
 			this.articleService.addArticle(articleWithBLOBs);
 		} else {
@@ -286,17 +293,44 @@ public class ArticleController extends BaseController {
 	public String adminArticleDelete(Locale locale, Model model,
 			@PathVariable Integer articleId) {
 		logger.info("The client locale is {}.", locale);
-
 		logger.info("Article Id is {}", articleId);
 
 		ArticleWithBLOBs articleWithBLOBs = this.articleService
 				.queryArticleById(articleId);
-		adminInitialize(model,
-				MyConstants.getAdminMenuItemIdFromCategoryName(articleWithBLOBs
-						.getCategory()));
 
-		articleWithBLOBs.setRecordstatus(2);
-		this.articleService.updateArticle(articleWithBLOBs);
+		this.articleService.deleteArticleByPrimaryKey(articleId);
+
+		return "redirect:/admin/category/"
+				+ MyConstants.getSlugsUrlFromName(articleWithBLOBs
+						.getCategory());
+	}
+
+	@RequestMapping(value = "/admin/articleMoveUp/{articleId}", method = RequestMethod.POST)
+	public String adminArticleMoveUp(Locale locale, Model model,
+			@PathVariable Integer articleId) {
+		logger.info("The client locale is {}.", locale);
+		logger.info("Article Id is {}", articleId);
+
+		ArticleWithBLOBs articleWithBLOBs = this.articleService
+				.queryArticleById(articleId);
+
+		this.articleService.updateMoveUp(articleId);
+
+		return "redirect:/admin/category/"
+				+ MyConstants.getSlugsUrlFromName(articleWithBLOBs
+						.getCategory());
+	}
+
+	@RequestMapping(value = "/admin/articleMoveDown/{articleId}", method = RequestMethod.POST)
+	public String adminArticleMoveDown(Locale locale, Model model,
+			@PathVariable Integer articleId) {
+		logger.info("The client locale is {}.", locale);
+		logger.info("Article Id is {}", articleId);
+
+		ArticleWithBLOBs articleWithBLOBs = this.articleService
+				.queryArticleById(articleId);
+
+		this.articleService.updateMoveDown(articleId);
 
 		return "redirect:/admin/category/"
 				+ MyConstants.getSlugsUrlFromName(articleWithBLOBs

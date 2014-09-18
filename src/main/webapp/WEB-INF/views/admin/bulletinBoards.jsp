@@ -9,26 +9,36 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>公告</th>
-                        <th>公告详情</th>
-                        <th>是否发布</th>
-                        <th>排序</th>
-                        <th>操作</th>
+                        <th class="center">#</th>
+                        <th class="center">公告</th>
+                        <th class="center">公告详情</th>
+                        <th class="center">是否发布</th>
+                        <th class="center">排序</th>
+                        <th class="center">操作</th>
                     </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${bulletinBoardList}" var="bulletinBoard">
+                <c:forEach items="${bulletinBoardList}" var="bulletinBoard" varStatus="status">
                     <tr>
-                        <td><c:out value="${bulletinBoard.id}"></c:out></td>
+                        <td class="center"><c:out value="${bulletinBoard.id}"></c:out></td>
                         <td><c:out value="${bulletinBoard.summary}"></c:out></td>
                         <td><c:out value="${bulletinBoard.content}"></c:out></td>
-                        <td><c:choose>
+                        <td class="center"><c:choose>
                             <c:when test="${bulletinBoard.ispublished==true}">是</c:when>
                             <c:otherwise>否</c:otherwise>
                         </c:choose></td>
-                        <td><c:out value="${bulletinBoard.order}"></c:out></td>
-                        <td><a href="<c:url value="/admin/bulletinBoardEdit/${bulletinBoard.id}"/>">编辑</a>&nbsp;
+                        <td class="center"><c:if
+                            test="${status.first==false}">
+                            <a class="moveUp" href="javascript:void(0)"
+                                action="<c:url value="/admin/bulletinBoardMoveUp/${bulletinBoard.id}" />"><span
+                                class="glyphicon glyphicon-arrow-up"></span></a>
+                        </c:if>
+                        <c:if test="${status.last==false}">
+                            <a class="moveDown" href="javascript:void(0)"
+                                action="<c:url value="/admin/bulletinBoardMoveDown/${bulletinBoard.id}" />"><span
+                                class="glyphicon glyphicon-arrow-down"></span></a>
+                        </c:if></td>
+                        <td class="center"><a href="<c:url value="/admin/bulletinBoardEdit/${bulletinBoard.id}"/>">编辑</a>&nbsp;
                         <a class="delete" href="javascript:void(0);" action="<c:url value="/admin/bulletinBoardDelete/${bulletinBoard.id}"/>">删除</a>
                         </td>
                     </tr>

@@ -52,11 +52,28 @@ public class ArticleService {
 		return this.articleMapper.selectTop50HotReadArticles();
 	}
 	
+	public int queryCountByCategory(String category) {
+		return this.articleMapper.selectCountByCategory(category);
+	}
+	
 	public int addArticle(ArticleWithBLOBs articleWithBLOBs) {
 		return this.articleMapper.insertSelective(articleWithBLOBs);
 	}
 	
 	public int updateArticle(ArticleWithBLOBs articleWithBLOBs) {
 		return this.articleMapper.updateByPrimaryKeyWithBLOBs(articleWithBLOBs);
+	}
+	
+	public int deleteArticleByPrimaryKey(Integer id) {
+		this.articleMapper.updateReorderArticle(id);
+		return this.articleMapper.updateArticleLogicDelete(id);
+	}
+	
+	public int updateMoveUp(Integer id) {
+		return this.articleMapper.updateMoveUp(id);
+	}
+	
+	public int updateMoveDown(Integer id) {
+		return this.articleMapper.updateMoveDown(id);
 	}
 }

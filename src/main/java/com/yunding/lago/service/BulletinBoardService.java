@@ -31,6 +31,10 @@ public class BulletinBoardService {
 		return this.bulletinBoardMapper.selectPublishedBulletinBoards();
 	}
 	
+	public int queryCount() {
+		return this.bulletinBoardMapper.selectCount();
+	}
+	
 	public BulletinBoard queryBulletinBoardById(Integer id) {
 		return this.bulletinBoardMapper.selectByPrimaryKey(id);
 	}
@@ -41,5 +45,18 @@ public class BulletinBoardService {
 	
 	public int updateBulletinBoard(BulletinBoard bulletinBoard) {
 		return this.bulletinBoardMapper.updateByPrimaryKeyWithBLOBs(bulletinBoard);
+	}
+	
+	public int deleteBulletinBoardByPrimaryKey(Integer id) {
+		this.bulletinBoardMapper.updateReorderBulletinBoard(id);
+		return this.bulletinBoardMapper.updateBulletinBoardLogicDelete(id);
+	}
+	
+	public int updateMoveUp(Integer id) {
+		return this.bulletinBoardMapper.updateMoveUp(id);
+	}
+	
+	public int updateMoveDown(Integer id) {
+		return this.bulletinBoardMapper.updateMoveDown(id);
 	}
 }
