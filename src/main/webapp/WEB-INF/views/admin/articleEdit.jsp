@@ -91,7 +91,7 @@
 		$("#imgBanner").attr("src", url);
 	}
 	$(document).ready(function() {
-		$("#inputContent").cleditor();
+        $("#inputContent").cleditor({uploadImagePath:"<c:url value="/admin/uploadImage" />"});
 		$('#form').validate({
 			rules : {
 				Title : {

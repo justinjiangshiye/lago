@@ -29,7 +29,7 @@
 <script type="text/javascript"
     src="<c:url value="/js/additional-methods.js" />"></script>
 <script type="text/javascript"
-	src="<c:url value="/js/jquery.cleditor.min.js" />"></script>
+	src="<c:url value="/js/jquery.cleditor.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/admin.js" />"></script>
 <!--[if lt IE 9]>
       <script src="<c:url value="/js/html5shiv.min.js" /></script>

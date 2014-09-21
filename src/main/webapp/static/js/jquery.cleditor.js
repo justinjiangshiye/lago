@@ -47,7 +47,8 @@
             docCSSFile:   // CSS file used to style the document contained within the editor
                           "",
             bodyStyle:    // style to assign to document body contained within the editor
-                          "margin:4px; font:10pt Arial,Verdana; cursor:text"
+                          "margin:4px; font:10pt Arial,Verdana; cursor:text",
+            uploadImagePath: "/admin/uploadImage"
         },
 
         // Define all usable toolbar buttons - the init string property is 
@@ -80,7 +81,7 @@
             "undo,,|" +
             "redo,,|" +
             "rule,Insert Horizontal Rule,inserthorizontalrule|" +
-            "image,Insert Image,insertimage,url|" +
+            "image,Insert Image,insertimage,uploadimage|" +
             "link,Insert Hyperlink,createlink,url|" +
             "unlink,Remove Hyperlink,|" +
             "cut,,|" +
@@ -428,7 +429,7 @@
                 var $popup = $(popup);
 
                 // URL
-                if (popupName === "url") {
+                if (popupName === "url" || popupName === "uploadimage") {
 
                     // Check for selection before showing the link url popup
                     if (buttonName === "link" && selectedText(editor) === "") {
@@ -655,6 +656,12 @@
         // URL
         else if (popupName === "url") {
             $popup.html('<label>Enter URL:<br /><input type="text" value="http://" style="width:200px" /></label><br /><input type="button" value="Submit" />');
+            popupTypeClass = PROMPT_CLASS;
+        }
+        
+        // image
+        else if (popupName === "uploadimage") {
+            $popup.html('<label>Enter URL:<br /><input id="insertImagePath" type="text" value="http://" style="width:200px" /></label><br /><iframe src="' + options.uploadImagePath + '" frameborder="0" scrolling="no" width="320px" height="40px"></iframe><input type="button" value="Submit" />');
             popupTypeClass = PROMPT_CLASS;
         }
 
@@ -1188,3 +1195,6 @@
     }
 
 })(jQuery);
+function imageUploaded(url) {
+	$('#insertImagePath').val(url);
+}

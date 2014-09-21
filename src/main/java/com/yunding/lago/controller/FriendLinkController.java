@@ -116,7 +116,7 @@ public class FriendLinkController extends BaseController {
 		return "redirect:/admin/friendLinks";
 	}
 	
-	@RequestMapping(value = "/admin/bulletinBoardMoveUp/{friendLinkId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/friendLinkMoveUp/{friendLinkId}", method = RequestMethod.POST)
 	public String adminFriendLinkMoveUp(Locale locale, Model model,
 			@PathVariable Integer friendLinkId) {
 		logger.info("The client locale is {}.", locale);
@@ -127,7 +127,7 @@ public class FriendLinkController extends BaseController {
 		return "redirect:/admin/friendLinks";
 	}
 	
-	@RequestMapping(value = "/admin/bulletinBoardMoveDown/{friendLinkId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/friendLinkMoveDown/{friendLinkId}", method = RequestMethod.POST)
 	public String adminFriendLinkMoveDown(Locale locale, Model model,
 			@PathVariable Integer friendLinkId) {
 		logger.info("The client locale is {}.", locale);

@@ -37,7 +37,7 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#inputContent").cleditor({height:500});
+		$("#inputContent").cleditor({uploadImagePath:"<c:url value="/admin/uploadImage" />", height:500});
 	});
 </script>
 <%@ include file="../template/admin-tailer.jsp"%>

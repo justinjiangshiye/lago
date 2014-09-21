@@ -55,6 +55,41 @@ public class FileController extends BaseController {
 		}
 		return "admin/uploadFile";
 	}
+	
+	@RequestMapping(value = "/admin/uploadImage", method = RequestMethod.GET)
+	public String uploadImage(Locale locale, Model model) {
+		return "admin/uploadImage";
+	}
+	
+	@RequestMapping(value = "/admin/saveUploadImage", method = RequestMethod.POST)
+	public String saveuploadImage(Locale locale, Model model,
+			@RequestParam("file") CommonsMultipartFile file) {
+		logger.info("welcome to saveUploadImage.");
+		String url = "";
+		if (!file.isEmpty()) {
+			logger.info("上传文件的名字：" + file.getOriginalFilename());
+			String newFileName = UUID.randomUUID().toString() + "."
+					+ getFileExtension(file.getOriginalFilename());
+			File localFile = new File(
+					WebConfig.getValue(MyConstants.configWebsiteUploadFolder)
+							+ "/" + newFileName);
+			try {
+				file.getFileItem().write(localFile); // 将上传的文件写入新建的文件中
+				logger.info("文件上传成功");
+				url = WebConfig.getValue(MyConstants.configWebsiteUrl)
+						+ WebConfig
+						.getValue(MyConstants.configWebsiteDownloadUrlPrefix)
+				+ newFileName;
+				model.addAttribute("uploadStatus", true);
+				model.addAttribute("url", url);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("uploadStatus", false);
+			}
+		}
+		return "admin/uploadImage";
+	}
 
 	/**
 	 * 获取文件扩展名
