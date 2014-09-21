@@ -7,11 +7,15 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="<c:choose><c:when test="${article!=null}">${article.title}-51拉钩-轻松培养孩子良好的行为习惯</c:when><c:otherwise>51拉钩-轻松培养孩子良好的行为习惯</c:otherwise></c:choose>">
+<meta name="description"
+	content="<c:choose><c:when test="${article!=null}">${article.title}-51拉钩-轻松培养孩子良好的行为习惯</c:when><c:otherwise>51拉钩-轻松培养孩子良好的行为习惯</c:otherwise></c:choose>">
 <meta name="author" content="云顶畅游">
 <link rel="icon" href="<c:url value="/images/icon.png" />">
 
-<title><c:choose><c:when test="${article!=null}">${article.title}-51拉钩-轻松培养孩子良好的行为习惯</c:when><c:otherwise>51拉钩-轻松培养孩子良好的行为习惯</c:otherwise></c:choose></title>
+<title><c:choose>
+		<c:when test="${article!=null}">${article.title}-51拉钩-轻松培养孩子良好的行为习惯</c:when>
+		<c:otherwise>51拉钩-轻松培养孩子良好的行为习惯</c:otherwise>
+	</c:choose></title>
 
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <link href="<c:url value="/css/bootstrap-theme.min.css" />"
@@ -20,13 +24,13 @@
 <script type="text/javascript"
 	src="<c:url value="/js/jquery-1.11.1.min.js" />"></script>
 <script type="text/javascript"
-    src="<c:url value="/js/bootstrap.min.js" />"></script>
+	src="<c:url value="/js/bootstrap.min.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/js/jquery.extends.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/js/jquery.validate.min.js" />"></script>
 <script type="text/javascript"
-    src="<c:url value="/js/additional-methods.js" />"></script>
+	src="<c:url value="/js/additional-methods.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/global.js" />"></script>
 <!--[if lt IE 9]>
       <script src="<c:url value="/js/html5shiv.min.js" /></script>
@@ -51,7 +55,9 @@
 									src="<c:url value="/images/qq.png" />" alt="" />&nbsp;QQ帐号登录</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><img src="<c:url value="${currentUser.profilephotourl}" />" width="16px" height="16px" /></li>
+							<li><img
+								src="<c:url value="${currentUser.profilephotourl}" />"
+								width="16px" height="16px" /></li>
 							<li><span>${currentUser.nickname}</span></li>
 							<li><a href="<c:url value="/user/logout" />">注销</a></li>
 						</c:otherwise>
@@ -68,10 +74,17 @@
 				<a href="http://www.51lago.com/"><img
 					src="<c:url value="/images/logo.png" />" alt="" /></a>
 				<div class="navbar-right search">
-					<input type="text" id="inputSearch" name="textSearch"
-						placeholder="请输入关键字搜索" />
-					<button id="btnSearch" class="btn icon-search"
-						action="<c:url value="/search/" />">搜索</button>
+					<form class="form-inline" role="form"
+						action="<c:url value="/search/"/>" method="post">
+						<div class="form-group">
+							<input type="text" id="inputSearch" name="text"
+								placeholder="请输入关键字搜索" class="form-control focus state" />
+						</div>
+						<button id="btnSearch" type="submit"
+							class="btn btn-default glyphicon glyphicon-search">
+						搜索
+						</button>
+					</form>
 				</div>
 			</div>
 			<ul class="nav nav-pills pull-right">
@@ -94,12 +107,12 @@
 				<c:if test="${activeMenuItemId==9}">
 					<li class="active"><a href="javascript:void(0);">搜索结果</a></li>
 				</c:if>
-                <c:if test="${activeMenuItemId==10}">
-                    <li class="active"><a href="javascript:void(0);">热读文章</a></li>
-                </c:if>
-                <c:if test="${activeMenuItemId==11}">
-                    <li class="active"><a href="javascript:void(0);">公告</a></li>
-                </c:if>
+				<c:if test="${activeMenuItemId==10}">
+					<li class="active"><a href="javascript:void(0);">热读文章</a></li>
+				</c:if>
+				<c:if test="${activeMenuItemId==11}">
+					<li class="active"><a href="javascript:void(0);">公告</a></li>
+				</c:if>
 			</ul>
 		</div>
 	</div>
@@ -111,7 +124,8 @@
 					<c:forEach items="${bulletinBoardList}" var="bulletinBoardItem">
 						<%--改为不可跳转--%>
 						<%-- <li><a href="<c:url value="/bulletinBoard/${bulletinBoardItem.id}" />" target="_blank">${bulletinBoardItem.summary}</a></li> --%>
-						<li><a href="javascript:void(0);" title="${bulletinBoardItem.content}">${bulletinBoardItem.summary}</a></li>
+						<li><a href="javascript:void(0);"
+							title="${bulletinBoardItem.content}">${bulletinBoardItem.summary}</a></li>
 					</c:forEach>
 				</ul>
 			</div>

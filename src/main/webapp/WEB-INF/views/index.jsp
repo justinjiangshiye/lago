@@ -7,16 +7,20 @@
 		<!--  Banner图片  -->
 		<div id="myCarousel" class="carousel slide">
 			<ol class="carousel-indicators">
-                <c:forEach items="${bannerlinkList}" var="item"
-                    varStatus="itemStatus">
-                    <li data-target="#myCarousel" data-slide-to="${itemStatus.index}" <c:if test="${itemStatus.first==true}">class="active"</c:if> ></li>
-                </c:forEach>
+				<c:forEach items="${bannerlinkList}" var="item"
+					varStatus="itemStatus">
+					<li data-target="#myCarousel" data-slide-to="${itemStatus.index}"
+						<c:if test="${itemStatus.first==true}">class="active"</c:if>></li>
+				</c:forEach>
 			</ol>
 			<div class="carousel-inner">
 				<c:forEach items="${bannerlinkList}" var="item"
 					varStatus="itemStatus">
-					<div class="<c:if test="${itemStatus.first==true}">active </c:if>item">
-						<a target="_blank" href="<c:url value="${item.contenturl}" />"><img alt="" src="<c:url value="${item.bannerurl}" />" width="945px" height="405px"></a>
+					<div
+						class="<c:if test="${itemStatus.first==true}">active </c:if>item">
+						<a target="_blank" href="<c:url value="${item.contenturl}" />"><img
+							alt="" src="<c:url value="${item.bannerurl}" />" width="945px"
+							height="405px"></a>
 						<div class="carousel-caption">
 							<h5>${item.text}</h5>
 						</div>
@@ -47,10 +51,11 @@
 								<img src="<c:url value="${item.bannerurl}" />" />
 								<p>${item.abstractcontent}</p>
 								<a href="<c:url value="/article/${item.slugsurl}" />"
-									class="btn success btn-xs">阅读全文</a>
+									class="floatright btn btn-success btn-xs">阅读全文</a>
 							</c:if>
 						</c:forEach>
 					</div>
+                    <hr />
 					<ul class="list-group">
 						<c:forEach items="${parentschoolList}" var="item"
 							varStatus="itemStatus">
@@ -62,8 +67,10 @@
 								</a></li>
 							</c:if>
 						</c:forEach>
+						<li class="list-group-item"><a
+							href="<c:url value="/category/parent-school" />"
+							class="floatright btn btn-default btn-xs">更多</a></li>
 					</ul>
-					<div><a href="<c:url value="/category/parent-school" />">更多</a></div>
 				</div>
 			</div>
 			<div class="col-xs-6 home-article">
@@ -75,10 +82,11 @@
 								<img src="<c:url value="${item.bannerurl}" />" />
 								<p>${item.abstractcontent}</p>
 								<a href="<c:url value="/article/${item.slugsurl}" />"
-									class="btn success btn-xs">阅读全文</a>
+									class="floatright btn btn-success btn-xs">阅读全文</a>
 							</c:if>
 						</c:forEach>
 					</div>
+					<hr />
 					<ul class="list-group">
 						<c:forEach items="${growupList}" var="item" varStatus="itemStatus">
 							<c:if test="${itemStatus.first==false}">
@@ -89,8 +97,10 @@
 								</a></li>
 							</c:if>
 						</c:forEach>
+						<li class="list-group-item"><a
+							href="<c:url value="/category/grow-up" />"
+							class="floatright btn btn-default btn-xs">更多</a></li>
 					</ul>
-					<div><a href="<c:url value="/category/grow-up" />">更多</a></div>
 				</div>
 			</div>
 		</div>
@@ -105,10 +115,11 @@
 								<img src="<c:url value="${item.bannerurl}" />" />
 								<p>${item.abstractcontent}</p>
 								<a href="<c:url value="/article/${item.slugsurl}" />"
-									class="btn success btn-xs">阅读全文</a>
+									class="floatright btn btn-success btn-xs">阅读全文</a>
 							</c:if>
 						</c:forEach>
 					</div>
+                    <hr />
 					<ul class="list-group">
 						<c:forEach items="${lovefamilyList}" var="item"
 							varStatus="itemStatus">
@@ -120,8 +131,10 @@
 								</a></li>
 							</c:if>
 						</c:forEach>
+						<li class="list-group-item"><a
+							href="<c:url value="/category/love-family" />"
+							class="floatright btn btn-default btn-xs">更多</a></li>
 					</ul>
-					<div><a href="<c:url value="/category/love-family" />">更多</a></div>
 				</div>
 			</div>
 			<div class="col-xs-6 home-article">
@@ -134,10 +147,11 @@
 								<img src="<c:url value="${item.bannerurl}" />" />
 								<p>${item.abstractcontent}</p>
 								<a href="<c:url value="/article/${item.slugsurl}" />"
-									class="btn success btn-xs">阅读全文</a>
+									class="floatright btn btn-success btn-xs">阅读全文</a>
 							</c:if>
 						</c:forEach>
 					</div>
+                    <hr />
 					<ul class="list-group">
 						<c:forEach items="${readingList}" var="item"
 							varStatus="itemStatus">
@@ -149,8 +163,10 @@
 								</a></li>
 							</c:if>
 						</c:forEach>
+						<li class="list-group-item"><a
+							href="<c:url value="/category/reading" />"
+							class="floatright btn btn-default btn-xs">更多</a></li>
 					</ul>
-					<div><a href="<c:url value="/category/reading" />">更多</a></div>
 				</div>
 			</div>
 		</div>

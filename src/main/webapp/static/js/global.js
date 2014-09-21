@@ -26,11 +26,6 @@ function marqueeScrollUp(obj) {
 	});
 }
 $(function() {
-	$("#btnSearch").click(
-			function() {
-				$.dynamicForm($(this).attr("action")).addHidden("text",
-						$("#inputSearch").val()).submit();
-			});
 	$('.carousel').carousel({
 		interval : 3000
 	});

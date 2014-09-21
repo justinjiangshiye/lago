@@ -37,7 +37,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			热读文章&nbsp;&nbsp;&nbsp;&nbsp;<a
-				href="<c:url value="/article/hotreading" />">更多</a>
+				href="<c:url value="/article/hotreading" />" class="floatright">更多</a>
 		</div>
 		<div class="panel-body">
 			<c:forEach items="${hotReadArticleList}" var="article">
