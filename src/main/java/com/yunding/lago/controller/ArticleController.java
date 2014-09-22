@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,7 +89,9 @@ public class ArticleController extends BaseController {
 
 	@RequestMapping(value = "/article/{slugsUrl}", method = RequestMethod.GET)
 	public String articleBySlugsUrl(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String slugsUrl) {
+			HttpServletRequest request,
+			@RequestHeader("User-Agent") String userAgent,
+			@PathVariable String slugsUrl) {
 		logger.info("The client locale is  {}, articleCategory is {}.", locale,
 				slugsUrl);
 
@@ -149,7 +152,11 @@ public class ArticleController extends BaseController {
 			this.articleReadStatService.addArticleReadStat(articleReadStat);
 		}
 
-		return "article";
+		if (userAgent.toLowerCase().indexOf("micromessenger") > 0) {
+			return "weixinarticle";
+		} else {
+			return "article";
+		}
 	}
 
 	@RequestMapping(value = "/admin/category/{articleCategorySlugsUrl}", method = RequestMethod.GET)
@@ -201,7 +208,8 @@ public class ArticleController extends BaseController {
 						.getCategory()));
 
 		model.addAttribute("article", articleWithBLOBs);
-		model.addAttribute("articleCategorySlugsUrl", MyConstants.getSlugsUrlFromName(articleWithBLOBs.getCategory()));
+		model.addAttribute("articleCategorySlugsUrl",
+				MyConstants.getSlugsUrlFromName(articleWithBLOBs.getCategory()));
 
 		logger.info("Article Id is {}", articleWithBLOBs.getId());
 		logger.info("Article Category is {}.", articleWithBLOBs.getCategory());
