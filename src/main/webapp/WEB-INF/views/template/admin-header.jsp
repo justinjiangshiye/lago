@@ -18,6 +18,10 @@
 	rel="stylesheet">
 <link href="<c:url value="/css/jquery.cleditor.css" />" rel="stylesheet">
 <link href="<c:url value="/css/admin.css" />" rel="stylesheet">
+<!--[if lt IE 9]>
+      <script src="<c:url value="/js/html5shiv.min.js" />"></script>
+      <script src="<c:url value="/js/respond.min.js" />"></script>
+<![endif]-->
 <script type="text/javascript"
 	src="<c:url value="/js/jquery-1.11.1.min.js" />"></script>
 <script type="text/javascript"
@@ -31,10 +35,6 @@
 <script type="text/javascript"
 	src="<c:url value="/js/jquery.cleditor.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/admin.js" />"></script>
-<!--[if lt IE 9]>
-      <script src="<c:url value="/js/html5shiv.min.js" /></script>
-      <script src="<c:url value="/js/respond.min.js" /></script>
-    <![endif]-->
 </head>
 <body role="document">
 	<!-- header -->

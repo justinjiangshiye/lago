@@ -87,6 +87,7 @@ public class FriendLinkController extends BaseController {
 
 		if (friendLinkWithBLOBs.getId() == null) {
 			friendLinkWithBLOBs.setCreatedon(now);
+			friendLinkWithBLOBs.setOrder(this.friendLinkService.queryCount() + 1);
 			this.friendLinkService.addFriendLink(friendLinkWithBLOBs);
 		} else {
 			FriendLinkWithBLOBs friendLinkWithBLOBsDB = this.friendLinkService
