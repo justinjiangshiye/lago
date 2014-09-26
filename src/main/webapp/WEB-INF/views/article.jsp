@@ -27,7 +27,7 @@
 								value="${currentUser.nickname}" />
 							<input type="hidden" name="profilephotourl"
 								value="${currentUser.profilephotourl}" />
-							<img src="${currentUser.profilephotourl}" width="32px"
+							<img src="<c:url value="${currentUser.profilephotourl}" />" width="32px"
 								height="32px" />
 							<span>${currentUser.nickname}</span>
 						</c:when>
@@ -60,7 +60,7 @@
 							</div>
 							<div class="col-xs-11">
 								<div class="row">
-									${comment.nickname}<span><fmt:formatDate
+									${comment.nickname}<span class="floatright"><fmt:formatDate
 											value="${comment.createdon}" type="date" pattern="yyyy-MM-dd" /></span>
 								</div>
 								<div class="row">${comment.content}</div>
@@ -115,7 +115,7 @@
 													</div>
 													<div class="col-xs-11">
 														<div class="row">
-															${reply.nickname}<span><fmt:formatDate
+															${reply.nickname}<span class="floatright"><fmt:formatDate
 																	value="${reply.createdon}" type="date"
 																	pattern="yyyy-MM-dd" /></span>
 														</div>

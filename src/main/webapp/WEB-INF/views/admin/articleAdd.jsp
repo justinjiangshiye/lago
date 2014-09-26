@@ -96,6 +96,7 @@
 					required : true,
 					minlength : 2,
 					maxlength : 30,
+					pattern: /^[\-a-zA-Z0-9]+$/,
 					remote : "<c:url value="/admin/verifyArticleSlugsUrl" />"
 				},
 				Bannerurl : {
@@ -116,13 +117,14 @@
 			messages : {
 				Title : {
 					required : "此项不能为空！",
-					minlength : "字符长度不能少于2个字符",
-					maxlength : "字符长度不能少多于50个字符"
+					minlength : "字符长度不能少于2个字符！",
+					maxlength : "字符长度不能少多于50个字符！"
 				},
 				Slugsurl : {
 					required : "此项不能为空！",
-					minlength : "字符长度不能少于2个字符",
-					maxlength : "字符长度不能少多于30个字符",
+					minlength : "字符长度不能少于2个字符！",
+					maxlength : "字符长度不能少多于30个字符！",
+					pattern: "请输入英文字母、数字或中划线！",
 					remote : "已经存在！"
 				},
 				Bannerurl : {
@@ -130,8 +132,8 @@
 				},
 				Abstractcontent : {
 					required : "此项不能为空！",
-					minlength : "字符长度不能少于30个字符",
-					maxlength : "字符长度不能多于100个字符"
+					minlength : "字符长度不能少于30个字符！",
+					maxlength : "字符长度不能多于100个字符！"
 				},
 				Keywords : {
 					required : "此项不能为空！"

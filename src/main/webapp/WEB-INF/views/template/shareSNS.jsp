@@ -1,5 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<!-- JiaThis Button BEGIN -->
+<ul>
+    <li><span>分享到：</span></li>
+    <li><a class="jiathis_button_tsina"><img
+            src="<c:url value="/images/share2weibo.gif" />" />新浪微薄</a></li>
+    <li><a class="jiathis_button_qzone"><img
+            src="<c:url value="/images/share2qqspace.gif" />" />QQ空间</a></li>
+    <li><a class="jiathis_button_tqq"><img
+            src="<c:url value="/images/share2qqweibo.gif" />" />腾讯微薄</a></li>
+    <li><a class="jiathis_button_weixin"><img
+            src="<c:url value="/images/share2weixin.gif" />" />微信</a></li>
+</ul>
+<script type="text/javascript">
+var jiathis_config={
+    data_track_clickback:true,
+    summary:'${article.abstractcontent}'
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1970024" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<%
+/*
 <ul>
 	<li><span>分享到：</span></li>
 	<li><a href="javascript:void(0)"
@@ -81,3 +104,4 @@
 						'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no');
 	}
 </script>
+*/ %>

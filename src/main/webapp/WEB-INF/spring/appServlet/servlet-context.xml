@@ -44,6 +44,21 @@
 				</property>
 			</bean>
 		</mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="com.yunding.lago.interceptor.VisitInterceptor">
+                <property name="excludedUrls">
+                    <list>
+                        <value>admin/</value>
+                        <value>css/</value>
+                        <value>files/</value>
+                        <value>images/</value>
+                        <value>js/</value>
+                        <value>fonts/</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
 	</mvc:interceptors>
  
 	<bean id="multipartResolver"

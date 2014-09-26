@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yunding.lago.dao.ArticleReadStatMapper" >
-  <resultMap id="BaseResultMap" type="com.yunding.lago.bean.ArticleReadStat" >
+<mapper namespace="com.yunding.lago.dao.VisitLogMapper" >
+  <resultMap id="BaseResultMap" type="com.yunding.lago.bean.VisitLog" >
     <id column="Id" property="id" jdbcType="INTEGER" />
-    <result column="ArticleId" property="articleid" jdbcType="INTEGER" />
+    <result column="Url" property="url" jdbcType="VARCHAR" />
     <result column="UserLoginId" property="userloginid" jdbcType="VARCHAR" />
     <result column="IP" property="ip" jdbcType="VARCHAR" />
     <result column="SessionId" property="sessionid" jdbcType="VARCHAR" />
@@ -11,59 +11,36 @@
     <result column="RecordStatus" property="recordstatus" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, ArticleId, UserLoginId, IP, SessionId, CreatedOn, RecordStatus
+    Id, Url, UserLoginId, IP, SessionId, CreatedOn, RecordStatus
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from ArticleReadStat
+    from VisitLog
     where Id = #{id,jdbcType=INTEGER} and RecordStatus = 0
   </select>
-  <select id="selectReadingHistory" resultMap="BaseResultMap" parameterType="com.yunding.lago.bean.ArticleReadStat" >
-    select 
-    <include refid="Base_Column_List" />
-    from ArticleReadStat
-    where RecordStatus = 0
-     <if test="articleid != null" >
-       and ArticleId = #{articleid,jdbcType=INTEGER}
-     </if>
-     <if test="userloginid != null" >
-       and UserLoginId = #{userloginid,jdbcType=VARCHAR}
-     </if>
-     <if test="ip != null" >
-       and IP = #{ip,jdbcType=VARCHAR}
-     </if>
-     <if test="sessionid != null" >
-       and SessionId = #{sessionid,jdbcType=VARCHAR}
-     </if>
-  </select>
-  <select id="selectReadingTimes" resultType="int" parameterType="java.lang.Integer" >
+  <select id="selectCount" resultType="int" >
     select count(Id)
-    from ArticleReadStat
-    where RecordStatus = 0 and ArticleId = #{articleid,jdbcType=INTEGER}
-  </select>
-  <select id="selectCount" resultType="int">
-    select count(Id)
-    from ArticleReadStat
+    from VisitLog
     where RecordStatus = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from ArticleReadStat
+    delete from VisitLog
     where Id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.yunding.lago.bean.ArticleReadStat" >
-    insert into ArticleReadStat (Id, ArticleId, UserLoginId, 
+  <insert id="insert" parameterType="com.yunding.lago.bean.VisitLog" >
+    insert into VisitLog (Url, UserLoginId, 
       IP, SessionId, CreatedOn, 
       RecordStatus)
-    values (#{id,jdbcType=INTEGER}, #{articleid,jdbcType=INTEGER}, #{userloginid,jdbcType=VARCHAR}, 
+    values (#{url,jdbcType=VARCHAR}, #{userloginid,jdbcType=VARCHAR}, 
       #{ip,jdbcType=VARCHAR}, #{sessionid,jdbcType=VARCHAR}, #{createdon,jdbcType=TIMESTAMP}, 
       #{recordstatus,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.yunding.lago.bean.ArticleReadStat" >
-    insert into ArticleReadStat
+  <insert id="insertSelective" parameterType="com.yunding.lago.bean.VisitLog" >
+    insert into VisitLog
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="articleid != null" >
-        ArticleId,
+       <if test="url != null" >
+        Url,
       </if>
       <if test="userloginid != null" >
         UserLoginId,
@@ -82,8 +59,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="articleid != null" >
-        #{articleid,jdbcType=INTEGER},
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
       </if>
       <if test="userloginid != null" >
         #{userloginid,jdbcType=VARCHAR},
@@ -102,11 +79,11 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yunding.lago.bean.ArticleReadStat" >
-    update ArticleReadStat
+  <update id="updateByPrimaryKeySelective" parameterType="com.yunding.lago.bean.VisitLog" >
+    update VisitLog
     <set >
-      <if test="articleid != null" >
-        ArticleId = #{articleid,jdbcType=INTEGER},
+      <if test="url != null" >
+        Url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="userloginid != null" >
         UserLoginId = #{userloginid,jdbcType=VARCHAR},
@@ -126,9 +103,9 @@
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.ArticleReadStat" >
-    update ArticleReadStat
-    set ArticleId = #{articleid,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.VisitLog" >
+    update VisitLog
+    set Url = #{url,jdbcType=VARCHAR},
       UserLoginId = #{userloginid,jdbcType=VARCHAR},
       IP = #{ip,jdbcType=VARCHAR},
       SessionId = #{sessionid,jdbcType=VARCHAR},

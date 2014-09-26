@@ -65,6 +65,10 @@ public class CommentService {
 		return list;
 	}
 	
+	public int queryCount() {
+		return this.commentMapper.selectCount();
+	}
+	
 	public int addComment(Comment comment) {
 		return this.commentMapper.insertSelective(comment);
 	}

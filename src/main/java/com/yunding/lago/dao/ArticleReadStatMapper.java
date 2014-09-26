@@ -15,6 +15,8 @@ public interface ArticleReadStatMapper {
     
     int selectReadingTimes(Integer articleid);
     
+    int selectCount();
+    
     List<ArticleReadStat> selectReadingHistory(ArticleReadStat record);
 
     int updateByPrimaryKeySelective(ArticleReadStat record);

@@ -12,7 +12,7 @@
 						<p>${article.abstractcontent}</p>
 						<p class="text-right">
 							<a href="<c:url value="/article/${article.slugsurl}" />"
-								class="btn btn-primary" role="button">点击</a>
+								class="floatright btn btn-success btn-xs" role="button">点击</a>
 						</p>
 					</div>
 				</div>

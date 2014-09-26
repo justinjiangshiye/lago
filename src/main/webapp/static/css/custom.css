@@ -241,6 +241,9 @@ img {
 	margin-right: 10px;
 	height: 430px;
 }
+.category .thumbnail h5 {
+	font-weight: bold;
+}
 /* home article end */
 .footer {
 	border-top: 1px solid #e5e5e5;
@@ -272,7 +275,7 @@ ul.friendlinks li a {
 
 .article-share {
 	border-top: 3px solid #ff0000;
-	padding: 5px 5px 5px 500px;
+	padding: 5px 5px 5px 400px;
 	margin-top: 20px;
 }
 

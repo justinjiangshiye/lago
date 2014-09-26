@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ include file="../template/admin-header.jsp"%>
 <h3 class="sub-header">新增管理员</h3>
-<form class="form-horizontal" role="form" method="post"
+<form id="form" class="form-horizontal" role="form" method="post"
 	action="<c:url value="/admin/userSave"/>">
 	<div class="form-group">
 		<label for="inputLoginid" class="col-sm-2 control-label">登录名</label>
@@ -48,5 +48,39 @@
     	$("#inputProfilephotourl").val(url);
     	$("#imgProfilephotourl").attr("src", url);
     }
+    $(document).ready(function() {
+        $('#form').validate({
+            rules : {
+            	Loginid : {
+                    required : true
+                },
+                Nickname : {
+                    required : true
+                },
+                Password: {  
+                    required: true
+                },  
+                PasswordConfirm: {  
+                    required: true,
+                    equalTo: "#inputPassword"  
+                }
+            },
+            messages : {
+            	Loginid : {
+                    required : "此项不能为空！"
+                },
+                Nickname : {
+                    required : "此项不能为空！"
+                },
+                Password : {
+                    required : "此项不能为空！"
+                },
+                PasswordConfirm : {
+                    required : "此项不能为空！",
+                    equalTo: "两次输入密码不一致！"
+                }
+            }
+        });
+    });
 </script>
 <%@ include file="../template/admin-tailer.jsp"%>

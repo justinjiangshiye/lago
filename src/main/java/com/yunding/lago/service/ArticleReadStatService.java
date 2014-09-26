@@ -27,6 +27,10 @@ public class ArticleReadStatService {
 		return this.articleReadStatMapper.selectReadingTimes(articleid);
 	}
 	
+	public int queryCount() {
+		return this.articleReadStatMapper.selectCount();
+	}
+	
 	public List<ArticleReadStat> queryArticleReadingHistory(ArticleReadStat articleReadStat) {
 		return this.articleReadStatMapper.selectReadingHistory(articleReadStat);
 	}
