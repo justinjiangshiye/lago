@@ -49,12 +49,12 @@
             <bean class="com.yunding.lago.interceptor.VisitInterceptor">
                 <property name="excludedUrls">
                     <list>
-                        <value>admin/</value>
-                        <value>css/</value>
-                        <value>files/</value>
-                        <value>images/</value>
-                        <value>js/</value>
-                        <value>fonts/</value>
+                        <value>/admin</value>
+                        <value>/css</value>
+                        <value>/files</value>
+                        <value>/images</value>
+                        <value>/js</value>
+                        <value>/fonts</value>
                     </list>
                 </property>
             </bean>
