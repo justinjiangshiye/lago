@@ -5,6 +5,9 @@ public class MyConstants {
 	public static String configWebsiteUrl = "website_url";
 	public static String configWebsiteUploadFolder = "website_uploadFolder";
 	public static String configWebsiteDownloadUrlPrefix = "website_downloadUrlPrefix";
+	public static String configSinaWeiboShareTemplate = "sinaweibo_share_template";
+	public static String configQQSpaceShareTemplate = "qqspace_share_template";
+	public static String configTXWeiboShareTemplate = "txweibo_share_template";
 	
 	// Add user type
 	public static Integer systemUser = 0;

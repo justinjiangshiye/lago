@@ -6,8 +6,8 @@ import java.util.Properties;
 
 public class WebConfig {
 	public WebConfig(){}
-	private static Properties props = new Properties(); 
-	static{
+	private static Properties props = new Properties();
+	static {
 		try {
 			props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("webconfig.properties"));
 		} catch (FileNotFoundException e) {
@@ -16,6 +16,7 @@ public class WebConfig {
 			e.printStackTrace();
 		}
 	}
+	
 	public static String getValue(String key){
 		return props.getProperty(key);
 	}

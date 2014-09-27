@@ -17,13 +17,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yunding.lago.bean.ArticleReadStat;
+import com.yunding.lago.bean.ArticleShareStat;
 import com.yunding.lago.bean.ArticleWithBLOBs;
 import com.yunding.lago.bean.CommentWithReply;
 import com.yunding.lago.service.ArticleReadStatService;
 import com.yunding.lago.service.ArticleService;
+import com.yunding.lago.service.ArticleShareStatService;
 import com.yunding.lago.service.CommentService;
 import com.yunding.lago.util.HttpHelper;
 import com.yunding.lago.util.MyConstants;
+import com.yunding.lago.util.ShareHelper;
+import com.yunding.lago.util.WebConfig;
 
 /**
  * Handles requests for the application home page.
@@ -33,6 +37,7 @@ public class ArticleController extends BaseController {
 
 	private CommentService commentService = null;
 	private ArticleReadStatService articleReadStatService = null;
+	private ArticleShareStatService articleShareStatService = null;
 
 	@Autowired
 	public void setArticleService(ArticleService articleService) {
@@ -48,6 +53,12 @@ public class ArticleController extends BaseController {
 	public void setArticleReadStatService(
 			ArticleReadStatService articleReadStatService) {
 		this.articleReadStatService = articleReadStatService;
+	}
+
+	@Autowired
+	public void setArticleShareStatService(
+			ArticleShareStatService articleShareStatService) {
+		this.articleShareStatService = articleShareStatService;
 	}
 
 	@RequestMapping(value = "/admin/verifyArticleSlugsUrl", method = RequestMethod.GET)
@@ -157,6 +168,42 @@ public class ArticleController extends BaseController {
 		} else {
 			return "article";
 		}
+	}
+
+	@RequestMapping(value = "/share/{sns}/{slugsUrl}", method = RequestMethod.GET)
+	public String shareArticle(HttpServletRequest request, Locale locale,
+			Model model, @PathVariable String sns, @PathVariable String slugsUrl) {
+		// Get article with blobs
+		ArticleWithBLOBs article = this.articleService
+				.queryArticleBySlugsUrl(slugsUrl);
+		model.addAttribute("article", article);
+
+		// Add share stat
+		ArticleShareStat articleShareStat = new ArticleShareStat();
+		articleShareStat.setArticleid(article.getId());
+		articleShareStat.setSessionid(this.getHttpSession().getId());
+		if (this.getHttpSession().getAttribute(
+				MyConstants.userLoginIdSessionKey) != null) {
+			articleShareStat
+					.setUserloginid(this.getHttpSession()
+							.getAttribute(MyConstants.userLoginIdSessionKey)
+							.toString());
+		}
+		articleShareStat.setSharedto(sns);
+		articleShareStat.setIp(HttpHelper.extractRemoteIP(request));
+		articleShareStat.setCreatedon(new Date());
+		articleShareStat.setRecordstatus(0);
+
+		this.articleShareStatService.addArticleShareStat(articleShareStat);
+
+		// Redirect to share SNS
+		return ShareHelper.getShareRedirectUrl(sns,
+				WebConfig.getValue(MyConstants.configWebsiteUrl) + "/article/"
+						+ slugsUrl + "?from=" + sns, article.getTitle(),
+				article.getAbstractcontent(), article.getBannerurl()
+						.startsWith("http://") ? article.getBannerurl()
+						: WebConfig.getValue(MyConstants.configWebsiteUrl)
+								+ article.getBannerurl());
 	}
 
 	@RequestMapping(value = "/admin/category/{articleCategorySlugsUrl}", method = RequestMethod.GET)

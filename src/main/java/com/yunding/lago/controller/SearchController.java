@@ -1,5 +1,6 @@
 package com.yunding.lago.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -39,6 +40,8 @@ import com.yunding.lago.bean.ArticleWithBLOBs;
 import com.yunding.lago.service.ArticleService;
 import com.yunding.lago.util.HtmlToPlainText;
 import com.yunding.lago.util.MyConstants;
+import com.yunding.lago.util.QRCodeEncoder;
+import com.yunding.lago.util.WebConfig;
 
 /**
  * Handles requests for the application home page.
@@ -191,13 +194,27 @@ public class SearchController extends BaseController {
 				doc.add(slugsUrl);
 				doc.add(id);
 				this.indexWriter.addDocument(doc);
+
+				// generate QRCode
+				String imgPath = WebConfig
+						.getValue(MyConstants.configWebsiteUploadFolder)
+						+ "/"
+						+ article.getSlugsurl() + ".png";
+				File file = new File(imgPath);
+				if (!file.exists()) {
+					QRCodeEncoder.encoderQRCode(
+							WebConfig.getValue(MyConstants.configWebsiteUrl)
+									+ "/article/" + article.getSlugsurl()
+									+ "?from=weixin", imgPath);
+				}
+				logger.info("QRCode generated:" + imgPath);
 			}
 
 			this.indexWriter.commit();
 			logger.info("Index rebuilt.");
-			
+
 			model.addAttribute("msg", "重建索引成功！");
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			try {
