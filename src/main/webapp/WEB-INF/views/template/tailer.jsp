@@ -21,5 +21,10 @@
 </div>
 </div>
 <!-- /container -->
+<script type="text/javascript">
+    $(function(){
+    	$.get("<c:url value="/visit" />?uri=" + encodeURIComponent(window.location.href), function(){});
+    });
+</script>
 </body>
 </html>

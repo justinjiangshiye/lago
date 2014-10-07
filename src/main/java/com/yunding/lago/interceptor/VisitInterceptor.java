@@ -2,6 +2,7 @@
  *
  * @author Justin
  * @date 2014-08-31
+ * @description Not used, because can't distinguish net spider visit.
  */
 package com.yunding.lago.interceptor;
 
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.yunding.lago.bean.ArticleReadStat;
 import com.yunding.lago.bean.VisitLog;
 import com.yunding.lago.service.VisitLogService;
 import com.yunding.lago.util.HttpHelper;
