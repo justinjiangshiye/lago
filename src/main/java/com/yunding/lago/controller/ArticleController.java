@@ -102,7 +102,8 @@ public class ArticleController extends BaseController {
 	public String articleBySlugsUrl(Locale locale, Model model,
 			HttpServletRequest request,
 			@RequestHeader("User-Agent") String userAgent,
-			@PathVariable String slugsUrl) {
+			@PathVariable String slugsUrl,
+			@RequestParam(value = "from", required = false) String from) {
 		logger.info("The client locale is  {}, articleCategory is {}.", locale,
 				slugsUrl);
 
@@ -143,6 +144,7 @@ public class ArticleController extends BaseController {
 
 		ArticleReadStat articleReadStat = new ArticleReadStat();
 		articleReadStat.setArticleid(article.getId());
+		articleReadStat.setReadFrom(from);
 		articleReadStat.setSessionid(this.getHttpSession().getId());
 		if (this.getHttpSession().getAttribute(
 				MyConstants.userLoginIdSessionKey) != null) {
@@ -155,13 +157,7 @@ public class ArticleController extends BaseController {
 		articleReadStat.setCreatedon(new Date());
 		articleReadStat.setRecordstatus(0);
 
-		List<ArticleReadStat> currentUserReadHistoryList = this.articleReadStatService
-				.queryArticleReadingHistory(articleReadStat);
-		if (currentUserReadHistoryList == null
-				|| currentUserReadHistoryList.size() == 0) {
-			// 如果此用户之前没有阅读过，则记录下此次阅读
-			this.articleReadStatService.addArticleReadStat(articleReadStat);
-		}
+		this.articleReadStatService.addArticleReadStat(articleReadStat);
 
 		if (userAgent.toLowerCase().indexOf("micromessenger") > 0) {
 			return "weixinarticle";

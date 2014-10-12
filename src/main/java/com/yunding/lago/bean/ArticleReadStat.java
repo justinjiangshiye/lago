@@ -6,6 +6,8 @@ public class ArticleReadStat {
     private Integer id;
 
     private Integer articleid;
+    
+    private String readFrom;
 
     private String userloginid;
 
@@ -72,4 +74,12 @@ public class ArticleReadStat {
     public void setRecordstatus(Integer recordstatus) {
         this.recordstatus = recordstatus;
     }
+
+	public String getReadFrom() {
+		return readFrom;
+	}
+
+	public void setReadFrom(String readFrom) {
+		this.readFrom = readFrom;
+	}
 }

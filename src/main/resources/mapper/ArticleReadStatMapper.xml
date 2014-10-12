@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.yunding.lago.bean.ArticleReadStat" >
     <id column="Id" property="id" jdbcType="INTEGER" />
     <result column="ArticleId" property="articleid" jdbcType="INTEGER" />
+    <result column="ReadFrom" property="readFrom" jdbcType="VARCHAR" />
     <result column="UserLoginId" property="userloginid" jdbcType="VARCHAR" />
     <result column="IP" property="ip" jdbcType="VARCHAR" />
     <result column="SessionId" property="sessionid" jdbcType="VARCHAR" />
@@ -11,7 +12,7 @@
     <result column="RecordStatus" property="recordstatus" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, ArticleId, UserLoginId, IP, SessionId, CreatedOn, RecordStatus
+    Id, ArticleId, ReadFrom, UserLoginId, IP, SessionId, CreatedOn, RecordStatus
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -52,11 +53,11 @@
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yunding.lago.bean.ArticleReadStat" >
-    insert into ArticleReadStat (Id, ArticleId, UserLoginId, 
+    insert into ArticleReadStat (Id, ArticleId, ReadFrom, UserLoginId, 
       IP, SessionId, CreatedOn, 
       RecordStatus)
-    values (#{id,jdbcType=INTEGER}, #{articleid,jdbcType=INTEGER}, #{userloginid,jdbcType=VARCHAR}, 
-      #{ip,jdbcType=VARCHAR}, #{sessionid,jdbcType=VARCHAR}, #{createdon,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{articleid,jdbcType=INTEGER}, #{readFrom,jdbcType=VARCHAR},
+      #{userloginid,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{sessionid,jdbcType=VARCHAR}, #{createdon,jdbcType=TIMESTAMP}, 
       #{recordstatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.yunding.lago.bean.ArticleReadStat" >
@@ -64,6 +65,9 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="articleid != null" >
         ArticleId,
+      </if>
+      <if test="readFrom != null" >
+        ReadFrom,
       </if>
       <if test="userloginid != null" >
         UserLoginId,
@@ -84,6 +88,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="articleid != null" >
         #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="readFrom != null" >
+        #{readFrom,jdbcType=VARCHAR},
       </if>
       <if test="userloginid != null" >
         #{userloginid,jdbcType=VARCHAR},
@@ -108,6 +115,9 @@
       <if test="articleid != null" >
         ArticleId = #{articleid,jdbcType=INTEGER},
       </if>
+      <if test="readFrom != null" >
+        ReadFrom = #{readFrom,jdbcType=VARCHAR},
+      </if>
       <if test="userloginid != null" >
         UserLoginId = #{userloginid,jdbcType=VARCHAR},
       </if>
@@ -129,6 +139,7 @@
   <update id="updateByPrimaryKey" parameterType="com.yunding.lago.bean.ArticleReadStat" >
     update ArticleReadStat
     set ArticleId = #{articleid,jdbcType=INTEGER},
+      ReadFrom = #{readFrom,jdbcType=VARCHAR},
       UserLoginId = #{userloginid,jdbcType=VARCHAR},
       IP = #{ip,jdbcType=VARCHAR},
       SessionId = #{sessionid,jdbcType=VARCHAR},
